@@ -1,6 +1,5 @@
 package com.massivecraft.massivecore.store;
 
-import com.massivecraft.massivecore.ConfServer;
 import com.massivecraft.massivecore.MassiveCoreMConf;
 
 /*

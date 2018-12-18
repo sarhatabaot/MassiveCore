@@ -5,7 +5,6 @@ import com.massivecraft.massivecore.store.SenderColl;
 import com.massivecraft.massivecore.store.SenderEntity;
 import org.bukkit.event.HandlerList;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class EventMassiveCorePlayerCleanInactivityToleranceMillis extends EventMassiveCore

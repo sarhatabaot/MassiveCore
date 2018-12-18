@@ -1,5 +1,7 @@
 package com.massivecraft.massivecore;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.massivecraft.massivecore.collections.MassiveList;
 import com.massivecraft.massivecore.command.MassiveCommand;
 import com.massivecraft.massivecore.mixin.Mixin;
@@ -12,8 +14,6 @@ import com.massivecraft.massivecore.store.migrator.MigratorRoot;
 import com.massivecraft.massivecore.test.Test;
 import com.massivecraft.massivecore.util.ReflectionUtil;
 import com.massivecraft.massivecore.util.Txt;
-import com.massivecraft.massivecore.xlib.gson.Gson;
-import com.massivecraft.massivecore.xlib.gson.GsonBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.ConsoleCommandSender;

@@ -1,6 +1,7 @@
 package com.massivecraft.massivecore.store.migrator;
 
-import com.massivecraft.massivecore.xlib.gson.JsonObject;
+
+import com.google.gson.JsonObject;
 
 public interface Migrator
 {

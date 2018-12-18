@@ -1,14 +1,14 @@
 package com.massivecraft.massivecore.adapter;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonNull;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.massivecraft.massivecore.collections.MassiveListDef;
 import com.massivecraft.massivecore.item.DataBannerPattern;
-import com.massivecraft.massivecore.xlib.gson.JsonArray;
-import com.massivecraft.massivecore.xlib.gson.JsonDeserializationContext;
-import com.massivecraft.massivecore.xlib.gson.JsonDeserializer;
-import com.massivecraft.massivecore.xlib.gson.JsonElement;
-import com.massivecraft.massivecore.xlib.gson.JsonNull;
-import com.massivecraft.massivecore.xlib.gson.JsonObject;
-import com.massivecraft.massivecore.xlib.gson.JsonParseException;
 
 import java.lang.reflect.Type;
 import java.util.Iterator;

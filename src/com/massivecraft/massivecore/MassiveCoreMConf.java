@@ -9,7 +9,7 @@ import com.massivecraft.massivecore.store.Entity;
 import com.massivecraft.massivecore.util.MUtil;
 import com.massivecraft.massivecore.util.PermissionUtil;
 import com.massivecraft.massivecore.util.TimeUnit;
-import com.massivecraft.massivecore.xlib.mongodb.WriteConcern;
+import com.mongodb.WriteConcern;
 import org.bukkit.permissions.Permissible;
 
 import java.util.ArrayList;

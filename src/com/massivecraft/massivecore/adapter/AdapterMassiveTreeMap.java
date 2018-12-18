@@ -1,9 +1,9 @@
 package com.massivecraft.massivecore.adapter;
 
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonElement;
 import com.massivecraft.massivecore.collections.MassiveTreeMap;
 import com.massivecraft.massivecore.collections.MassiveTreeMapDef;
-import com.massivecraft.massivecore.xlib.gson.JsonDeserializationContext;
-import com.massivecraft.massivecore.xlib.gson.JsonElement;
 
 import java.lang.reflect.Type;
 import java.util.Map;

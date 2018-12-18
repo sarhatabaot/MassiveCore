@@ -1,17 +1,15 @@
 package com.massivecraft.massivecore.store.migrator;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
 import com.massivecraft.massivecore.collections.MassiveList;
 import com.massivecraft.massivecore.collections.MassiveMap;
-import com.massivecraft.massivecore.command.Parameter;
 import com.massivecraft.massivecore.store.EntityInternalMap;
 import com.massivecraft.massivecore.util.ReflectionUtil;
 import com.massivecraft.massivecore.util.Txt;
-import com.massivecraft.massivecore.xlib.gson.JsonArray;
-import com.massivecraft.massivecore.xlib.gson.JsonElement;
-import com.massivecraft.massivecore.xlib.gson.JsonObject;
-import com.massivecraft.massivecore.xlib.gson.annotations.SerializedName;
-import com.massivecraft.massivecore.xlib.gson.reflect.TypeToken;
-import org.bukkit.inventory.Inventory;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
@@ -21,7 +19,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 public class MigratorUtil
 {
@@ -211,7 +208,7 @@ public class MigratorUtil
 			}
 
 			// Entries are also serialised as list
-			if (Entry.class.isAssignableFrom(clazz))
+			if (Map.Entry.class.isAssignableFrom(clazz))
 			{
 				return migrateEntry(getParameterizedType(jsonType), array);
 			}
@@ -227,7 +224,7 @@ public class MigratorUtil
 		Type valueType = parameterizedType.getActualTypeArguments()[1];
 
 		boolean migrated = false;
-		for (Entry<String, JsonElement> entry : map.entrySet())
+		for (Map.Entry<String, JsonElement> entry : map.entrySet())
 		{
 			migrated = migrate(valueType, entry.getValue()) | migrated;
 		}
@@ -341,7 +338,7 @@ public class MigratorUtil
 		if (Map.class.isAssignableFrom(entityClass)) return false;
 		
 		boolean migrated = false;
-		for (Entry<String, JsonElement> entry : object.entrySet())
+		for (Map.Entry<String, JsonElement> entry : object.entrySet())
 		{
 			String name = entry.getKey();
 			JsonElement element = entry.getValue();

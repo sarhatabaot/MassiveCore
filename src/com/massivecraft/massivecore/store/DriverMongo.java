@@ -1,23 +1,22 @@
 package com.massivecraft.massivecore.store;
 
+
+import com.google.gson.JsonObject;
 import com.massivecraft.massivecore.MassiveCoreMConf;
 import com.massivecraft.massivecore.collections.MassiveMap;
-import com.massivecraft.massivecore.xlib.gson.JsonObject;
-import com.massivecraft.massivecore.xlib.mongodb.BasicDBObject;
-import com.massivecraft.massivecore.xlib.mongodb.DB;
-import com.massivecraft.massivecore.xlib.mongodb.DBCollection;
-import com.massivecraft.massivecore.xlib.mongodb.DBCursor;
-import com.massivecraft.massivecore.xlib.mongodb.MongoClient;
-import com.massivecraft.massivecore.xlib.mongodb.MongoClientURI;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
 
-import java.util.AbstractMap.SimpleEntry;
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 
 public class DriverMongo extends DriverAbstract
@@ -173,16 +172,16 @@ public class DriverMongo extends DriverAbstract
 	}
 
 	@Override
-	public Entry<JsonObject, Long> load(Coll<?> coll, String id)
+	public Map.Entry<JsonObject, Long> load(Coll<?> coll, String id)
 	{
 		DBCollection dbcoll = fixColl(coll);
 		BasicDBObject raw = (BasicDBObject)dbcoll.findOne(new BasicDBObject(ID_FIELD, id));
 		return loadRaw(raw);
 	}
 	
-	public Entry<JsonObject, Long> loadRaw(BasicDBObject raw)
+	public Map.Entry<JsonObject, Long> loadRaw(BasicDBObject raw)
 	{
-		if (raw == null) return new SimpleEntry<>(null, 0L);
+		if (raw == null) return new AbstractMap.SimpleEntry<>(null, 0L);
 		
 		// Throw away the id field
 		raw.removeField(ID_FIELD);
@@ -200,14 +199,14 @@ public class DriverMongo extends DriverAbstract
 		// Convert MongoDB --> GSON
 		JsonObject element = GsonMongoConverter.mongo2GsonObject(raw);
 		
-		return new SimpleEntry<>(element, mtime);
+		return new AbstractMap.SimpleEntry<>(element, mtime);
 	}
 	
 	@Override
-	public Map<String, Entry<JsonObject, Long>> loadAll(Coll<?> coll)
+	public Map<String, Map.Entry<JsonObject, Long>> loadAll(Coll<?> coll)
 	{
 		// Declare Ret
-		Map<String, Entry<JsonObject, Long>> ret = null;
+		Map<String, Map.Entry<JsonObject, Long>> ret = null;
 		
 		// Fix Coll
 		DBCollection dbcoll = fixColl(coll);
@@ -231,7 +230,7 @@ public class DriverMongo extends DriverAbstract
 				String id = rawId.toString();
 				
 				// Get Entry
-				Entry<JsonObject, Long> entry = loadRaw(raw);
+				Map.Entry<JsonObject, Long> entry = loadRaw(raw);
 				// NOTE: The entry can be a failed one with null and 0.
 				// NOTE: We add it anyways since it's an informative failure.
 				// NOTE: This is supported by our defined specification.

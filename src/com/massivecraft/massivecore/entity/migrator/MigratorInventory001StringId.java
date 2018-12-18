@@ -1,13 +1,12 @@
 package com.massivecraft.massivecore.entity.migrator;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.massivecraft.massivecore.adapter.AdapterInventory;
 import com.massivecraft.massivecore.item.DataItemStack;
 import com.massivecraft.massivecore.store.migrator.MigratorRoot;
 import com.massivecraft.massivecore.store.migrator.MigratorUtil;
 import com.massivecraft.massivecore.util.MUtil;
-import com.massivecraft.massivecore.xlib.gson.JsonElement;
-import com.massivecraft.massivecore.xlib.gson.JsonObject;
-import com.massivecraft.massivecore.xlib.gson.JsonPrimitive;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.inventory.Inventory;
 

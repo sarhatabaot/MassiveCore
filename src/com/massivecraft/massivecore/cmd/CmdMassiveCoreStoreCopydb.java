@@ -1,5 +1,6 @@
 package com.massivecraft.massivecore.cmd;
 
+import com.google.gson.JsonObject;
 import com.massivecraft.massivecore.MassiveCore;
 import com.massivecraft.massivecore.MassiveException;
 import com.massivecraft.massivecore.command.type.primitive.TypeString;
@@ -7,7 +8,6 @@ import com.massivecraft.massivecore.store.Coll;
 import com.massivecraft.massivecore.store.Db;
 import com.massivecraft.massivecore.store.Entity;
 import com.massivecraft.massivecore.store.MStore;
-import com.massivecraft.massivecore.xlib.gson.JsonObject;
 
 import java.util.Collection;
 import java.util.Map.Entry;

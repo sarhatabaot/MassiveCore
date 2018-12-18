@@ -1,11 +1,10 @@
 package com.massivecraft.massivecore.util;
 
+import com.google.common.reflect.ClassPath;
 import com.massivecraft.massivecore.collections.MassiveList;
 import com.massivecraft.massivecore.comparator.ComparatorNaturalOrder;
 import com.massivecraft.massivecore.predicate.Predicate;
 import com.massivecraft.massivecore.predicate.PredicateAnd;
-import com.massivecraft.massivecore.xlib.guava.reflect.ClassPath;
-import com.massivecraft.massivecore.xlib.guava.reflect.ClassPath.ClassInfo;
 import org.bukkit.Bukkit;
 
 import java.io.IOException;
@@ -463,9 +462,9 @@ public class ReflectionUtil
 			ClassPath classPath = ClassPath.from(classLoader);
 			Predicate<Class<?>> predicateCombined = PredicateAnd.get(predicates);
 
-			Collection<ClassInfo> classInfos = recursive ? classPath.getTopLevelClassesRecursive(packageName) : classPath.getTopLevelClasses(packageName);
+			Collection<ClassPath.ClassInfo> classInfos = recursive ? classPath.getTopLevelClassesRecursive(packageName) : classPath.getTopLevelClasses(packageName);
 
-			for (ClassInfo classInfo : classInfos)
+			for (ClassPath.ClassInfo classInfo : classInfos)
 			{
 				// Get name of class
 				String className = classInfo.getName();

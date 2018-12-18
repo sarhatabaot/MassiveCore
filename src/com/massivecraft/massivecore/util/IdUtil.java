@@ -1,5 +1,6 @@
 package com.massivecraft.massivecore.util;
 
+import com.google.gson.reflect.TypeToken;
 import com.massivecraft.massivecore.MassiveCore;
 import com.massivecraft.massivecore.SenderPresence;
 import com.massivecraft.massivecore.SenderType;
@@ -10,7 +11,6 @@ import com.massivecraft.massivecore.event.EventMassiveCoreSenderUnregister;
 import com.massivecraft.massivecore.mixin.MixinActual;
 import com.massivecraft.massivecore.mixin.MixinPlayed;
 import com.massivecraft.massivecore.store.SenderEntity;
-import com.massivecraft.massivecore.xlib.gson.reflect.TypeToken;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.command.CommandSender;
@@ -27,7 +27,6 @@ import java.io.File;
 import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;

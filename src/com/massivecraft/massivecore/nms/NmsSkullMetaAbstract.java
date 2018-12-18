@@ -1,9 +1,7 @@
 package com.massivecraft.massivecore.nms;
 
-import com.massivecraft.massivecore.MassiveCore;
 import com.massivecraft.massivecore.particleeffect.ReflectionUtils.PackageType;
 import com.massivecraft.massivecore.util.ReflectionUtil;
-import com.massivecraft.massivecore.util.Txt;
 import org.bukkit.inventory.meta.SkullMeta;
 
 import java.lang.reflect.Constructor;

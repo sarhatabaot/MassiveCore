@@ -1,7 +1,7 @@
 package com.massivecraft.massivecore;
 
+import com.google.gson.annotations.SerializedName;
 import com.massivecraft.massivecore.store.Entity;
-import com.massivecraft.massivecore.xlib.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.Arrays;

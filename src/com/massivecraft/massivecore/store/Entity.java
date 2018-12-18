@@ -1,9 +1,8 @@
 package com.massivecraft.massivecore.store;
 
-import com.massivecraft.massivecore.ConfServer;
+import com.google.gson.JsonObject;
 import com.massivecraft.massivecore.MassiveCoreMConf;
 import com.massivecraft.massivecore.util.MUtil;
-import com.massivecraft.massivecore.xlib.gson.JsonObject;
 
 import java.util.List;
 

@@ -1,9 +1,7 @@
 package com.massivecraft.massivecore.nms;
 
 import com.massivecraft.massivecore.particleeffect.ReflectionUtils.PackageType;
-import com.massivecraft.massivecore.util.IdUtil;
 import com.massivecraft.massivecore.util.ReflectionUtil;
-import org.bukkit.entity.Player;
 
 public class NmsChat112R1P extends NmsChatAbstract
 {

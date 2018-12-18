@@ -1,5 +1,6 @@
 package com.massivecraft.massivecore.engine;
 
+import com.google.gson.JsonObject;
 import com.massivecraft.massivecore.Engine;
 import com.massivecraft.massivecore.MassiveCore;
 import com.massivecraft.massivecore.collections.MassiveMap;
@@ -10,7 +11,6 @@ import com.massivecraft.massivecore.store.Coll;
 import com.massivecraft.massivecore.store.SenderColl;
 import com.massivecraft.massivecore.util.IdUtil;
 import com.massivecraft.massivecore.util.MUtil;
-import com.massivecraft.massivecore.xlib.gson.JsonObject;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

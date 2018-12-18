@@ -1,5 +1,9 @@
 package com.massivecraft.massivecore.store;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 import com.massivecraft.massivecore.ConfServer;
 import com.massivecraft.massivecore.MassiveCore;
 import com.massivecraft.massivecore.MassiveCoreMConf;
@@ -10,10 +14,6 @@ import com.massivecraft.massivecore.mixin.MixinModification;
 import com.massivecraft.massivecore.store.migrator.MigratorUtil;
 import com.massivecraft.massivecore.util.MUtil;
 import com.massivecraft.massivecore.util.Txt;
-import com.massivecraft.massivecore.xlib.gson.Gson;
-import com.massivecraft.massivecore.xlib.gson.JsonElement;
-import com.massivecraft.massivecore.xlib.gson.JsonObject;
-import com.massivecraft.massivecore.xlib.gson.JsonSyntaxException;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;

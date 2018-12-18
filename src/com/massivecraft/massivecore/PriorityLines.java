@@ -4,8 +4,8 @@ import com.massivecraft.massivecore.collections.MassiveList;
 import com.massivecraft.massivecore.comparator.ComparatorIdentity;
 import com.massivecraft.massivecore.comparator.ComparatorPrioritized;
 import com.massivecraft.massivecore.mson.Mson;
-import com.massivecraft.massivecore.util.MUtil;
 import com.massivecraft.massivecore.util.FlattenUtil;
+import com.massivecraft.massivecore.util.MUtil;
 
 import java.util.Collection;
 import java.util.List;

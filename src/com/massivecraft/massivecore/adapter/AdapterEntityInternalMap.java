@@ -1,8 +1,15 @@
 package com.massivecraft.massivecore.adapter;
 
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonNull;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 import com.massivecraft.massivecore.store.EntityInternal;
 import com.massivecraft.massivecore.store.EntityInternalMap;
-import com.massivecraft.massivecore.xlib.gson.*;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;

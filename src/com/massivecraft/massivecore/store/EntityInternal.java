@@ -1,10 +1,10 @@
 package com.massivecraft.massivecore.store;
 
+import com.google.gson.Gson;
 import com.massivecraft.massivecore.Identified;
 import com.massivecraft.massivecore.MassiveCore;
 import com.massivecraft.massivecore.store.accessor.Accessor;
 import com.massivecraft.massivecore.util.MUtil;
-import com.massivecraft.massivecore.xlib.gson.Gson;
 
 import java.lang.ref.WeakReference;
 import java.util.Objects;

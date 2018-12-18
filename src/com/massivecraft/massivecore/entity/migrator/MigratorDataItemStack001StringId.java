@@ -1,12 +1,12 @@
 package com.massivecraft.massivecore.entity.migrator;
 
 import com.google.common.collect.ImmutableMap;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import com.massivecraft.massivecore.collections.MassiveMap;
 import com.massivecraft.massivecore.item.DataItemStack;
 import com.massivecraft.massivecore.store.migrator.MigratorRoot;
-import com.massivecraft.massivecore.xlib.gson.JsonElement;
-import com.massivecraft.massivecore.xlib.gson.JsonObject;
-import com.massivecraft.massivecore.xlib.gson.JsonPrimitive;
 
 import java.util.Map;
 

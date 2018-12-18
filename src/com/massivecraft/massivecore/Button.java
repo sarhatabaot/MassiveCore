@@ -1,8 +1,8 @@
 package com.massivecraft.massivecore;
 
+import com.massivecraft.massivecore.cmd.CmdMassiveCore;
 import com.massivecraft.massivecore.collections.MassiveList;
 import com.massivecraft.massivecore.command.MassiveCommand;
-import com.massivecraft.massivecore.cmd.CmdMassiveCore;
 import com.massivecraft.massivecore.command.requirement.Requirement;
 import com.massivecraft.massivecore.command.requirement.RequirementAbstract;
 import com.massivecraft.massivecore.command.requirement.RequirementIsPlayer;

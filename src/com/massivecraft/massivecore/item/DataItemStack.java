@@ -1,5 +1,6 @@
 package com.massivecraft.massivecore.item;
 
+import com.google.gson.annotations.SerializedName;
 import com.massivecraft.massivecore.collections.MassiveList;
 import com.massivecraft.massivecore.collections.MassiveListDef;
 import com.massivecraft.massivecore.collections.MassiveMap;
@@ -20,7 +21,6 @@ import com.massivecraft.massivecore.command.type.primitive.TypeStringParsed;
 import com.massivecraft.massivecore.comparator.ComparatorSmart;
 import com.massivecraft.massivecore.util.InventoryUtil;
 import com.massivecraft.massivecore.util.MUtil;
-import com.massivecraft.massivecore.xlib.gson.annotations.SerializedName;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
