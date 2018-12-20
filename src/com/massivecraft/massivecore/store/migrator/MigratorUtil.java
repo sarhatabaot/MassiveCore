@@ -101,7 +101,7 @@ public class MigratorUtil
 	}
 	
 	// GET
-	public static int getTargetVersion(Class<?> entityClass)
+	public static int 	getTargetVersion(Class<?> entityClass)
 	{
 		if (!targetVersions.containsKey(entityClass))
 		{
@@ -347,16 +347,19 @@ public class MigratorUtil
 			Class<?> superClass = ReflectionUtil.getSuperclassDeclaringField(entityClass, true, name);
 			
 			// Try find field if it has a different serialisation name
-			if (superClass == null)
-			{
+			if (superClass == null) {
 				Field field = tryFindField(entityClass, name);
-				if (field != null)
-				{
+				if (field != null) {
 					name = field.getName();
 					superClass = entityClass;
 				}
 			}
-			if (superClass == null) throw new RuntimeException(type.getTypeName() + " : " + name);
+			if (superClass == null)
+			{
+				// Probably the field doesn't exist anymore, so this error is disabled.
+				//throw new RuntimeException(type.getTypeName() + " : " + name);
+				continue;
+			}
 			Type elementType = ReflectionUtil.getField(superClass, name).getGenericType();
 			try
 			{
