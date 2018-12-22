@@ -25,7 +25,9 @@ public class TypeFloat extends TypeAbstractNumber<Float>
 	@Override
 	public Float valueOf(String arg, CommandSender sender) throws Exception
 	{
-		return Float.parseFloat(arg);
+		var ret = Float.parseFloat(arg);
+		if (!Float.isFinite(ret)) throw new Exception();
+		return ret;
 	}
 
 }
