@@ -13,6 +13,7 @@ import com.massivecraft.massivecore.mixin.MixinPlayed;
 import com.massivecraft.massivecore.store.SenderEntity;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Entity;
@@ -751,6 +752,21 @@ public class IdUtil implements Listener, Runnable
 		
 		// Return Null
 		return null;
+	}
+
+	public static OfflinePlayer getOfflinePlayer(Object senderObject)
+	{
+		// Null Return
+		if (senderObject == null) return null;
+
+		// Already done
+		if (senderObject instanceof OfflinePlayer) return (OfflinePlayer) senderObject;
+
+		//
+		UUID uuid = getUuid(senderObject);
+		if (uuid == null) return null;
+
+		return Bukkit.getOfflinePlayer(uuid);
 	}
 	
 	public static String getNameFromSender(CommandSender sender)

@@ -29,6 +29,8 @@ import org.bukkit.event.vehicle.VehicleEnterEvent;
 import org.bukkit.event.vehicle.VehicleEvent;
 import org.bukkit.event.vehicle.VehicleExitEvent;
 
+import java.util.UUID;
+
 public class ExtractorLogic
 {
 	// -------------------------------------------- //

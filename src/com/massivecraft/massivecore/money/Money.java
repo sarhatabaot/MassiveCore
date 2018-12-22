@@ -97,7 +97,7 @@ public class Money
 	public static boolean exists(Object account)
 	{
 		if (disabled()) return false;
-		return mixin.exists(accountId(account));
+		return mixin.exists(accountId(account).toString());
 	}
 	
 	public static boolean create(Object account)

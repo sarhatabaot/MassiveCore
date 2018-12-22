@@ -1,13 +1,14 @@
 package com.massivecraft.massivecore.money;
 
+import com.massivecraft.massivecore.util.IdUtil;
 import com.massivecraft.massivecore.util.MUtil;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
 import java.util.Collection;
 
-@SuppressWarnings("deprecation")
 public class MoneyMixinVault extends MoneyMixinAbstract
 {
 	// -------------------------------------------- //
@@ -114,7 +115,7 @@ public class MoneyMixinVault extends MoneyMixinAbstract
 	@Override
 	public boolean exists(String accountId)
 	{
-		return this.getEconomy().hasAccount(accountId);
+		return this.getEconomy().hasAccount(IdUtil.getOfflinePlayer(accountId));
 	}
 	
 	@Override
@@ -131,14 +132,14 @@ public class MoneyMixinVault extends MoneyMixinAbstract
 	public double get(String accountId)
 	{
 		this.ensureExists(accountId);
-		return this.getEconomy().getBalance(accountId);
+		return this.getEconomy().getBalance(IdUtil.getOfflinePlayer(accountId));
 	}
 	
 	@Override
 	public boolean has(String accountId, double amount)
 	{
 		this.ensureExists(accountId);
-		return this.getEconomy().has(accountId, amount);
+		return this.getEconomy().has(IdUtil.getOfflinePlayer(accountId), amount);
 	}
 	
 	// -------------------------------------------- //
@@ -149,7 +150,10 @@ public class MoneyMixinVault extends MoneyMixinAbstract
 	public boolean move(String fromId, String toId, String byId, double amount, Collection<String> categories, Object message)
 	{
 		Economy economy = this.getEconomy();
-		
+
+		OfflinePlayer offlinePlayerFrom = IdUtil.getOfflinePlayer(fromId);
+		OfflinePlayer offlinePlayerTo = IdUtil.getOfflinePlayer(toId);
+
 		// Ensure positive direction
 		if (amount < 0)
 		{
@@ -166,7 +170,7 @@ public class MoneyMixinVault extends MoneyMixinAbstract
 		// Subtract From
 		if (fromId != null)
 		{
-			if (!economy.withdrawPlayer(fromId, amount).transactionSuccess())
+			if (!economy.withdrawPlayer(offlinePlayerFrom, amount).transactionSuccess())
 			{
 				return false;
 			}
@@ -175,12 +179,12 @@ public class MoneyMixinVault extends MoneyMixinAbstract
 		// Add To
 		if (toId != null)
 		{
-			if (!economy.depositPlayer(toId, amount).transactionSuccess())
+			if (!economy.depositPlayer(offlinePlayerTo, amount).transactionSuccess())
 			{
 				if (fromId != null)
 				{
 					// Undo the withdraw
-					economy.depositPlayer(fromId, amount);
+					economy.depositPlayer(offlinePlayerFrom, amount);
 				}
 				return false;
 			}
@@ -197,14 +201,14 @@ public class MoneyMixinVault extends MoneyMixinAbstract
 	{
 		Economy economy = this.getEconomy();
 		
-		if (economy.hasAccount(accountId)) return true;
+		if (economy.hasAccount(IdUtil.getOfflinePlayer(accountId))) return true;
 		
-		if (!economy.createPlayerAccount(accountId)) return false;
+		if (!economy.createPlayerAccount(IdUtil.getOfflinePlayer(accountId))) return false;
 		
-		if (MUtil.isValidPlayerName(accountId)) return true;
+		if (MUtil.isUuid(accountId)) return true;
 		
-		double balance = economy.getBalance(accountId);
-		economy.withdrawPlayer(accountId, balance);
+		double balance = economy.getBalance(IdUtil.getOfflinePlayer(accountId));
+		economy.withdrawPlayer(IdUtil.getOfflinePlayer(accountId), balance);
 		
 		return true;
 	}
