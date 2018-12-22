@@ -7,10 +7,7 @@ import com.massivecraft.massivecore.collections.MassiveMap;
 import com.massivecraft.massivecore.collections.WorldExceptionSet;
 import com.massivecraft.massivecore.command.editor.annotation.EditorType;
 import com.massivecraft.massivecore.command.editor.annotation.EditorTypeInner;
-import com.massivecraft.massivecore.command.type.combined.TypeDataBannerPattern;
-import com.massivecraft.massivecore.command.type.combined.TypeDataPotionEffect;
 import com.massivecraft.massivecore.command.type.combined.TypeEntry;
-import com.massivecraft.massivecore.command.type.combined.TypePotionEffectWrap;
 import com.massivecraft.massivecore.command.type.combined.TypeSoundEffect;
 import com.massivecraft.massivecore.command.type.container.TypeBackstringSet;
 import com.massivecraft.massivecore.command.type.container.TypeExceptionSet;
@@ -275,10 +272,7 @@ public class RegistryType
 	// -------------------------------------------- //
 	// DEFAULTS
 	// -------------------------------------------- //
-	// NOTE: As of 2016-05-17 about 15% of all servers are still using 1.7.x.
-	// With this in mind there are some try catch clauses.
-	// We catch NoClassDefFoundError and silently move along on those servers.
-	
+
 	public static void registerAll()
 	{
 		// Primitive
@@ -319,44 +313,10 @@ public class RegistryType
 		register(TypeOcelotType.get());
 		register(TypeParticleEffect.get());
 		register(TypeSpawnReason.get());
-		
-		// 1.7 Compat
-		try
-		{
-			register(TypeRabbitType.get());
-		}
-		catch (Throwable t)
-		{
-			
-		}
-		
-		try
-		{
-			register(TypeDamageModifier.get());
-		}
-		catch (Throwable t)
-		{
-			
-		}
-		
-		try
-		{
-			register(TypeLlamaColor.get());
-		}
-		catch (Throwable t)
-		{
-			
-		}
-		
-		try
-		{
-			register(TypeParrotVariant.get());
-		}
-		catch (Throwable t)
-		{
-		
-		}
-		
+		register(TypeRabbitType.get());
+		register(TypeDamageModifier.get());
+		register(TypeLlamaColor.get());
+		register(TypeParrotVariant.get());
 		register(TypeSkeletonType.get());
 		register(TypeSound.get());
 		register(TypeVillagerProfession.get());
@@ -366,16 +326,10 @@ public class RegistryType
 		register(TypeDestination.get());
 		register(TypeItemStack.get());
 		
-		register(TypeDataBannerPattern.get());
-		register(TypeDataPotionEffect.get());
-		register(TypeDataFireworkEffect.get());
-		register(TypeDataItemStack.get());
-		
 		register(TypePermission.get());
 		register(TypePotionEffectType.get());
 		register(TypePS.get());
 		register(TypeWorld.get());
-		register(TypePotionEffectWrap.get());
 		register(TypeSoundEffect.get());
 		
 		// Sender

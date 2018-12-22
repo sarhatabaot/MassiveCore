@@ -6,13 +6,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import com.google.gson.reflect.TypeToken;
 import com.massivecraft.massivecore.adapter.AdapterBackstringSet;
-import com.massivecraft.massivecore.adapter.AdapterBannerPatterns;
 import com.massivecraft.massivecore.adapter.AdapterEntityInternalMap;
 import com.massivecraft.massivecore.adapter.AdapterEntry;
-import com.massivecraft.massivecore.adapter.AdapterInventory;
-import com.massivecraft.massivecore.adapter.AdapterItemStack;
 import com.massivecraft.massivecore.adapter.AdapterJsonElement;
 import com.massivecraft.massivecore.adapter.AdapterMassiveList;
 import com.massivecraft.massivecore.adapter.AdapterMassiveMap;
@@ -22,7 +18,6 @@ import com.massivecraft.massivecore.adapter.AdapterMassiveTreeSet;
 import com.massivecraft.massivecore.adapter.AdapterModdedEnumType;
 import com.massivecraft.massivecore.adapter.AdapterMson;
 import com.massivecraft.massivecore.adapter.AdapterMsonEvent;
-import com.massivecraft.massivecore.adapter.AdapterPlayerInventory;
 import com.massivecraft.massivecore.adapter.AdapterSound;
 import com.massivecraft.massivecore.adapter.AdapterUUID;
 import com.massivecraft.massivecore.collections.BackstringSet;
@@ -37,21 +32,16 @@ import com.massivecraft.massivecore.collections.MassiveTreeMapDef;
 import com.massivecraft.massivecore.collections.MassiveTreeSet;
 import com.massivecraft.massivecore.collections.MassiveTreeSetDef;
 import com.massivecraft.massivecore.command.type.RegistryType;
-import com.massivecraft.massivecore.item.DataBannerPattern;
-import com.massivecraft.massivecore.item.DataItemStack;
-import com.massivecraft.massivecore.item.WriterItemStack;
 import com.massivecraft.massivecore.mixin.MixinEvent;
 import com.massivecraft.massivecore.mson.Mson;
 import com.massivecraft.massivecore.mson.MsonEvent;
 import com.massivecraft.massivecore.nms.NmsBasics;
-import com.massivecraft.massivecore.nms.NmsItemStackCreate17R4P;
 import com.massivecraft.massivecore.ps.PS;
 import com.massivecraft.massivecore.ps.PSAdapter;
 import com.massivecraft.massivecore.store.Coll;
 import com.massivecraft.massivecore.store.EntityInternalMap;
 import com.massivecraft.massivecore.store.ModificationPollerLocal;
 import com.massivecraft.massivecore.store.ModificationPollerRemote;
-import com.massivecraft.massivecore.store.migrator.MigratorUtil;
 import com.massivecraft.massivecore.util.BoardUtil;
 import com.massivecraft.massivecore.util.ContainerUtil;
 import com.massivecraft.massivecore.util.EventUtil;
@@ -70,12 +60,8 @@ import com.massivecraft.massivecore.util.TimeUnit;
 import com.massivecraft.massivecore.util.Txt;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
 
 import java.lang.reflect.Modifier;
-import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Random;
@@ -156,20 +142,6 @@ public class MassiveCore extends MassivePlugin
 		ret.registerTypeAdapter(Mson.class, AdapterMson.get());
 		ret.registerTypeAdapter(MsonEvent.class, AdapterMsonEvent.get());
 		
-		// Banner Patterns Upgrade Adapter
-		// NOTE: Must come after the "MassiveContainers" section for priority.
-		Type typeBannerPatterns = new TypeToken<MassiveListDef<DataBannerPattern>>(){}.getType();
-		ret.registerTypeAdapter(typeBannerPatterns, AdapterBannerPatterns.get());
-		
-		// ItemStack
-		ret.registerTypeAdapter(ItemStack.class, AdapterItemStack.get());
-		Class<?> classCraftItemStack = NmsItemStackCreate17R4P.getClassCraftItemStackCatch();
-		if (classCraftItemStack != null) ret.registerTypeAdapter(classCraftItemStack, AdapterItemStack.get());
-		
-		// Inventory
-		ret.registerTypeAdapter(Inventory.class, AdapterInventory.get());
-		ret.registerTypeAdapter(PlayerInventory.class, AdapterPlayerInventory.get());
-		
 		// Storage
 		ret.registerTypeAdapter(EntityInternalMap.class, AdapterEntityInternalMap.get());
 		
@@ -233,18 +205,11 @@ public class MassiveCore extends MassivePlugin
 		// Setup RegistryType
 		RegistryType.registerAll();
 		
-		MigratorUtil.addJsonRepresentation(ItemStack.class, DataItemStack.class);
-		MigratorUtil.addJsonRepresentation(Inventory.class, null);
-		MigratorUtil.setTargetVersion(Inventory.class, MigratorUtil.getTargetVersion(DataItemStack.class));
-		
 		// Activate
 		this.activateAuto();
 
 		// These must be activated after nms
 		this.activate(
-
-			// Writer,
-			WriterItemStack.class,
 			
 			// Util
 			PlayerUtil.class,
