@@ -230,7 +230,7 @@ public class MassiveCore extends MassivePlugin
 	public List<Class<?>> getClassesActiveColls()
 	{
 		List<Class<?>> ret = this.getClassesActive(null, Coll.class);
-
+		if (!ret.contains(MassiveCoreMConfColl.get().getClass())) ret.add(0, MassiveCoreMConfColl.get().getClass());
 		return ret;
 	}
 	

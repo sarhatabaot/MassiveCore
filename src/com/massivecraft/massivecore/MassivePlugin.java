@@ -215,7 +215,7 @@ public abstract class MassivePlugin extends JavaPlugin implements Listener, Name
 	// can only happen after others have been initialised.
 	public void activateOne(Object object)
 	{
-		boolean debug = MassiveCoreMConf.get() != null && MassiveCoreMConf.get().debugEnabled;
+		boolean debug = true;//MassiveCoreMConf.get() != null && MassiveCoreMConf.get().debugEnabled;
 
 		// Try collection
 		if (object instanceof Iterable)
@@ -425,22 +425,8 @@ public abstract class MassivePlugin extends JavaPlugin implements Listener, Name
 		packageName = this.getClass().getPackage().getName() + packageName;
 		
 		Predicate predicateCombined = PredicateAnd.get(predicates);
-		Predicate<Class<?>> predicateNotAbstract = new Predicate<Class<?>>()
-		{
-			@Override
-			public boolean apply(Class<?> type)
-			{
-				return !Modifier.isAbstract(type.getModifiers());
-			}
-		};
-		Predicate<Class<?>> predicateSubclass = new Predicate<Class<?>>()
-		{
-			@Override
-			public boolean apply(Class<?> type)
-			{
-				return superClass.isAssignableFrom(type);
-			}
-		};
+		Predicate<Class<?>> predicateNotAbstract = type -> !Modifier.isAbstract(type.getModifiers());
+		Predicate<Class<?>> predicateSubclass = type -> !Modifier.isAbstract(type.getModifiers());
 		Predicate<Class<?>> predicateSingleton = PredicateIsClassSingleton.get();
 
 		return ReflectionUtil.getPackageClasses(packageName, this.getClassLoader(), true, predicateCombined, predicateNotAbstract, predicateSubclass, predicateSingleton);
