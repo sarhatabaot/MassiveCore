@@ -20,6 +20,12 @@ import com.massivecraft.massivecore.adapter.AdapterMson;
 import com.massivecraft.massivecore.adapter.AdapterMsonEvent;
 import com.massivecraft.massivecore.adapter.AdapterSound;
 import com.massivecraft.massivecore.adapter.AdapterUUID;
+import com.massivecraft.massivecore.cmd.CmdMassiveCore;
+import com.massivecraft.massivecore.cmd.CmdMassiveCoreBuffer;
+import com.massivecraft.massivecore.cmd.CmdMassiveCoreClick;
+import com.massivecraft.massivecore.cmd.CmdMassiveCoreCmdurl;
+import com.massivecraft.massivecore.cmd.CmdMassiveCoreStore;
+import com.massivecraft.massivecore.cmd.CmdMassiveCoreUsys;
 import com.massivecraft.massivecore.collections.BackstringSet;
 import com.massivecraft.massivecore.collections.MassiveList;
 import com.massivecraft.massivecore.collections.MassiveListDef;
@@ -32,13 +38,58 @@ import com.massivecraft.massivecore.collections.MassiveTreeMapDef;
 import com.massivecraft.massivecore.collections.MassiveTreeSet;
 import com.massivecraft.massivecore.collections.MassiveTreeSetDef;
 import com.massivecraft.massivecore.command.type.RegistryType;
+import com.massivecraft.massivecore.engine.EngineMassiveCoreChestGui;
+import com.massivecraft.massivecore.engine.EngineMassiveCoreClean;
+import com.massivecraft.massivecore.engine.EngineMassiveCoreCollTick;
+import com.massivecraft.massivecore.engine.EngineMassiveCoreCommandRegistration;
+import com.massivecraft.massivecore.engine.EngineMassiveCoreCommandSet;
+import com.massivecraft.massivecore.engine.EngineMassiveCoreDatabase;
+import com.massivecraft.massivecore.engine.EngineMassiveCoreDestination;
+import com.massivecraft.massivecore.engine.EngineMassiveCoreGank;
+import com.massivecraft.massivecore.engine.EngineMassiveCoreLorePriority;
+import com.massivecraft.massivecore.engine.EngineMassiveCoreMain;
+import com.massivecraft.massivecore.engine.EngineMassiveCorePlayerLeave;
+import com.massivecraft.massivecore.engine.EngineMassiveCorePlayerState;
+import com.massivecraft.massivecore.engine.EngineMassiveCorePlayerUpdate;
+import com.massivecraft.massivecore.engine.EngineMassiveCoreScheduledTeleport;
+import com.massivecraft.massivecore.engine.EngineMassiveCoreTeleportMixinCause;
+import com.massivecraft.massivecore.engine.EngineMassiveCoreVariable;
+import com.massivecraft.massivecore.engine.EngineMassiveCoreWorldNameSet;
+import com.massivecraft.massivecore.entity.migrator.MigratorMassiveCoreMConf001CleanInactivity;
+import com.massivecraft.massivecore.integration.vault.IntegrationVault;
+import com.massivecraft.massivecore.mixin.MixinActionbar;
+import com.massivecraft.massivecore.mixin.MixinActual;
+import com.massivecraft.massivecore.mixin.MixinCommand;
+import com.massivecraft.massivecore.mixin.MixinDisplayName;
 import com.massivecraft.massivecore.mixin.MixinEvent;
+import com.massivecraft.massivecore.mixin.MixinGamemode;
+import com.massivecraft.massivecore.mixin.MixinInventory;
+import com.massivecraft.massivecore.mixin.MixinKick;
+import com.massivecraft.massivecore.mixin.MixinLog;
+import com.massivecraft.massivecore.mixin.MixinMassiveCraftPremium;
+import com.massivecraft.massivecore.mixin.MixinMessage;
+import com.massivecraft.massivecore.mixin.MixinModification;
+import com.massivecraft.massivecore.mixin.MixinPlayed;
+import com.massivecraft.massivecore.mixin.MixinRecipe;
+import com.massivecraft.massivecore.mixin.MixinSenderPs;
+import com.massivecraft.massivecore.mixin.MixinTeleport;
+import com.massivecraft.massivecore.mixin.MixinTitle;
+import com.massivecraft.massivecore.mixin.MixinVisibility;
+import com.massivecraft.massivecore.mixin.MixinWorld;
 import com.massivecraft.massivecore.mson.Mson;
 import com.massivecraft.massivecore.mson.MsonEvent;
 import com.massivecraft.massivecore.nms.NmsBasics;
+import com.massivecraft.massivecore.nms.NmsBoard;
+import com.massivecraft.massivecore.nms.NmsChat;
+import com.massivecraft.massivecore.nms.NmsEntityDamageEvent;
+import com.massivecraft.massivecore.nms.NmsEntityGet;
+import com.massivecraft.massivecore.nms.NmsItemStackTooltip;
+import com.massivecraft.massivecore.nms.NmsPermissions;
+import com.massivecraft.massivecore.nms.NmsPlayerInventoryCreate;
+import com.massivecraft.massivecore.nms.NmsRecipe;
+import com.massivecraft.massivecore.nms.NmsSkullMeta;
 import com.massivecraft.massivecore.ps.PS;
 import com.massivecraft.massivecore.ps.PSAdapter;
-import com.massivecraft.massivecore.store.Coll;
 import com.massivecraft.massivecore.store.EntityInternalMap;
 import com.massivecraft.massivecore.store.ModificationPollerLocal;
 import com.massivecraft.massivecore.store.ModificationPollerRemote;
@@ -226,36 +277,119 @@ public class MassiveCore extends MassivePlugin
 		Bukkit.getScheduler().scheduleSyncDelayedTask(this, MassiveCoreTaskDeleteFiles.get());
 	}
 
+	// These are overriden because the reflection trick was buggy and didn't work on all systems
+	@Override
+	public List<Class<?>> getClassesActiveMigrators()
+	{
+		return MUtil.list(
+			MigratorMassiveCoreMConf001CleanInactivity.class
+		);
+	}
+
 	@Override
 	public List<Class<?>> getClassesActiveColls()
 	{
-		List<Class<?>> ret = this.getClassesActive(null, Coll.class);
-		if (!ret.contains(MassiveCoreMConfColl.get().getClass())) ret.add(0, MassiveCoreMConfColl.get().getClass());
-		return ret;
+		return MUtil.list(
+			MassiveCoreMConfColl.class,
+			AspectColl.class,
+			MultiverseColl.class
+		);
 	}
-	
+
 	@Override
 	public List<Class<?>> getClassesActiveNms()
 	{
-		List<Class<?>> ret = super.getClassesActiveNms();
-		
-		ret.remove(NmsBasics.class);
-		ret.add(0, NmsBasics.class);
-		
-		return ret;
+		return MUtil.list(
+			NmsBasics.class,
+			NmsBoard.class,
+			NmsChat.class,
+			NmsEntityDamageEvent.class,
+			NmsEntityGet.class,
+			NmsItemStackTooltip.class,
+			NmsPermissions.class,
+			NmsPlayerInventoryCreate.class,
+			NmsSkullMeta.class,
+			NmsRecipe.class
+		);
 	}
-	
+
+	@Override
+	public List<Class<?>> getClassesActiveCommands()
+	{
+		return MUtil.list(
+				CmdMassiveCore.class,
+				CmdMassiveCoreBuffer.class,
+				CmdMassiveCoreClick.class,
+				CmdMassiveCoreCmdurl.class,
+				CmdMassiveCoreStore.class,
+				CmdMassiveCoreUsys.class
+		);
+	}
+
+	@Override
+	public List<Class<?>> getClassesActiveEngines()
+	{
+		return MUtil.list(
+			EngineMassiveCoreChestGui.class,
+			EngineMassiveCoreClean.class,
+			EngineMassiveCoreCollTick.class,
+			EngineMassiveCoreCommandRegistration.class,
+			EngineMassiveCoreCommandSet.class,
+			EngineMassiveCoreDatabase.class,
+			EngineMassiveCoreDestination.class,
+			EngineMassiveCoreGank.class,
+			EngineMassiveCoreLorePriority.class,
+			EngineMassiveCoreMain.class,
+			EngineMassiveCorePlayerLeave.class,
+			EngineMassiveCorePlayerState.class,
+			EngineMassiveCorePlayerUpdate.class,
+			EngineMassiveCoreScheduledTeleport.class,
+			EngineMassiveCoreTeleportMixinCause.class,
+			EngineMassiveCoreVariable.class,
+			EngineMassiveCoreWorldNameSet.class
+			);
+	}
+
+	@Override
+	public List<Class<?>> getClassesActiveIntegrations()
+	{
+		return MUtil.list(
+			IntegrationVault.class
+		);
+	}
+
 	@Override
 	public List<Class<?>> getClassesActiveMixins()
 	{
-		List<Class<?>> ret = super.getClassesActiveMixins();
-
-		ret.remove(MixinEvent.class);
-		ret.add(0, MixinEvent.class);
-
-		return ret;
+		return MUtil.list(
+			MixinEvent.class,
+			MixinActionbar.class,
+			MixinActual.class,
+			MixinCommand.class,
+			MixinDisplayName.class,
+			MixinGamemode.class,
+			MixinInventory.class,
+			MixinKick.class,
+			MixinLog.class,
+			MixinMassiveCraftPremium.class,
+			MixinMessage.class,
+			MixinModification.class,
+			MixinPlayed.class,
+			MixinRecipe.class,
+			MixinSenderPs.class,
+			MixinTeleport.class,
+			MixinTitle.class,
+			MixinVisibility.class,
+			MixinWorld.class
+			);
 	}
-	
+
+	@Override
+	public List<Class<?>> getClassesActiveTests()
+	{
+		return MUtil.list();
+	}
+
 	// -------------------------------------------- //
 	// DISABLE
 	// -------------------------------------------- //
