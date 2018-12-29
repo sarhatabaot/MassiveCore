@@ -215,7 +215,7 @@ public abstract class MassivePlugin extends JavaPlugin implements Listener, Name
 	// can only happen after others have been initialised.
 	public void activateOne(Object object)
 	{
-		boolean debug = true;//MassiveCoreMConf.get() != null && MassiveCoreMConf.get().debugEnabled;
+		boolean debug = MassiveCoreMConf.get() != null && MassiveCoreMConf.get().debugEnabled;
 
 		// Try collection
 		if (object instanceof Iterable)
