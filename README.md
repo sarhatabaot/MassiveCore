@@ -3,3 +3,6 @@
 
 <b>Please read the guide below if you want to compile.</b><br>
 <b>https://www.massivecraft.com/tech-compile</b>
+
+**License**
+This software uses the MIT license.
