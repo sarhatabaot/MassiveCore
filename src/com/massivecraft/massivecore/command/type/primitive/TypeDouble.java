@@ -25,7 +25,7 @@ public class TypeDouble extends TypeAbstractNumber<Double>
 	@Override
 	public Double valueOf(String arg, CommandSender sender) throws Exception
 	{
-		var ret = Double.parseDouble(arg);
+		double ret = Double.parseDouble(arg);
 		if (!Double.isFinite(ret)) throw new Exception();
 		return ret;
 	}
