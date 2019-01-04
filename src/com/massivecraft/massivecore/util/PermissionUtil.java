@@ -3,6 +3,7 @@ package com.massivecraft.massivecore.util;
 import com.massivecraft.massivecore.Identified;
 import com.massivecraft.massivecore.Lang;
 import com.massivecraft.massivecore.MassiveCore;
+import com.massivecraft.massivecore.MassiveException;
 import com.massivecraft.massivecore.event.EventMassiveCorePermissionDeniedFormat;
 import com.massivecraft.massivecore.mixin.MixinMessage;
 import com.massivecraft.massivecore.nms.NmsPermissions;
@@ -400,6 +401,21 @@ public class PermissionUtil
 	public static boolean hasPermission(Permissible permissible, Object permission)
 	{
 		return hasPermission(permissible, permission, false);
+	}
+
+	public static void hasPermissionOrThrow(Permissible permissible, Object permission) throws MassiveException
+	{
+		// Fail Fast
+		if (permissible == null) throw new NullPointerException("permissible");
+		if (permission == null) throw new NullPointerException("permission");
+
+		String permissionId = asPermissionId(permission);
+		if (permissionId == null) throw new NullPointerException("permissionId");
+
+		if (!permissible.hasPermission(permissionId))
+		{
+			throw new MassiveException().addMessage(getPermissionDeniedMessage(permission));
+		}
 	}
 	
 	// -------------------------------------------- //

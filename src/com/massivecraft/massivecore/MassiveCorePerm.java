@@ -81,5 +81,10 @@ public enum MassiveCorePerm implements Identified
 	{
 		return PermissionUtil.hasPermission(permissible, this);
 	}
+
+	public void hasOrThrow(Permissible permissible) throws MassiveException
+	{
+		PermissionUtil.hasPermissionOrThrow(permissible, this);
+	}
 	
 }
