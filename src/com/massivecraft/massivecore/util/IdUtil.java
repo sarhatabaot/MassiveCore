@@ -481,6 +481,12 @@ public class IdUtil implements Listener, Runnable
 			String id = getIdFromSender((CommandSender) senderObject);
 			return getIdToData().get(id);
 		}
+
+		// OfflinePlayer (UUID recurse)
+		if (senderObject instanceof OfflinePlayer)
+		{
+			return getData(((OfflinePlayer) senderObject).getUniqueId());
+		}
 		
 		// UUID
 		if (senderObject instanceof UUID)
@@ -537,6 +543,12 @@ public class IdUtil implements Listener, Runnable
 		
 		// CommandSender
 		// Handled at "Already Done"
+
+		// OfflinePlayer
+		if (senderObject instanceof OfflinePlayer)
+		{
+			return getSender(((OfflinePlayer) senderObject).getUniqueId());
+		}
 		
 		// UUID
 		if (senderObject instanceof UUID)
@@ -601,6 +613,9 @@ public class IdUtil implements Listener, Runnable
 			String id = sender.getName();
 			return MUtil.asUuid(id);
 		}
+
+		// OfflinePlayer
+		if (senderObject instanceof OfflinePlayer) return ((OfflinePlayer) senderObject).getUniqueId();
 		
 		// UUID
 		// Handled at "Already Done"
@@ -658,6 +673,9 @@ public class IdUtil implements Listener, Runnable
 		
 		// Command Sender
 		if (senderObject instanceof CommandSender) return getIdFromSender((CommandSender) senderObject);
+
+		// OfflinePlayer
+		// Handled at "Data"
 		
 		// UUID
 		if (senderObject instanceof UUID) return getIdFromUuid((UUID) senderObject);

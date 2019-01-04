@@ -151,9 +151,6 @@ public class MoneyMixinVault extends MoneyMixinAbstract
 	{
 		Economy economy = this.getEconomy();
 
-		OfflinePlayer offlinePlayerFrom = IdUtil.getOfflinePlayer(fromId);
-		OfflinePlayer offlinePlayerTo = IdUtil.getOfflinePlayer(toId);
-
 		// Ensure positive direction
 		if (amount < 0)
 		{
@@ -162,6 +159,9 @@ public class MoneyMixinVault extends MoneyMixinAbstract
 			fromId = toId;
 			toId = temp;
 		}
+
+		OfflinePlayer offlinePlayerFrom = IdUtil.getOfflinePlayer(fromId);
+		OfflinePlayer offlinePlayerTo = IdUtil.getOfflinePlayer(toId);
 		
 		// Ensure the accounts exist
 		if (fromId != null) this.ensureExists(fromId);
