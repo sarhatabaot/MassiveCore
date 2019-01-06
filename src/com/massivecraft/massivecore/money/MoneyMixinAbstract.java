@@ -32,9 +32,9 @@ public abstract class MoneyMixinAbstract implements MoneyMixin
 		// OK! I'll have to calculate :P
 		int factor = (int) Math.round(Math.pow(10, fractionalDigits));
 		amount = amount * factor;
-		amount = Math.ceil(amount);
+		amount = moneyCeil(amount);
 		amount = amount / factor;
-		
+
 		return amount;
 	}
 	
