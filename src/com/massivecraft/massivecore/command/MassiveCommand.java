@@ -1263,41 +1263,10 @@ public class MassiveCommand implements Active, PluginIdentifiableCommand
 	
 	public Mson getTemplate(boolean addDesc, boolean onlyFirstAlias, CommandSender sender)
 	{
-		// Create Ret
-		Mson ret = TEMPLATE_CORE;
-		
-		// Get commands
-		List<MassiveCommand> commands = this.getChain(true);
-		
-		// Add commands
-		boolean first = true;
-		for (MassiveCommand command : commands)
-		{
-			Mson mson = null;
-			
-			if (first && onlyFirstAlias)
-			{
-				mson = mson(command.getAliases().get(0));
-			}
-			else
-			{
-				mson = mson(Txt.implode(command.getAliases(), ","));
-			}
-			
-			if (sender != null && ! command.isRequirementsMet(sender, false))
-			{
-				mson = mson.color(ChatColor.RED);
-			}
-			else
-			{
-				mson = mson.color(ChatColor.AQUA);
-			}
-			
-			if ( ! first) ret = ret.add(Mson.SPACE);
-			ret = ret.add(mson); 
-			first = false;
-		}
+		// Get base
+		Mson ret = this.getTemplateChain(onlyFirstAlias, sender);
 
+		List<MassiveCommand> commands = this.getChain(true);
 		// Check if last command is parentCommand and make command suggestable/clickable
 		if (commands.get(commands.size() - 1).isParent())
 		{
@@ -1323,6 +1292,57 @@ public class MassiveCommand implements Active, PluginIdentifiableCommand
 		}
 		
 		// Return Ret
+		return ret;
+	}
+
+	public Mson getTemplateWithArgs(CommandSender sender, List<String> args)
+	{
+		Mson ret = this.getTemplateChain(true, sender);
+
+		for (String arg : args)
+		{
+			ret = ret.add(Mson.SPACE);
+			ret = ret.add(mson(arg).color(ChatColor.DARK_AQUA));
+		}
+
+		return ret;
+	}
+
+	public Mson getTemplateChain(boolean onlyFirstAlias, CommandSender sender)
+	{
+		Mson ret = TEMPLATE_CORE;
+
+		List<MassiveCommand> commands = this.getChain(true);
+
+		// Add commands
+		boolean first = true;
+		for (MassiveCommand command : commands)
+		{
+			Mson mson = null;
+
+			if (first && onlyFirstAlias)
+			{
+				mson = mson(command.getAliases().get(0));
+			}
+			else
+			{
+				mson = mson(Txt.implode(command.getAliases(), ","));
+			}
+
+			if (sender != null && ! command.isRequirementsMet(sender, false))
+			{
+				mson = mson.color(ChatColor.RED);
+			}
+			else
+			{
+				mson = mson.color(ChatColor.AQUA);
+			}
+
+			if ( ! first) ret = ret.add(Mson.SPACE);
+			ret = ret.add(mson);
+			first = false;
+		}
+
 		return ret;
 	}
 	
