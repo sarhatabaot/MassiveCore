@@ -1979,7 +1979,7 @@ public class MUtil
 		
 		// The accountId extractor is used for the money mixin.
 		// For now we act on the name instead of the ID since vault needs names.
-		registerExtractor(UUID.class, "accountId", ExtractorSenderId.get());
+		registerExtractor(String.class, "accountId", ExtractorSenderId.get());
 	}
 	
 }
