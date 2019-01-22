@@ -115,7 +115,13 @@ public class MoneyMixinVault extends MoneyMixinAbstract
 	@Override
 	public boolean exists(String accountId)
 	{
-		return this.getEconomy().hasAccount(getOfflinePlayer(accountId));
+		Object econObject = getEconomyObject(accountId);
+		OfflinePlayer op = econObject instanceof OfflinePlayer ? (OfflinePlayer) econObject : null;
+		String name = econObject instanceof String ? (String) econObject : null;
+
+		if (op != null) return this.getEconomy().hasAccount(op);
+		if (name != null) return this.getEconomy().hasAccount(name);
+		throw new RuntimeException();
 	}
 	
 	@Override
@@ -132,14 +138,28 @@ public class MoneyMixinVault extends MoneyMixinAbstract
 	public double get(String accountId)
 	{
 		this.ensureExists(accountId);
-		return this.getEconomy().getBalance(getOfflinePlayer(accountId));
+
+		Object econObject = getEconomyObject(accountId);
+		OfflinePlayer op = econObject instanceof OfflinePlayer ? (OfflinePlayer) econObject : null;
+		String name = econObject instanceof String ? (String) econObject : null;
+
+		if (op != null) return this.getEconomy().getBalance(op);
+		if (name != null) return this.getEconomy().getBalance(name);
+		throw new RuntimeException();
 	}
 	
 	@Override
 	public boolean has(String accountId, double amount)
 	{
 		this.ensureExists(accountId);
-		return this.getEconomy().has(getOfflinePlayer(accountId), amount);
+
+		Object econObject = getEconomyObject(accountId);
+		OfflinePlayer op = econObject instanceof OfflinePlayer ? (OfflinePlayer) econObject : null;
+		String name = econObject instanceof String ? (String) econObject : null;
+
+		if (op != null) return this.getEconomy().has(op, amount);
+		if (name != null) return this.getEconomy().has(name, amount);
+		throw new RuntimeException();
 	}
 	
 	// -------------------------------------------- //
@@ -200,24 +220,34 @@ public class MoneyMixinVault extends MoneyMixinAbstract
 	public boolean ensureExists(String accountId)
 	{
 		Economy economy = this.getEconomy();
+
+		Object econObject = getEconomyObject(accountId);
+		OfflinePlayer op = econObject instanceof OfflinePlayer ? (OfflinePlayer) econObject : null;
+		String name = econObject instanceof String ? (String) econObject : null;
 		
-		if (economy.hasAccount(getOfflinePlayer(accountId))) return true;
+		if (op != null && economy.hasAccount(op)) return true;
+		if (name != null && economy.hasAccount(name)) return true;
 		
-		if (!economy.createPlayerAccount(getOfflinePlayer(accountId))) return false;
+		if (op != null && !economy.createPlayerAccount(op)) return false;
+		if (name != null && !economy.createPlayerAccount(name)) return false;
 		
 		if (MUtil.isUuid(accountId)) return true;
+
+		// What is this for???
+		//double balance = economy.getBalance(getOfflinePlayer(accountId));
+		//economy.withdrawPlayer(getOfflinePlayer(accountId), balance);
 		
-		double balance = economy.getBalance(getOfflinePlayer(accountId));
-		economy.withdrawPlayer(getOfflinePlayer(accountId), balance);
-		
-		return true;
+		return false;
 	}
 
-	public static OfflinePlayer getOfflinePlayer(String accountId)
+	public static Object getEconomyObject(String accountId)
 	{
+		// Because of Factions we have this crazy-workaround.
+		// Where offlineplayers will be used when possible
+		// but otherwise names will.
 		OfflinePlayer ret = IdUtil.getOfflinePlayer(accountId);
-		if (ret == null) throw new RuntimeException("couldn't get offlineplayer for: " + accountId);
-		return ret;
+		if (ret != null) return ret;
+		else return accountId;
 	}
 
 }
