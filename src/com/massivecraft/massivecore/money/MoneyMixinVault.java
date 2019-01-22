@@ -115,7 +115,7 @@ public class MoneyMixinVault extends MoneyMixinAbstract
 	@Override
 	public boolean exists(String accountId)
 	{
-		return this.getEconomy().hasAccount(IdUtil.getOfflinePlayer(accountId));
+		return this.getEconomy().hasAccount(getOfflinePlayer(accountId));
 	}
 	
 	@Override
@@ -132,14 +132,14 @@ public class MoneyMixinVault extends MoneyMixinAbstract
 	public double get(String accountId)
 	{
 		this.ensureExists(accountId);
-		return this.getEconomy().getBalance(IdUtil.getOfflinePlayer(accountId));
+		return this.getEconomy().getBalance(getOfflinePlayer(accountId));
 	}
 	
 	@Override
 	public boolean has(String accountId, double amount)
 	{
 		this.ensureExists(accountId);
-		return this.getEconomy().has(IdUtil.getOfflinePlayer(accountId), amount);
+		return this.getEconomy().has(getOfflinePlayer(accountId), amount);
 	}
 	
 	// -------------------------------------------- //
@@ -201,16 +201,23 @@ public class MoneyMixinVault extends MoneyMixinAbstract
 	{
 		Economy economy = this.getEconomy();
 		
-		if (economy.hasAccount(IdUtil.getOfflinePlayer(accountId))) return true;
+		if (economy.hasAccount(getOfflinePlayer(accountId))) return true;
 		
-		if (!economy.createPlayerAccount(IdUtil.getOfflinePlayer(accountId))) return false;
+		if (!economy.createPlayerAccount(getOfflinePlayer(accountId))) return false;
 		
 		if (MUtil.isUuid(accountId)) return true;
 		
-		double balance = economy.getBalance(IdUtil.getOfflinePlayer(accountId));
-		economy.withdrawPlayer(IdUtil.getOfflinePlayer(accountId), balance);
+		double balance = economy.getBalance(getOfflinePlayer(accountId));
+		economy.withdrawPlayer(getOfflinePlayer(accountId), balance);
 		
 		return true;
+	}
+
+	public static OfflinePlayer getOfflinePlayer(String accountId)
+	{
+		OfflinePlayer ret = IdUtil.getOfflinePlayer(accountId);
+		if (ret == null) throw new RuntimeException("couldn't get offlineplayer for: " + accountId);
+		return ret;
 	}
 
 }
