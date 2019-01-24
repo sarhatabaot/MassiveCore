@@ -3,6 +3,7 @@ package com.massivecraft.massivecore.money;
 import com.massivecraft.massivecore.util.IdUtil;
 import com.massivecraft.massivecore.util.MUtil;
 import net.milkbowl.vault.economy.Economy;
+import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -180,9 +181,14 @@ public class MoneyMixinVault extends MoneyMixinAbstract
 			toId = temp;
 		}
 
-		OfflinePlayer offlinePlayerFrom = IdUtil.getOfflinePlayer(fromId);
-		OfflinePlayer offlinePlayerTo = IdUtil.getOfflinePlayer(toId);
-		
+		Object objectFrom = getEconomyObject(fromId);
+		OfflinePlayer opFrom = objectFrom instanceof OfflinePlayer ? (OfflinePlayer) objectFrom : null;
+		String nameFrom = objectFrom instanceof String ? (String) objectFrom : null;
+
+		Object objectTo = getEconomyObject(toId);
+		OfflinePlayer opTo = objectTo instanceof OfflinePlayer ? (OfflinePlayer) objectTo : null;
+		String nameTo = objectTo instanceof String ? (String) objectTo : null;
+
 		// Ensure the accounts exist
 		if (fromId != null) this.ensureExists(fromId);
 		if (toId != null) this.ensureExists(toId);
@@ -190,7 +196,8 @@ public class MoneyMixinVault extends MoneyMixinAbstract
 		// Subtract From
 		if (fromId != null)
 		{
-			if (!economy.withdrawPlayer(offlinePlayerFrom, amount).transactionSuccess())
+			EconomyResponse response = opTo != null ? economy.withdrawPlayer(opFrom, amount) : economy.withdrawPlayer(nameFrom, amount);
+			if (!response.transactionSuccess())
 			{
 				return false;
 			}
@@ -199,12 +206,15 @@ public class MoneyMixinVault extends MoneyMixinAbstract
 		// Add To
 		if (toId != null)
 		{
-			if (!economy.depositPlayer(offlinePlayerTo, amount).transactionSuccess())
+			EconomyResponse response = opTo != null ? economy.depositPlayer(opTo, amount) : economy.depositPlayer(nameTo, amount);
+			if (!response.transactionSuccess())
 			{
 				if (fromId != null)
 				{
 					// Undo the withdraw
-					economy.depositPlayer(offlinePlayerFrom, amount);
+					if (opFrom != null) economy.depositPlayer(opFrom, amount);
+					if (nameFrom != null) economy.depositPlayer(nameFrom, amount);
+					throw new RuntimeException();
 				}
 				return false;
 			}
