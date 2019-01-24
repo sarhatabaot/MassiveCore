@@ -6,13 +6,6 @@ description: ${project.description}
 authors: [Madus, Cayorion, Ulumulu1510]
 load: startup
 api-version: 1.13
-commands:
-  mcore:
-    description: MassiveCore basecommand
-    permission: massivecore.basecommand
-  massivecore:
-    description: MassiveCore basecommand
-    permission: massivecore.basecommand
 permissions:
 # -------------------------------------------- #
 # THE REAL NODES

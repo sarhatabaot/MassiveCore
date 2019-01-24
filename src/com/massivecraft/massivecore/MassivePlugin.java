@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.massivecraft.massivecore.collections.MassiveList;
 import com.massivecraft.massivecore.command.MassiveCommand;
+import com.massivecraft.massivecore.engine.EngineMassiveCoreCommandRegistration;
 import com.massivecraft.massivecore.mixin.Mixin;
 import com.massivecraft.massivecore.mixin.MixinMessage;
 import com.massivecraft.massivecore.predicate.Predicate;
@@ -165,6 +166,7 @@ public abstract class MassivePlugin extends JavaPlugin implements Listener, Name
 		}
 		
 		long ms = System.currentTimeMillis() - this.enableTime;
+		EngineMassiveCoreCommandRegistration.get().run();
 		log(Txt.parse("=== ENABLE <g>COMPLETE <i>(Took <h>" + ms + "ms<i>) ==="));
 	}
 	
