@@ -196,7 +196,7 @@ public class MoneyMixinVault extends MoneyMixinAbstract
 		// Subtract From
 		if (fromId != null)
 		{
-			EconomyResponse response = opTo != null ? economy.withdrawPlayer(opFrom, amount) : economy.withdrawPlayer(nameFrom, amount);
+			EconomyResponse response = opFrom != null ? economy.withdrawPlayer(opFrom, amount) : economy.withdrawPlayer(nameFrom, amount);
 			if (!response.transactionSuccess())
 			{
 				return false;
