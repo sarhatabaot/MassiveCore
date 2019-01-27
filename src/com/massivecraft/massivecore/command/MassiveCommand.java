@@ -1295,6 +1295,11 @@ public class MassiveCommand implements Active, PluginIdentifiableCommand
 		return ret;
 	}
 
+	public Mson getTemplateWithArgs(CommandSender sender, String... args)
+	{
+		return this.getTemplateWithArgs(sender, MUtil.list(args));
+	}
+
 	public Mson getTemplateWithArgs(CommandSender sender, List<String> args)
 	{
 		Mson ret = this.getTemplateChain(true, sender);

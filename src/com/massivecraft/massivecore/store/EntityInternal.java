@@ -73,7 +73,16 @@ public class EntityInternal<E extends EntityInternal<E>> implements Identified
 	{
 		
 	}
-	
+
+	@SuppressWarnings("unchecked")
+	public E detach()
+	{
+		EntityContainer<E> coll = this.getContainer();
+		if (coll == null) return (E)this;
+
+		return coll.detachEntity((E) this);
+	}
+
 	// -------------------------------------------- //
 	// SYNC AND IO ACTIONS
 	// -------------------------------------------- //
