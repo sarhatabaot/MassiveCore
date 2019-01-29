@@ -419,26 +419,37 @@ public class Txt
 	// -------------------------------------------- //
 	// Material name tools
 	// -------------------------------------------- //
-	
+
 	protected static Pattern PATTERN_ENUM_SPLIT = Pattern.compile("[\\s_]+");
-	public static String getNicedEnumString(String str)
+	public static String getNicedEnumString(String str, String glue)
 	{
 		List<String> parts = new ArrayList<>();
 		for (String part : PATTERN_ENUM_SPLIT.split(str.toLowerCase()))
 		{
 			parts.add(upperCaseFirst(part));
 		}
-		return implode(parts, "");
+		return implode(parts, glue);
 	}
-	
+
+	public static String getNicedEnumString(String str)
+	{
+		return getNicedEnumString(str, "");
+	}
+
+	public static <T extends Enum<T>> String getNicedEnum(T enumObject, String glue)
+	{
+		return getNicedEnumString(enumObject.name(), glue);
+	}
+
+
 	public static <T extends Enum<T>> String getNicedEnum(T enumObject)
 	{
 		return getNicedEnumString(enumObject.name());
 	}
-	
+
 	public static String getMaterialName(Material material)
 	{
-		return getNicedEnum(material);
+		return getNicedEnum(material, " ");
 	}
 	
 	public static String getItemName(ItemStack itemStack)
