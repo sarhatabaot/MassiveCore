@@ -193,7 +193,7 @@ public class MassiveCommand implements Active, PluginIdentifiableCommand
 	// === SETUP ===
 
 	// Determines whether the smart setup process will be used, works for most of commands
-	protected boolean setupEnabled = false;
+	protected boolean setupEnabled = true;
 
 	// A base prefix such as "CmdFactions" that all names of commands in a plugin start with.
 	// Used for finding the right permission.

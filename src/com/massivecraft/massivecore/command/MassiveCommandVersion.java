@@ -35,6 +35,8 @@ public class MassiveCommandVersion extends MassiveCommand
 		
 		// Priority
 		this.setPriority(-1);
+
+		this.setSetupEnabled(false);
 	}
 
 	// -------------------------------------------- //

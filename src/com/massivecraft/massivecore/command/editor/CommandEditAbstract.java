@@ -54,6 +54,9 @@ public class CommandEditAbstract<O, V> extends MassiveCommand
 		this.addRequirements(RequirementEditorUse.get());
 		this.addRequirements(settings.getPropertyRequirements());
 		this.addRequirements(property.getRequirements());
+
+		// Does not use standard setup
+		this.setSetupEnabled(false);
 	}
 
 	// -------------------------------------------- //

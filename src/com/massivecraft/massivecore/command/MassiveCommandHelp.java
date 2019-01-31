@@ -28,6 +28,7 @@ public class MassiveCommandHelp extends MassiveCommand
 		
 		// Other
 		this.setDesc("");
+		this.setSetupEnabled(false);
 	}
 	
 	// -------------------------------------------- //
