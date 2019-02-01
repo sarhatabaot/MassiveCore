@@ -66,7 +66,6 @@ import com.massivecraft.massivecore.mixin.MixinGamemode;
 import com.massivecraft.massivecore.mixin.MixinInventory;
 import com.massivecraft.massivecore.mixin.MixinKick;
 import com.massivecraft.massivecore.mixin.MixinLog;
-import com.massivecraft.massivecore.mixin.MixinMassiveCraftPremium;
 import com.massivecraft.massivecore.mixin.MixinMessage;
 import com.massivecraft.massivecore.mixin.MixinModification;
 import com.massivecraft.massivecore.mixin.MixinPlayed;
@@ -371,7 +370,6 @@ public class MassiveCore extends MassivePlugin
 			MixinInventory.class,
 			MixinKick.class,
 			MixinLog.class,
-			MixinMassiveCraftPremium.class,
 			MixinMessage.class,
 			MixinModification.class,
 			MixinPlayed.class,
