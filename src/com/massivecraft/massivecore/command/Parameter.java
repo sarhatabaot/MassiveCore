@@ -183,6 +183,8 @@ public class Parameter<T>
 			ret = mson("[" + this.getName() + def + "]");
 		}
 
+		if (this.hasDesc()) ret = ret.tooltip(this.getDesc());
+
 		return ret;
 	}
 	
