@@ -264,7 +264,12 @@ public class IdUtil implements Listener, Runnable
 	{
 		update(id, name, System.currentTimeMillis(), presence);
 	}
-	
+
+	public static void update(IdData data)
+	{
+		update(data.getId(), data.getName(), data.getMillis(), null);
+	}
+
 	public static void update(final String id, final String name, final long millis, SenderPresence presence)
 	{
 		// First Null Check
