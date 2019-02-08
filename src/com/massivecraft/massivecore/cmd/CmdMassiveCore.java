@@ -32,7 +32,7 @@ public class CmdMassiveCore extends MassiveCoreCommand
 	public CmdMassiveCoreCmdurl cmdMassiveCoreCmdurl = new CmdMassiveCoreCmdurl();
 	public CommandEditAbstract<MassiveCoreMConf, MassiveCoreMConf> cmdMassiveCoreConfig = new CommandEditSingleton<>(MassiveCoreMConf.get()).addRequirements(RequirementHasPerm.get(MassiveCorePerm.CONFIG));
 	public CmdMassiveCoreClick cmdMassiveCoreClick = new CmdMassiveCoreClick();
-	public MassiveCommandVersion cmdMassiveCoreVersion = new MassiveCommandVersion(MassiveCore.get()).setAliases("v", "version").addRequirements(RequirementHasPerm.get(MassiveCorePerm.VERSION));
+	public MassiveCommandVersion cmdMassiveCoreVersion = new MassiveCommandVersion(MassiveCore.get()).addRequirements(RequirementHasPerm.get(MassiveCorePerm.VERSION));
 	
 	// -------------------------------------------- //
 	// OVERRIDE

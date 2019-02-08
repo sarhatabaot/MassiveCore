@@ -997,13 +997,12 @@ public class MassiveCommand implements Active, PluginIdentifiableCommand
 
 	public void setupChildren()
 	{
-		for (MassiveCommand child : this.getChildren())
-		{
-			if (child.isSetupEnabled()) child.setup();
-		}
+		this.getChildren().stream()
+			.filter(MassiveCommand::isSetupEnabled)
+			.forEach(MassiveCommand::setup);
 	}
 	
-	private Class<?> getClassOrEnclosing(Object object)
+	private static Class<?> getClassOrEnclosing(Object object)
 	{
 		Class<?> clazz =  object.getClass();
 		Class<?> enclosingClass = clazz.getEnclosingClass();
@@ -1031,16 +1030,13 @@ public class MassiveCommand implements Active, PluginIdentifiableCommand
 		return ret;
 	}
 
-	protected <T extends Enum<T>> T calcPerm()
+	protected Object calcPerm()
 	{
-		Class<T> permClass = this.getSetupPermClass();
+		Class<? extends Enum<?>> permClass = this.getSetupPermClass();
 		String basePrefix = this.getSetupPermBaseClassName();
 
-		if (permClass == null) return null;
-		if (basePrefix == null) return null;
-
 		// Only try if the name matches with the expected prefix ...
-		String name = getClassOrEnclosing(this).getSimpleName(); //this.getClass().getSimpleName();
+		String name = getClassOrEnclosing(this).getSimpleName();
 		if ( ! name.startsWith(basePrefix)) return null;
 
 		// ... and remove the prefix  ...
@@ -1056,7 +1052,7 @@ public class MassiveCommand implements Active, PluginIdentifiableCommand
 		if (permName.isEmpty()) permName = "BASECOMMAND";
 
 		// Create ret
-		T ret = null;
+		Object ret = null;
 
 		// Try non-lenient
 		ret = getPerm(permName, false, permClass);
@@ -1066,11 +1062,13 @@ public class MassiveCommand implements Active, PluginIdentifiableCommand
 		ret = getPerm(permName, true, permClass);
 		if (ret != null) return ret;
 
-		throw new RuntimeException("Could not find permission matching: " + permName);
+		// Or calculate ourselves
+		return PermissionUtil.createPermissionId(this.getRoot().getPlugin(), permName);
 	}
 
-	protected static <T extends Enum<T>> T getPerm(String permName, boolean lenient, Class<T> permClass)
+	protected static <T extends Enum<T>> T getPerm(String permName, boolean lenient, Class<?> permClazz)
 	{
+		Class<T> permClass = (Class<T>) permClazz;
 		permName = getPermCompareString(permName, lenient);
 		for (T perm : TypeEnum.getEnumValues(permClass))
 		{

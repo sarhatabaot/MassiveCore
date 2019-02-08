@@ -159,7 +159,9 @@ public class DriverFlatfile extends DriverAbstract
 	
 	public static JsonObject loadFileJsonObject(File file)
 	{
-		return loadFileJson(file).getAsJsonObject();
+		JsonElement ret = loadFileJson(file);
+		if (ret == null) return null;
+		return ret.getAsJsonObject();
 	}
 
 	public static JsonElement loadFileJson(File file)
