@@ -103,9 +103,9 @@ public class ConfirmationUtil
 
 		boolean hasConfirmationString = hasConfirmationString(object, sender);
 		boolean hasTypedConfirmationString = object.argIsSet(idx);
-		boolean hasTypedOther = object.argIsSet(idx-1);
+		boolean hasTypedOther = idx == 0 || object.argIsSet(idx-1);
 
-		// Assetion should not happen
+		// Assertion should not happen
 		if (hasTypedConfirmationString && !hasTypedOther) throw new RuntimeException();
 
 		if (!hasTypedOther)
