@@ -35,7 +35,7 @@ public class EngineMassiveCorePlayerState extends Engine
 		if ( ! active) return;
 		
 		this.idToState.clear();
-		for (Player player : MUtil.getOnlinePlayers())
+		for (Player player : Bukkit.getOnlinePlayers())
 		{
 			this.idToState.put(player.getUniqueId(), PlayerState.JOINED);
 		}

@@ -34,7 +34,7 @@ public class SmokeUtil
 	// Single ========
 	public static void spawnSingle(Location location, int direction)
 	{
-		if (location == null) return;
+		if (location == null) throw new NullPointerException("location");
 		location.getWorld().playEffect(location, Effect.SMOKE, direction);
 	}
 	

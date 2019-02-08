@@ -181,7 +181,7 @@ public class IdUtil implements Listener, Runnable
 		Set<CommandSender> ret = new MassiveSet<>();
 		
 		// Add Online Players
-		ret.addAll(MUtil.getOnlinePlayers());
+		ret.addAll(Bukkit.getOnlinePlayers());
 		
 		// Add Console
 		ret.add(getConsole());
@@ -461,7 +461,7 @@ public class IdUtil implements Listener, Runnable
 	public static IdData getData(Object senderObject)
 	{
 		// Null Return
-		if (senderObject == null) return null;
+		if (senderObject == null) throw new NullPointerException("senderObject");
 		
 		// Already Done
 		if (senderObject instanceof IdData) return (IdData) senderObject;
@@ -525,7 +525,7 @@ public class IdUtil implements Listener, Runnable
 	public static CommandSender getSender(Object senderObject)
 	{
 		// Null Return
-		if (senderObject == null) return null;
+		if (senderObject == null) throw new NullPointerException("senderObject");
 		
 		// Already Done
 		if (senderObject instanceof CommandSender) return (CommandSender) senderObject;
@@ -590,7 +590,7 @@ public class IdUtil implements Listener, Runnable
 	public static UUID getUuid(Object senderObject)
 	{
 		// Null Return
-		if (senderObject == null) return null;
+		if (senderObject == null) throw new NullPointerException("senderObject");
 		
 		// Already Done
 		if (senderObject instanceof UUID) return (UUID)senderObject;
@@ -655,7 +655,7 @@ public class IdUtil implements Listener, Runnable
 	public static String getId(Object senderObject)
 	{
 		// Null Return
-		if (senderObject == null) return null;
+		if (senderObject == null) throw new NullPointerException("senderObject");
 		
 		// Already Done
 		if (senderObject instanceof String && MUtil.isUuid((String)senderObject)) return (String)senderObject;
@@ -731,7 +731,7 @@ public class IdUtil implements Listener, Runnable
 	public static String getName(Object senderObject)
 	{
 		// Null Return
-		if (senderObject == null) return null;
+		if (senderObject == null) throw new NullPointerException("senderObject");
 		
 		// Already Done
 		// Handled at "Data" (not applicable - names can look differently)
@@ -780,7 +780,7 @@ public class IdUtil implements Listener, Runnable
 	public static OfflinePlayer getOfflinePlayer(Object senderObject)
 	{
 		// Null Return
-		if (senderObject == null) return null;
+		if (senderObject == null) throw new NullPointerException("senderObject");
 
 		// Already done
 		if (senderObject instanceof OfflinePlayer) return (OfflinePlayer) senderObject;
@@ -965,7 +965,7 @@ public class IdUtil implements Listener, Runnable
 		
 		long millis = System.currentTimeMillis();
 		
-		for (Player player : MUtil.getOnlinePlayers())
+		for (Player player : Bukkit.getOnlinePlayers())
 		{
 			String id = getId(player);
 			if (id == null) throw new NullPointerException("id");

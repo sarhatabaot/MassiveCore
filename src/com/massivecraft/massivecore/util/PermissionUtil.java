@@ -83,7 +83,7 @@ public class PermissionUtil
 	
 	public static String asPermissionId(Object object)
 	{
-		if (object == null) return null;
+		if (object == null) throw new NullPointerException("object");
 		
 		if (object instanceof String) return (String)object;
 		if (object instanceof Identified) return ((Identified)object).getId();
@@ -94,7 +94,7 @@ public class PermissionUtil
 	
 	public static Permission asPermission(Object object)
 	{
-		if (object == null) return null;
+		if (object == null) throw new NullPointerException("object");
 		
 		if (object instanceof Permission) return (Permission)object;
 		
@@ -228,6 +228,8 @@ public class PermissionUtil
 	
 	public static boolean setPermissionStandardChildren(Permission permission, PermissionDefault standard, Map<String, Boolean> children)
 	{
+		if (permission == null) throw new NullPointerException("permission");
+
 		boolean childrenChanged = false;
 		boolean standardChanged = false;
 		

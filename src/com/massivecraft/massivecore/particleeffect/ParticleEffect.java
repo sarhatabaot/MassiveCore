@@ -1,8 +1,8 @@
 package com.massivecraft.massivecore.particleeffect;
 
 import com.massivecraft.massivecore.particleeffect.ReflectionUtils.PackageType;
-import com.massivecraft.massivecore.util.MUtil;
 import com.massivecraft.massivecore.util.ReflectionUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -1512,7 +1512,7 @@ public enum ParticleEffect {
 			}
 			String worldName = center.getWorld().getName();
 			double squared = range * range;
-			for (Player player : MUtil.getOnlinePlayers()) {
+			for (Player player : Bukkit.getOnlinePlayers()) {
 				if (!player.getWorld().getName().equals(worldName) || player.getLocation().distanceSquared(center) > squared) {
 					continue;
 				}

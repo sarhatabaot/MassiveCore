@@ -1650,28 +1650,5 @@ public class MassiveCommand implements Active, PluginIdentifiableCommand
 		// Increment is done in this method
 		return readArgAt(idx);
 	}
-
-	// TODO: Some of these are still used by external plugins.
-	// TODO: Fix those plugins.
-
-	@Deprecated
-	public <T> T readArgFrom(Type<T> type) throws MassiveException
-	{
-		return this.readArgFrom(null, type);
-	}
-
-	@Deprecated
-	public <T> T readArgFrom(String str, Type<T> type) throws MassiveException
-	{
-		if (type == null) throw new IllegalArgumentException("type is null");
-		return type.read(str, this.sender);
-	}
-
-	@Deprecated
-	public <T> T readArgFrom(String str, Type<T> type, T defaultNotSet) throws MassiveException
-	{
-		if (str == null) return defaultNotSet;
-		return this.readArgFrom(str, type);
-	}
 	
 }

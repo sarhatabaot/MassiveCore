@@ -64,7 +64,7 @@ public class PlayerUtil extends Engine
 	
 	public static void setLastMoveMillis(Player player, long millis)
 	{
-		if (player == null) return;
+		if (player == null) throw new NullPointerException("player");
 		idToLastMoveMillis.put(player.getUniqueId(), millis);
 	}
 	
@@ -94,7 +94,7 @@ public class PlayerUtil extends Engine
 	
 	public static long getLastMoveMillis(Player player)
 	{
-		if (player == null) return 0;
+		if (player == null) throw new NullPointerException("player");
 		Long ret = idToLastMoveMillis.get(player.getUniqueId());
 		if (ret == null) return 0;
 		return ret;
@@ -102,7 +102,7 @@ public class PlayerUtil extends Engine
 	
 	public static long getStandStillMillis(Player player)
 	{
-		if (player == null) return 0;
+		if (player == null) throw new NullPointerException("player");
 		if (player.isDead()) return 0;
 		if (!player.isOnline()) return 0;
 		
@@ -122,8 +122,8 @@ public class PlayerUtil extends Engine
 	
 	public static void setLastDamageMillis(Player player, long millis)
 	{
+		if (player == null) throw new NullPointerException("player");
 		if (MUtil.isntPlayer(player)) return;
-		if (player == null) return;
 		idToLastDamageMillis.put(player.getUniqueId(), millis);
 	}
 	
@@ -157,6 +157,7 @@ public class PlayerUtil extends Engine
 	
 	public static long getLastDamageMillis(Player player)
 	{
+		if (player == null) throw new NullPointerException("player");
 		if (MUtil.isntPlayer(player)) return 0;
 		Long ret = idToLastDamageMillis.get(player.getUniqueId());
 		if (ret == null) return 0;
@@ -165,6 +166,7 @@ public class PlayerUtil extends Engine
 	
 	public static long getNoDamageMillis(Player player)
 	{
+		if (player == null) throw new NullPointerException("player");
 		if (MUtil.isntPlayer(player)) return 0;
 		if (player.isDead()) return 0;
 		if (!player.isOnline()) return 0;

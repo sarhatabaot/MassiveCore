@@ -70,7 +70,7 @@ public class TimeUnit implements Comparable<TimeUnit>
 	
 	public static TimeUnit get(String timeUnitString)
 	{
-		if (timeUnitString == null) return null;
+		if (timeUnitString == null) throw new NullPointerException("timeUnitString");
 		String timeUnitStringLowerCase = timeUnitString.toLowerCase(); 
 		for (TimeUnit timeUnit : all)
 		{

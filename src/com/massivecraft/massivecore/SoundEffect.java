@@ -81,12 +81,13 @@ public final class SoundEffect implements Serializable
 	
 	public void run(Location location)
 	{
-		if (location == null) return;
+		if (location == null) throw new NullPointerException("location");
 		location.getWorld().playSound(location, this.getSound(), this.getVolume(), this.getPitch());
 	}
 	
 	public void run(HumanEntity human, Location location)
 	{
+		if (human == null) throw new NullPointerException("human");
 		if (MUtil.isntPlayer(human)) return;
 		Player player = (Player)human;
 		player.playSound(location, this.getSound(), this.getVolume(), this.getPitch());
@@ -94,6 +95,7 @@ public final class SoundEffect implements Serializable
 	
 	public void run(HumanEntity human)
 	{
+		if (human == null) throw new NullPointerException("human");
 		if (MUtil.isntPlayer(human)) return;
 		this.run(human, human.getEyeLocation());
 	}
@@ -144,8 +146,6 @@ public final class SoundEffect implements Serializable
 	@Override
 	public boolean equals(Object obj)
 	{
-		if (this == obj) return true;
-		if (obj == null) return false;
 		if (!(obj instanceof SoundEffect)) return false;
 		SoundEffect other = (SoundEffect) obj;
 		if (Float.floatToIntBits(pitch) != Float.floatToIntBits(other.pitch)) return false;

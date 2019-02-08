@@ -56,7 +56,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.projectiles.ProjectileSource;
 
-import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.InetAddress;
@@ -82,98 +81,16 @@ import java.util.regex.Pattern;
 public class MUtil
 {
 	// -------------------------------------------- //
-	// CONSTANTS
-	// -------------------------------------------- //
-	
-	private static Method methodGetOnlinePlayers;
-	
-	static
-	{
-		methodGetOnlinePlayers = getMethodGetOnlinePlayers();
-	}
-
-	// -------------------------------------------- //
 	// GET ONLINE PLAYERS
 	// -------------------------------------------- //
-	// It seems we can not always trust the Bukkit.getOnlinePlayers() method.
-	// Due to compilation issue this method might not exist in the form we compiled against.
-	// Spigot 1.8 and the 1.7 Bukkit might have been compiled slightly differently resulting in this issue.
-	// Issue Example: https://github.com/MassiveCraft/MassiveCore/issues/192
-	
-	public static Method getMethodGetOnlinePlayers()
-	{
-		Method ret = null;
-		
-		try
-		{
-			for (Method method : Bukkit.class.getDeclaredMethods())
-			{
-				// The method name must be getOnlinePlayers ...
-				if ( ! method.getName().equals("getOnlinePlayers")) continue;
-				
-				// ... if we find such a method it's better than nothing ...
-				if (ret == null) ret = method;
-				
-				// ... but if the method additionally returns a collection ...
-				if ( ! method.getReturnType().isAssignableFrom(Collection.class)) continue;
-				
-				// ... that is preferable ...
-				ret = method;
-				
-				// ... and we need not look any further.
-				break;
-			}
-			
-			ret.setAccessible(true);
-		}
-		catch (Exception e)
-		{
-			// If we fail we do so silently.
-			// This method is probably almost never going to be used anyways.
-		}
-		
-		return ret;
-	}
-	
+	// Old thing that had to do with the converfrion from 1.17 to 1.8
+
+	@Deprecated
 	public static Collection<Player> getOnlinePlayers()
 	{
-		// Fetch some kind of playersObject.
-		Object playersObject = null;
-		try
-		{
-			playersObject = Bukkit.getOnlinePlayers();
-		}
-		catch (Throwable t)
-		{
-			// That didn't work!
-			// We probably just caught a NoSuchMethodError.
-			// So let's try with reflection instead.
-			try
-			{
-				playersObject = methodGetOnlinePlayers.invoke(null);
-			}
-			catch (Exception e)
-			{
-				e.printStackTrace();
-			}
-		}
-		
-		// Now return the playersObject.
-		if (playersObject instanceof Collection<?>)
-		{
-			@SuppressWarnings("unchecked")
-			Collection<Player> playersCollection = (Collection<Player>)playersObject;
-			return playersCollection;
-		}
-		else if (playersObject instanceof Player[])
-		{
-			Player[] playersArray = (Player[])playersObject;
-			return Arrays.asList(playersArray);
-		}
-		else
-		{
-			throw new RuntimeException("Failed retrieving online players.");
-		}
+		Collection<? extends Player>coll = Bukkit.getOnlinePlayers();
+		List<Player> ret = new MassiveList<>(coll.size());
+		return ret;
 	}
 	
 	// -------------------------------------------- //
@@ -195,7 +112,7 @@ public class MUtil
 		// Fill
 		final World world = location.getWorld();
 		final double radiusSquared = radius * radius;
-		for (Player player : MUtil.getOnlinePlayers())
+		for (Player player : Bukkit.getOnlinePlayers())
 		{
 			Location playerLocation = player.getLocation();
 			World playerWorld = playerLocation.getWorld();
@@ -251,7 +168,7 @@ public class MUtil
 	public static UUID asUuid(String string)
 	{
 		// Null
-		if (string == null) return null;
+		if (string == null) throw new NullPointerException("string");
 		
 		// Avoid Exception
 		if (string.length() != 36) return null;
@@ -285,7 +202,7 @@ public class MUtil
 	
 	public static boolean containsCommand(String needle, Iterable<String> haystack)
 	{
-		if (needle == null) return false;
+		if (needle == null) throw new NullPointerException("needle");
 		needle = prepareCommand(needle);
 		
 		for (String straw : haystack)
@@ -314,7 +231,7 @@ public class MUtil
 	
 	private static String prepareCommand(String string)
 	{
-		if (string == null) return null;
+		if (string == null) throw new NullPointerException("string");
 		string = Txt.removeLeadingCommandDust(string);
 		string = string.toLowerCase();
 		string = string.trim();
@@ -384,6 +301,8 @@ public class MUtil
 	
 	public static boolean isNpc(Object object)
 	{
+		if (object == null) throw new NullPointerException("object");
+
 		if ( ! (object instanceof Metadatable)) return false;
 		Metadatable metadatable = (Metadatable)object;
 		try
@@ -405,6 +324,8 @@ public class MUtil
 	
 	public static boolean isSender(Object object)
 	{
+		if (object == null) throw new NullPointerException("object");
+
 		if (!(object instanceof CommandSender)) return false;
 		if (isNpc(object)) return false;
 		return true;
@@ -416,6 +337,8 @@ public class MUtil
 	
 	public static boolean isPlayer(Object object)
 	{
+		if (object == null) throw new NullPointerException("object");
+
 		if (!(object instanceof Player)) return false;
 		if (isNpc(object)) return false;
 		return true;
@@ -953,7 +876,7 @@ public class MUtil
 	
 	public static <T> T regexPickFirstVal(String input, Map<String, T> regex2val)
 	{
-		if (regex2val == null) return null;
+		if (regex2val == null) throw new NullPointerException("regex2val");
 		T ret = null;
 		
 		for (Entry<String, T> entry : regex2val.entrySet())
@@ -969,7 +892,7 @@ public class MUtil
 	
 	public static <E, T> T equalsPickFirstVal(E input, Map<E, T> thing2val)
 	{
-		if (thing2val == null) return null;
+		if (thing2val == null) throw new NullPointerException("thing2val");
 		T ret = null;
 		
 		for (Entry<E, T> entry : thing2val.entrySet())

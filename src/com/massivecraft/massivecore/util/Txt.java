@@ -170,7 +170,7 @@ public class Txt
 	
 	public static String parse(String string)
 	{
-		if (string == null) return null;
+		if (string == null) throw new NullPointerException("string");
 		StringBuffer ret = new StringBuffer();
 		Matcher matcher = parsePattern.matcher(string);
 		while (matcher.find())
@@ -202,7 +202,7 @@ public class Txt
 	
 	public static ArrayList<String> wrap(final String string)
 	{
-		if (string == null) return null;
+		if (string == null) throw new NullPointerException("string");
 		return new ArrayList<>(Arrays.asList(PATTERN_NEWLINE.split(string)));
 	}
 	
@@ -245,13 +245,13 @@ public class Txt
 	
 	public static String upperCaseFirst(String string)
 	{
-		if (string == null) return null;
+		if (string == null) throw new NullPointerException("string");
 		if (string.length() == 0) return string;
 		return string.substring(0, 1).toUpperCase() + string.substring(1);
 	}
 	public static String lowerCaseFirst(String string)
 	{
-		if (string == null) return null;
+		if (string == null) throw new NullPointerException("string");
 		if (string.length() == 0) return string;
 		return string.substring(0, 1).toLowerCase() + string.substring(1);
 	}
@@ -392,7 +392,8 @@ public class Txt
 	
 	public static boolean isVowel(String str)
 	{
-		if (str == null || str.length() == 0) return false;
+		if (str == null) throw new NullPointerException("str");
+		if (str.length() == 0) return false;
 		return vowel.contains(str.substring(0, 1));
 	}
 	
@@ -782,7 +783,7 @@ public class Txt
 	
 	public static String removeSmartQuotes(String string)
 	{
-		if (string == null) return null;
+		if (string == null) throw new NullPointerException("string");
 		
 		// LEFT SINGLE QUOTATION MARK
 		string = string.replace("\u2018", "'");

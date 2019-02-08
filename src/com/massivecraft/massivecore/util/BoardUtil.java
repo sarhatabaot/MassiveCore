@@ -145,7 +145,7 @@ public class BoardUtil extends Engine
 		Map<String, Player> players = new MassiveMap<>();
 		
 		// Fill
-		for (Player player : MUtil.getOnlinePlayers())
+		for (Player player : Bukkit.getOnlinePlayers())
 		{
 			players.put(player.getName(), player);
 		}

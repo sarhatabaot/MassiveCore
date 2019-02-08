@@ -1,7 +1,7 @@
 package com.massivecraft.massivecore.mixin;
 
 import com.massivecraft.massivecore.util.IdUtil;
-import com.massivecraft.massivecore.util.MUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 public class MixinVisibility extends Mixin
@@ -29,7 +29,7 @@ public class MixinVisibility extends Mixin
 		Player pwatchee = IdUtil.getPlayer(watcheeObject);
 		if (pwatchee == null) return true;
 		
-		for (Player pwatcher : MUtil.getOnlinePlayers())
+		for (Player pwatcher : Bukkit.getOnlinePlayers())
 		{
 			if (pwatchee.equals(pwatcher)) continue;
 			if (pwatcher.canSee(pwatchee)) continue;
