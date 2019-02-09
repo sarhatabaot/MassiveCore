@@ -320,8 +320,6 @@ public class MassiveCommand implements Active, PluginIdentifiableCommand
 		// Apply
 		this.parent = parent;
 		parent.addChild(this);
-
-		if (parent instanceof MassiveCommandDeprecated) MUtil.stackTraceDebug(getClassOrEnclosing(this).getSimpleName());
 	}
 	
 	@SuppressWarnings("unchecked")
