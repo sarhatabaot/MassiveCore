@@ -24,7 +24,7 @@ public abstract class EntityContainerAbstract<E extends EntityInternal<E>> imple
 	@Override
 	public String fixId(Object oid)
 	{
-		if (oid == null) return null;
+		if (oid == null) throw new NullPointerException("oid");
 		
 		String ret = null;
 		if (oid instanceof String) ret = (String) oid;
@@ -45,29 +45,33 @@ public abstract class EntityContainerAbstract<E extends EntityInternal<E>> imple
 	@Override
 	public E get(Object oid)
 	{
+		if (oid == null) throw new NullPointerException("oid");
 		return this.getFixed(this.fixId(oid));
 	}
 	
 	@Override
 	public E get(Object oid, boolean creative)
 	{
+		if (oid == null) throw new NullPointerException("oid");
 		return this.getFixed(this.fixId(oid), creative);
 	}
 	
 	@Override 
 	public E getFixed(String id) 
 	{
+		if (id == null) throw new NullPointerException("id");
 		return this.getFixed(id, this.isCreative());
 	}
 	
 	@Override
 	public E getFixed(String id, boolean creative)
 	{
+		if (id == null) throw new NullPointerException("id");
 		return this.getFixed(id, creative, true);
 	}
 	protected E getFixed(String id, boolean creative, boolean noteModification)
 	{
-		if (id == null) return null;
+		if (id == null) throw new NullPointerException("id");
 		E ret = this.getIdToEntity().get(id);
 		if (ret != null) return ret;
 		if ( ! creative) return null;
@@ -79,19 +83,21 @@ public abstract class EntityContainerAbstract<E extends EntityInternal<E>> imple
 	@Override
 	public boolean containsId(Object oid)
 	{
+		if (oid == null) throw new NullPointerException("oid");
 		return this.containsIdFixed(this.fixId(oid));
 	}
 	
 	@Override
 	public boolean containsIdFixed(String id)
 	{
-		if (id == null) return false;
+		if (id == null) throw new NullPointerException("id");
 		return this.getIdToEntity().containsKey(id);
 	}
 	
 	@Override
 	public boolean containsEntity(Object entity)
 	{
+		if (entity == null) throw new NullPointerException("entity");
 		return this.getIdToEntity().containsValue(entity);
 	}
 	
