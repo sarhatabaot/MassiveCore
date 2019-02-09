@@ -320,6 +320,8 @@ public class MassiveCommand implements Active, PluginIdentifiableCommand
 		// Apply
 		this.parent = parent;
 		parent.addChild(this);
+
+		if (parent instanceof MassiveCommandDeprecated) MUtil.stackTraceDebug(getClassOrEnclosing(this).getSimpleName());
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -982,6 +984,8 @@ public class MassiveCommand implements Active, PluginIdentifiableCommand
 
 	public void setupAddChildren()
 	{
+		if (this instanceof MassiveCommandDeprecated) return;
+
 		for (Field field : this.getClassOrEnclosing(this).getDeclaredFields())
 		{
 			ReflectionUtil.makeAccessible(field);
@@ -989,7 +993,6 @@ public class MassiveCommand implements Active, PluginIdentifiableCommand
 
 			if (!MassiveCommand.class.isAssignableFrom(fieldType)) continue;
 			if (Modifier.isStatic(field.getModifiers())) continue;
-
 			MassiveCommand child = ReflectionUtil.getField(field, this);
 			this.addChild(child);
 		}
@@ -1015,11 +1018,14 @@ public class MassiveCommand implements Active, PluginIdentifiableCommand
 		if (this.isRoot()) return null;
 
 		// ... get name of parent ...
-		String parentName = this.getClassOrEnclosing(this.getParent()).getSimpleName();
+		String parentName = getClassOrEnclosing(this.getParent()).getSimpleName();
 
 		// ... and only try if the names match ...
 		String name = this.getClass().getSimpleName();
-		if ( ! name.startsWith(parentName)) return null;
+		if ( ! name.startsWith(parentName))
+		{
+			return null;
+		}
 
 		// ... and without parent prefix ...
 		String ret = name.substring(parentName.length());
