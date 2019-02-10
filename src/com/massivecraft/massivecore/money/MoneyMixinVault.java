@@ -252,6 +252,7 @@ public class MoneyMixinVault extends MoneyMixinAbstract
 
 	public static Object getEconomyObject(String accountId)
 	{
+		if (null == accountId) return null;
 		// Because of Factions we have this crazy-workaround.
 		// Where offlineplayers will be used when possible
 		// but otherwise names will.
