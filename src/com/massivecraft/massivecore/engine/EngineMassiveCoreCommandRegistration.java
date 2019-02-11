@@ -1,6 +1,7 @@
 package com.massivecraft.massivecore.engine;
 
 import com.massivecraft.massivecore.Engine;
+import com.massivecraft.massivecore.collections.MassiveList;
 import com.massivecraft.massivecore.command.MassiveCommand;
 import com.massivecraft.massivecore.command.MassiveCoreBukkitCommand;
 import com.massivecraft.massivecore.util.ReflectionUtil;
@@ -13,6 +14,7 @@ import org.bukkit.plugin.Plugin;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -50,24 +52,7 @@ public class EngineMassiveCoreCommandRegistration extends Engine
 		Map<String, Command> knownCommands = getSimpleCommandMapDotKnownCommands(simpleCommandMap);
 		
 		// Step #2: Create a "name --> target" map that contains the MassiveCommands that /should/ be registered in Bukkit. 
-		Map<String, MassiveCommand> nameTargets = new HashMap<>();
-		// For each MassiveCommand that is supposed to be registered ...
-		for (MassiveCommand massiveCommand : MassiveCommand.getAllInstances())
-		{
-			// ... and for each of it's aliases ...
-			for (String alias : massiveCommand.getAliases())
-			{
-				// ... that aren't null ...
-				if (alias == null) continue;
-				
-				// ... clean the alias ...
-				alias = alias.trim().toLowerCase();
-				
-				// ... and put it in the map.
-				// NOTE: In case the same alias is used by many commands the overwrite occurs here!
-				nameTargets.put(alias, massiveCommand);
-			}
-		}
+		Map<String, MassiveCommand> nameTargets = getNameTargets();
 		
 		// Step #3: Ensure the nameTargets created in Step #2 are registered in Bukkit.
 		// For each nameTarget entry ...
@@ -103,6 +88,9 @@ public class EngineMassiveCoreCommandRegistration extends Engine
 		
 		// Step #4: Remove/Unregister MassiveCommands from Bukkit that are but should not be that any longer. 
 		// For each known command ...
+
+		List<Entry<String, Command>> deregisters = new MassiveList<>();
+
 		Iterator<Entry<String, Command>> iter = knownCommands.entrySet().iterator();
 		while (iter.hasNext())
 		{
@@ -118,10 +106,38 @@ public class EngineMassiveCoreCommandRegistration extends Engine
 			if (nameTargets.containsKey(name)) continue;
 			
 			// ... unregister it.
-			command.unregister(simpleCommandMap);
-			iter.remove();
+			deregisters.add(entry);
 		}
-		
+
+		// This is done to avoid a CME which sometimes happens on PaperSpigot
+		for (Entry<String, Command> deregister : deregisters)
+		{
+			knownCommands.remove(deregister.getKey());
+			deregister.getValue().unregister(simpleCommandMap);
+		}
+	}
+
+	private static Map<String, MassiveCommand> getNameTargets()
+	{
+		Map<String, MassiveCommand> ret = new HashMap<>();
+		// For each MassiveCommand that is supposed to be registered ...
+		for (MassiveCommand massiveCommand : MassiveCommand.getAllInstances())
+		{
+			// ... and for each of it's aliases ...
+			for (String alias : massiveCommand.getAliases())
+			{
+				// ... that aren't null ...
+				if (alias == null) throw new NullPointerException(massiveCommand.getClass().getSimpleName());
+
+				// ... clean the alias ...
+				alias = alias.trim().toLowerCase();
+
+				// ... and put it in the map.
+				// NOTE: In case the same alias is used by many commands the overwrite occurs here!
+				ret.put(alias, massiveCommand);
+			}
+		}
+		return ret;
 	}
 	
 	// -------------------------------------------- //
