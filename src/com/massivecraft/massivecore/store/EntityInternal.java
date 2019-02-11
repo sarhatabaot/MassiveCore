@@ -39,6 +39,12 @@ public class EntityInternal<E extends EntityInternal<E>> implements Identified
 	{
 		return this.id;
 	}
+	public String getIdOrThrow()
+	{
+		String id = this.getId();
+		if (id == null) throw new NullPointerException("id");
+		return id;
+	}
 	
 	// -------------------------------------------- //
 	// ATTACH AND DETACH

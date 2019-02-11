@@ -800,6 +800,7 @@ public class IdUtil implements Listener, Runnable
 	
 	public static boolean isOnline(Object senderObject)
 	{
+		if (senderObject == null) throw new NullPointerException("senderObject");
 		// Fix the id ...
 		String id = getId(senderObject);
 		if (id == null) return false;

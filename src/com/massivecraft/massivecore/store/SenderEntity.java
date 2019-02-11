@@ -190,32 +190,32 @@ public abstract class SenderEntity<E extends SenderEntity<E>> extends Entity<E> 
 
 	public boolean isOnline()
 	{
-		return MixinPlayed.get().isOnline(this.getId());
+		return MixinPlayed.get().isOnline(this.getIdOrThrow());
 	}
 	
 	public boolean isOffline()
 	{
-		return MixinPlayed.get().isOffline(this.getId());
+		return MixinPlayed.get().isOffline(this.getIdOrThrow());
 	}
 	
 	public Long getLastPlayed()
 	{
-		return MixinPlayed.get().getLastPlayed(this.getId());
+		return MixinPlayed.get().getLastPlayed(this.getIdOrThrow());
 	}
 	
 	public Long getFirstPlayed()
 	{
-		return MixinPlayed.get().getFirstPlayed(this.getId());
+		return MixinPlayed.get().getFirstPlayed(this.getIdOrThrow());
 	}
 	
 	public boolean hasPlayedBefore()
 	{
-		return MixinPlayed.get().hasPlayedBefore(this.getId());
+		return MixinPlayed.get().hasPlayedBefore(this.getIdOrThrow());
 	}
 	
 	public String getIp()
 	{
-		return MixinPlayed.get().getIp(this.getId());
+		return MixinPlayed.get().getIp(this.getIdOrThrow());
 	}
 	
 	public boolean isVisible()

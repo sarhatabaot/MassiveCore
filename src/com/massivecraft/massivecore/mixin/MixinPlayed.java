@@ -24,16 +24,19 @@ public class MixinPlayed extends Mixin
 	
 	public boolean isOnline(Object senderObject)
 	{
+		if (senderObject == null) throw new NullPointerException("senderObject");
 		return IdUtil.isOnline(senderObject);
 	}
 	
 	public boolean isOffline(Object senderObject)
 	{
+		if (senderObject == null) throw new NullPointerException("senderObject");
 		return ! this.isOnline(senderObject);
 	}
 	
 	public Long getFirstPlayed(Object senderObject)
 	{
+		if (senderObject == null) throw new NullPointerException("senderObject");
 		if (MUtil.isNpc(senderObject)) return null;
 		
 		UUID uuid = IdUtil.getUuid(senderObject);
@@ -49,6 +52,7 @@ public class MixinPlayed extends Mixin
 	
 	public Long getLastPlayed(Object senderObject)
 	{
+		if (senderObject == null) throw new NullPointerException("senderObject");
 		//if (this.isOnline(senderObject)) return System.currentTimeMillis();
 		// We do in fact NOT want this commented out behavior
 		// It's important we can check the previous played time on join!
@@ -68,12 +72,14 @@ public class MixinPlayed extends Mixin
 	
 	public boolean hasPlayedBefore(Object senderObject)
 	{
+		if (senderObject == null) throw new NullPointerException("senderObject");
 		Long firstPlayed = this.getFirstPlayed(senderObject);
 		return firstPlayed != null && firstPlayed != 0;
 	}
 	
 	public String getIp(Object senderObject)
 	{
+		if (senderObject == null) throw new NullPointerException("senderObject");
 		CommandSender sender = IdUtil.getSender(senderObject);
 		if (MUtil.isntPlayer(senderObject)) return null;
 		return MUtil.getIp(sender);
