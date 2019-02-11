@@ -28,7 +28,7 @@ public class EngineMassiveCoreCommandRegistration extends Engine
 	public static EngineMassiveCoreCommandRegistration get() { return i; }
 	public EngineMassiveCoreCommandRegistration()
 	{
-		this.setPeriod(20L); // Every second
+		this.setPeriod(200L); // Every 10 seconds
 	}
 	
 	// -------------------------------------------- //
