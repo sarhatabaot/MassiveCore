@@ -1,8 +1,8 @@
 package com.massivecraft.massivecore.cmd;
 
-import com.massivecraft.massivecore.Aspect;
+import com.massivecraft.massivecore.entity.Aspect;
 import com.massivecraft.massivecore.MassiveException;
-import com.massivecraft.massivecore.Multiverse;
+import com.massivecraft.massivecore.entity.Multiverse;
 import com.massivecraft.massivecore.command.type.store.TypeAspect;
 import com.massivecraft.massivecore.command.type.store.TypeMultiverse;
 

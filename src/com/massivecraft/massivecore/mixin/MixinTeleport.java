@@ -1,6 +1,6 @@
 package com.massivecraft.massivecore.mixin;
 
-import com.massivecraft.massivecore.MassiveCoreMConf;
+import com.massivecraft.massivecore.entity.MassiveCoreMConf;
 import com.massivecraft.massivecore.engine.EngineMassiveCoreTeleportMixinCause;
 import com.massivecraft.massivecore.event.EventMassiveCorePlayerPSTeleport;
 import com.massivecraft.massivecore.ps.PS;

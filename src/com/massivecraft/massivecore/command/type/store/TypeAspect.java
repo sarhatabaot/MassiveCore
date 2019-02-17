@@ -1,7 +1,7 @@
 package com.massivecraft.massivecore.command.type.store;
 
-import com.massivecraft.massivecore.Aspect;
-import com.massivecraft.massivecore.AspectColl;
+import com.massivecraft.massivecore.entity.Aspect;
+import com.massivecraft.massivecore.entity.AspectColl;
 import com.massivecraft.massivecore.MassiveCorePerm;
 import org.bukkit.command.CommandSender;
 

@@ -1,7 +1,7 @@
 package com.massivecraft.massivecore.cmd;
 
 import com.massivecraft.massivecore.MassiveCore;
-import com.massivecraft.massivecore.MassiveCoreMConf;
+import com.massivecraft.massivecore.entity.MassiveCoreMConf;
 import com.massivecraft.massivecore.MassiveException;
 import com.massivecraft.massivecore.command.requirement.RequirementIsPlayer;
 import com.massivecraft.massivecore.command.type.primitive.TypeString;

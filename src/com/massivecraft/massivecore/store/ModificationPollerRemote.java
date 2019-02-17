@@ -1,6 +1,6 @@
 package com.massivecraft.massivecore.store;
 
-import com.massivecraft.massivecore.MassiveCoreMConf;
+import com.massivecraft.massivecore.entity.MassiveCoreMConf;
 
 /*
  * This class polls for remote changes in colls.

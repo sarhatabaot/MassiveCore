@@ -2,7 +2,7 @@ package com.massivecraft.massivecore.engine;
 
 import com.massivecraft.massivecore.Engine;
 import com.massivecraft.massivecore.MassiveCore;
-import com.massivecraft.massivecore.MassiveCoreMConf;
+import com.massivecraft.massivecore.entity.MassiveCoreMConf;
 import com.massivecraft.massivecore.event.EventMassiveCorePlayerCleanInactivityToleranceMillis;
 import com.massivecraft.massivecore.store.Coll;
 import com.massivecraft.massivecore.store.cleanable.CleaningUtil;

@@ -1,6 +1,6 @@
 package com.massivecraft.massivecore.entity.migrator;
 
-import com.massivecraft.massivecore.MassiveCoreMConf;
+import com.massivecraft.massivecore.entity.MassiveCoreMConf;
 import com.massivecraft.massivecore.store.migrator.MigratorFieldRename;
 import com.massivecraft.massivecore.store.migrator.MigratorRoot;
 

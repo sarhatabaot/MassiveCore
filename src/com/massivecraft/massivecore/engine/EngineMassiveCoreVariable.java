@@ -1,7 +1,7 @@
 package com.massivecraft.massivecore.engine;
 
 import com.massivecraft.massivecore.Engine;
-import com.massivecraft.massivecore.MassiveCoreMConf;
+import com.massivecraft.massivecore.entity.MassiveCoreMConf;
 import com.massivecraft.massivecore.MassiveCorePerm;
 import com.massivecraft.massivecore.util.IdUtil;
 import com.massivecraft.massivecore.util.InventoryUtil;

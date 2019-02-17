@@ -1,8 +1,8 @@
 package com.massivecraft.massivecore.cmd;
 
 import com.massivecraft.massivecore.MassiveException;
-import com.massivecraft.massivecore.Multiverse;
-import com.massivecraft.massivecore.MultiverseColl;
+import com.massivecraft.massivecore.entity.Multiverse;
+import com.massivecraft.massivecore.entity.MultiverseColl;
 import com.massivecraft.massivecore.command.Parameter;
 import com.massivecraft.massivecore.pager.Pager;
 import com.massivecraft.massivecore.pager.Stringifier;

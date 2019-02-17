@@ -1,6 +1,6 @@
 package com.massivecraft.massivecore.cmd;
 
-import com.massivecraft.massivecore.Aspect;
+import com.massivecraft.massivecore.entity.Aspect;
 import com.massivecraft.massivecore.MassiveException;
 import com.massivecraft.massivecore.command.type.store.TypeAspect;
 import com.massivecraft.massivecore.util.Txt;

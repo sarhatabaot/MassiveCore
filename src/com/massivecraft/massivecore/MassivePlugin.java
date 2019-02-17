@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.massivecraft.massivecore.collections.MassiveList;
 import com.massivecraft.massivecore.command.MassiveCommand;
 import com.massivecraft.massivecore.engine.EngineMassiveCoreCommandRegistration;
+import com.massivecraft.massivecore.entity.MassiveCoreMConf;
 import com.massivecraft.massivecore.mixin.Mixin;
 import com.massivecraft.massivecore.mixin.MixinMessage;
 import com.massivecraft.massivecore.predicate.Predicate;

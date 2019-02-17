@@ -1,7 +1,7 @@
 package com.massivecraft.massivecore.command.type;
 
-import com.massivecraft.massivecore.Aspect;
-import com.massivecraft.massivecore.Multiverse;
+import com.massivecraft.massivecore.entity.Aspect;
+import com.massivecraft.massivecore.entity.Multiverse;
 
 import java.util.Collection;
 

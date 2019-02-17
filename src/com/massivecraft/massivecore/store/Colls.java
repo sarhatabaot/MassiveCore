@@ -1,9 +1,9 @@
 package com.massivecraft.massivecore.store;
 
 import com.massivecraft.massivecore.Active;
-import com.massivecraft.massivecore.Aspect;
+import com.massivecraft.massivecore.entity.Aspect;
 import com.massivecraft.massivecore.MassivePlugin;
-import com.massivecraft.massivecore.Multiverse;
+import com.massivecraft.massivecore.entity.Multiverse;
 import com.massivecraft.massivecore.util.MUtil;
 
 import java.util.ArrayList;

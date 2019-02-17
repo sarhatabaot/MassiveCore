@@ -1,7 +1,7 @@
 package com.massivecraft.massivecore.command;
 
 import com.massivecraft.massivecore.Lang;
-import com.massivecraft.massivecore.MassiveCoreMConf;
+import com.massivecraft.massivecore.entity.MassiveCoreMConf;
 import com.massivecraft.massivecore.collections.MassiveList;
 import com.massivecraft.massivecore.mixin.MixinMessage;
 import com.massivecraft.massivecore.util.MUtil;

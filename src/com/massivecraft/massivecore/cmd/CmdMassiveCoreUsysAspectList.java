@@ -1,7 +1,7 @@
 package com.massivecraft.massivecore.cmd;
 
-import com.massivecraft.massivecore.Aspect;
-import com.massivecraft.massivecore.AspectColl;
+import com.massivecraft.massivecore.entity.Aspect;
+import com.massivecraft.massivecore.entity.AspectColl;
 import com.massivecraft.massivecore.MassiveException;
 import com.massivecraft.massivecore.command.Parameter;
 import com.massivecraft.massivecore.pager.Pager;

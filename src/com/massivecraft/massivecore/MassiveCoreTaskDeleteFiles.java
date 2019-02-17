@@ -1,5 +1,7 @@
 package com.massivecraft.massivecore;
 
+import com.massivecraft.massivecore.entity.MassiveCoreMConf;
+
 import java.io.File;
 
 public class MassiveCoreTaskDeleteFiles implements Runnable

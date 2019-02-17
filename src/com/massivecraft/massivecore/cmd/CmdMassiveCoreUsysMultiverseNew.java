@@ -1,7 +1,7 @@
 package com.massivecraft.massivecore.cmd;
 
 import com.massivecraft.massivecore.MassiveException;
-import com.massivecraft.massivecore.MultiverseColl;
+import com.massivecraft.massivecore.entity.MultiverseColl;
 import com.massivecraft.massivecore.command.type.primitive.TypeString;
 
 public class CmdMassiveCoreUsysMultiverseNew extends MassiveCoreCommand

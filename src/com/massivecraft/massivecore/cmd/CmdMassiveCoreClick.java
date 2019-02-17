@@ -1,6 +1,6 @@
 package com.massivecraft.massivecore.cmd;
 
-import com.massivecraft.massivecore.MassiveCoreMConf;
+import com.massivecraft.massivecore.entity.MassiveCoreMConf;
 import com.massivecraft.massivecore.MassiveException;
 import com.massivecraft.massivecore.command.type.TypeStringCommand;
 import com.massivecraft.massivecore.mixin.MixinCommand;
