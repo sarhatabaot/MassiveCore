@@ -344,7 +344,6 @@ public class Coll<E extends Entity<E>> extends CollAbstract<E>
 			
 			// Then attach!
 			this.attach(entity, id, false);
-			
 			// On creation it might be modified by addition or removal of new/old fields.
 			// So we must do a check for that.
 			// this.putIdentifiedModificationFixed(id, Modification.UNKNOWN);

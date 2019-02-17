@@ -244,8 +244,8 @@ public abstract class EntityContainerAbstract<E extends EntityInternal<E>> imple
 	protected synchronized String attach(E entity, Object oid, boolean noteModification)
 	{
 		// Check entity
-		if (entity == null) return null;
-		if (entity.attached()) return entity.getId();
+		if (entity == null) throw new NullPointerException("entity");
+		if (entity.attached()) throw new IllegalArgumentException("already attached");
 		
 		String id;
 		// Check/Fix id
@@ -259,7 +259,7 @@ public abstract class EntityContainerAbstract<E extends EntityInternal<E>> imple
 			if (id == null) return null;
 			if (this.getIdToEntity().containsKey(id)) return null;
 		}
-		
+
 		// PRE
 		this.preAttach(entity, id);
 		
@@ -269,7 +269,6 @@ public abstract class EntityContainerAbstract<E extends EntityInternal<E>> imple
 		
 		// Attach
 		this.getIdToEntityRaw().put(id, entity);
-		
 		// Identify Modification
 		if (noteModification)
 		{
