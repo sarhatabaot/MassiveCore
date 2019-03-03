@@ -76,6 +76,8 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.UUID;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 import java.util.regex.Pattern;
 
 public class MUtil
@@ -1746,6 +1748,18 @@ public class MUtil
 	public static boolean equalsish(Number number1, Number number2)
 	{
 		return equalsishNumber(number1, number2);
+	}
+
+	// -------------------------------------------- //
+	// SET IF DIFFERENT
+	// -------------------------------------------- //
+
+	public static <T> boolean setIfDifferent(T value, Supplier<T> getter, Consumer<T> setter)
+	{
+		T currentVal = getter.get();
+		if (currentVal == value) return false;
+		setter.accept(value);
+		return true;
 	}
 	
 	// -------------------------------------------- //
