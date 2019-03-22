@@ -13,7 +13,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -28,14 +27,14 @@ public class ReflectionUtil
 	// CONSTANTS
 	// -------------------------------------------- //
 	
-	private static Field FIELD_DOT_MODIFIERS;
+	//private static Field FIELD_DOT_MODIFIERS;
 	
 	static
 	{
 		try
 		{
-			FIELD_DOT_MODIFIERS = Field.class.getDeclaredField("modifiers");
-			FIELD_DOT_MODIFIERS.setAccessible(true);
+			//FIELD_DOT_MODIFIERS = Field.class.getDeclaredField("modifiers");
+			//FIELD_DOT_MODIFIERS.setAccessible(true);
 		}
 		catch (Exception e)
 		{
@@ -59,7 +58,7 @@ public class ReflectionUtil
 			
 			// Remove the final modifier from the field.
 			// http://stackoverflow.com/questions/2474017/using-reflection-to-change-static-final-file-separatorchar-for-unit-testing
-			FIELD_DOT_MODIFIERS.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+			//FIELD_DOT_MODIFIERS.setInt(field, field.getModifiers() & ~Modifier.FINAL);
 		}
 		catch (Exception e)
 		{
