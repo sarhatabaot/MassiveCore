@@ -1,5 +1,6 @@
 package com.massivecraft.massivecore.predicate;
 
+@Deprecated
 public class PredicateNot<T> implements Predicate<T>
 {
 	// -------------------------------------------- //
