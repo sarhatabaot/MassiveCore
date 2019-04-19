@@ -2,16 +2,15 @@ package com.massivecraft.massivecore.engine;
 
 import com.massivecraft.massivecore.Engine;
 import com.massivecraft.massivecore.MassiveCore;
-import com.massivecraft.massivecore.entity.MassiveCoreMConf;
 import com.massivecraft.massivecore.SenderPresence;
 import com.massivecraft.massivecore.SenderType;
+import com.massivecraft.massivecore.entity.MassiveCoreMConf;
 import com.massivecraft.massivecore.event.EventMassiveCoreAfterPlayerRespawn;
 import com.massivecraft.massivecore.event.EventMassiveCoreAfterPlayerTeleport;
 import com.massivecraft.massivecore.event.EventMassiveCorePermissionDeniedFormat;
 import com.massivecraft.massivecore.event.EventMassiveCorePlayerToRecipientChat;
 import com.massivecraft.massivecore.mixin.MixinMessage;
 import com.massivecraft.massivecore.mixin.MixinVisibility;
-import com.massivecraft.massivecore.predicate.Predicate;
 import com.massivecraft.massivecore.predicate.PredicateStartsWithIgnoreCase;
 import com.massivecraft.massivecore.util.IdUtil;
 import com.massivecraft.massivecore.util.MUtil;
@@ -35,6 +34,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.UUID;
+import java.util.function.Predicate;
 
 public class EngineMassiveCoreMain extends Engine
 {
@@ -129,7 +129,7 @@ public class EngineMassiveCoreMain extends Engine
 		// TODO: Should this only be players? Would a player actually want to tab-complete @console?
 		for (String senderName : IdUtil.getNames(SenderPresence.ONLINE, SenderType.ANY))
 		{
-			if ( ! predicate.apply(senderName)) continue;
+			if ( ! predicate.test(senderName)) continue;
 			if (current.contains(senderName)) continue;
 			if ( ! MixinVisibility.get().isVisible(senderName, watcher)) continue;
 			

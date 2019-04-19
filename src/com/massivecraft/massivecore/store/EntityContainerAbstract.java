@@ -1,8 +1,6 @@
 package com.massivecraft.massivecore.store;
 
 import com.massivecraft.massivecore.Named;
-import com.massivecraft.massivecore.predicate.Predicate;
-import com.massivecraft.massivecore.predicate.PredicateEqualsIgnoreCase;
 import com.massivecraft.massivecore.util.MUtil;
 
 import java.util.ArrayList;
@@ -11,6 +9,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 
 // Calls fixId when necessary
 public abstract class EntityContainerAbstract<E extends EntityInternal<E>> implements EntityContainer<E>
@@ -122,7 +121,6 @@ public abstract class EntityContainerAbstract<E extends EntityInternal<E>> imple
 	{
 		// Return Create
 		List<E> ret = new ArrayList<>();
-		
 		// Return Fill
 		for (Object oid : oids)
 		{
@@ -146,6 +144,21 @@ public abstract class EntityContainerAbstract<E extends EntityInternal<E>> imple
 	@Override public List<E> getAll(Comparator<? super E> orderby) { return MUtil.transform(this.getAll(), orderby); }
 	@Override public List<E> getAll(Integer limit, Integer offset) { return MUtil.transform(this.getAll(), limit, offset); }
 	@Override public List<E> getAll(Integer limit) { return MUtil.transform(this.getAll(), limit); }
+
+	// OLD PREDICATE
+	@Override public List<E> getAll(Iterable<?> oids, com.massivecraft.massivecore.predicate.Predicate<? super E> where, Comparator<? super E> orderby, Integer limit, Integer offset) { return MUtil.transform(this.getAll(oids), where, orderby, limit, offset); }
+	@Override public List<E> getAll(Iterable<?> oids, com.massivecraft.massivecore.predicate.Predicate<? super E> where, Comparator<? super E> orderby, Integer limit) { return MUtil.transform(this.getAll(oids), where, orderby, limit); }
+	@Override public List<E> getAll(Iterable<?> oids, com.massivecraft.massivecore.predicate.Predicate<? super E> where, Comparator<? super E> orderby) { return MUtil.transform(this.getAll(oids), where, orderby); }
+	@Override public List<E> getAll(Iterable<?> oids, com.massivecraft.massivecore.predicate.Predicate<? super E> where, Integer limit, Integer offset) { return MUtil.transform(this.getAll(oids), where, limit, offset); }
+	@Override public List<E> getAll(Iterable<?> oids, com.massivecraft.massivecore.predicate.Predicate<? super E> where, Integer limit) { return MUtil.transform(this.getAll(oids), where, limit); }
+	@Override public List<E> getAll(Iterable<?> oids, com.massivecraft.massivecore.predicate.Predicate<? super E> where) { return MUtil.transform(this.getAll(oids), where); }
+
+	@Override public List<E> getAll(com.massivecraft.massivecore.predicate.Predicate<? super E> where, Comparator<? super E> orderby, Integer limit, Integer offset) { return MUtil.transform(this.getAll(), where, orderby, limit, offset); }
+	@Override public List<E> getAll(com.massivecraft.massivecore.predicate.Predicate<? super E> where, Comparator<? super E> orderby, Integer limit) { return MUtil.transform(this.getAll(), where, orderby, limit); }
+	@Override public List<E> getAll(com.massivecraft.massivecore.predicate.Predicate<? super E> where, Comparator<? super E> orderby) { return MUtil.transform(this.getAll(), where, orderby); }
+	@Override public List<E> getAll(com.massivecraft.massivecore.predicate.Predicate<? super E> where, Integer limit, Integer offset) { return MUtil.transform(this.getAll(), where, limit, offset); }
+	@Override public List<E> getAll(com.massivecraft.massivecore.predicate.Predicate<? super E> where, Integer limit) { return MUtil.transform(this.getAll(), where, limit); }
+	@Override public List<E> getAll(com.massivecraft.massivecore.predicate.Predicate<? super E> where) { return MUtil.transform(this.getAll(), where); }
 	
 	// -------------------------------------------- //
 	// BEHAVIOR
@@ -398,7 +411,7 @@ public abstract class EntityContainerAbstract<E extends EntityInternal<E>> imple
 	{
 		if (name == null) throw new NullPointerException("name");
 		
-		Predicate<String> predicate = PredicateEqualsIgnoreCase.get(name);
+		java.util.function.Predicate<String> predicate = name::equalsIgnoreCase;
 		for (E entity : this.getAll())
 		{
 			if (entity == null) continue;
@@ -406,7 +419,7 @@ public abstract class EntityContainerAbstract<E extends EntityInternal<E>> imple
 			if ( ! (entity instanceof Named)) continue;
 			Named named = (Named)entity;
 			
-			if (predicate.apply(named.getName())) return entity;
+			if (predicate.test(named.getName())) return entity;
 		}
 		
 		return null;

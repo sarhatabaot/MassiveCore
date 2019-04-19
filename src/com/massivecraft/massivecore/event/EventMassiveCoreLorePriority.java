@@ -70,7 +70,7 @@ public class EventMassiveCoreLorePriority extends EventMassiveCore
 	// UTILITY SORT
 	// -------------------------------------------- //
 
-	public void setPriorityByPredicate(Predicate<String> predicate, int priority)
+	public void setPriorityByPredicate(java.util.function.Predicate<String> predicate, int priority)
 	{
 		// Look over all the lore ...
 		for (Entry<String, Integer> loreEntry : this.getLore())
@@ -78,34 +78,29 @@ public class EventMassiveCoreLorePriority extends EventMassiveCore
 			String line = loreEntry.getKey();
 
 			// ... and if predicate matches ...
-			if ( ! predicate.apply(line)) continue;
+			if ( ! predicate.test(line)) continue;
 
 			// ... set priority.
 			loreEntry.setValue(priority);
 		}
 	}
 
+	@Deprecated
+	public void setPriorityByPredicate(Predicate<String> predicate, int priority)
+	{
+		setPriorityByPredicate((java.util.function.Predicate<String>) predicate, priority);
+	}
+
 	public void setPriorityByPrefix(final String prefix, int priority)
 	{
-		Predicate<String> predicate = new Predicate<String>()
-		{
-			@Override public boolean apply(String type)
-			{
-				return type.startsWith(prefix);
-			}
-		};
+		java.util.function.Predicate<String> predicate = prefix::startsWith;
 		this.setPriorityByPredicate(predicate, priority);
 	}
 
 	public void setPriorityByRegex(final Pattern pattern, int priority)
 	{
-		Predicate<String> predicate = new Predicate<String>()
-		{
-			@Override public boolean apply(String type)
-			{
-				return pattern.matcher(type).matches();
-			}
-		};
+		pattern.asPredicate();
+		java.util.function.Predicate<String> predicate = pattern.asPredicate();
 		this.setPriorityByPredicate(predicate, priority);
 	}
 

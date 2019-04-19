@@ -48,30 +48,45 @@ public interface EntityContainer<E>
 	
 	Collection<E> getAll();
 	
-	List<E> getAll(Iterable<?> oids, Predicate<? super E> where, Comparator<? super E> orderby, Integer limit, Integer offset);
-	List<E> getAll(Iterable<?> oids, Predicate<? super E> where, Comparator<? super E> orderby, Integer limit);
-	List<E> getAll(Iterable<?> oids, Predicate<? super E> where, Comparator<? super E> orderby);
-	List<E> getAll(Iterable<?> oids, Predicate<? super E> where, Integer limit, Integer offset);
-	List<E> getAll(Iterable<?> oids, Predicate<? super E> where, Integer limit);
+	List<E> getAll(Iterable<?> oids, java.util.function.Predicate<? super E> where, Comparator<? super E> orderby, Integer limit, Integer offset);
+	List<E> getAll(Iterable<?> oids, java.util.function.Predicate<? super E> where, Comparator<? super E> orderby, Integer limit);
+	List<E> getAll(Iterable<?> oids, java.util.function.Predicate<? super E> where, Comparator<? super E> orderby);
+	List<E> getAll(Iterable<?> oids, java.util.function.Predicate<? super E> where, Integer limit, Integer offset);
+	List<E> getAll(Iterable<?> oids, java.util.function.Predicate<? super E> where, Integer limit);
 	List<E> getAll(Iterable<?> oids, Comparator<? super E> orderby, Integer limit, Integer offset);
 	List<E> getAll(Iterable<?> oids, Comparator<? super E> orderby, Integer limit);
-	List<E> getAll(Iterable<?> oids, Predicate<? super E> where);
+	List<E> getAll(Iterable<?> oids, java.util.function.Predicate<? super E> where);
 	List<E> getAll(Iterable<?> oids, Comparator<? super E> orderby);
 	List<E> getAll(Iterable<?> oids, Integer limit, Integer offset);
 	List<E> getAll(Iterable<?> oids, Integer limit);
 	List<E> getAll(Iterable<?> oids);
 	
-	List<E> getAll(Predicate<? super E> where, Comparator<? super E> orderby, Integer limit, Integer offset);
-	List<E> getAll(Predicate<? super E> where, Comparator<? super E> orderby, Integer limit);
-	List<E> getAll(Predicate<? super E> where, Comparator<? super E> orderby);
-	List<E> getAll(Predicate<? super E> where, Integer limit, Integer offset);
-	List<E> getAll(Predicate<? super E> where, Integer limit);
+	List<E> getAll(java.util.function.Predicate<? super E> where, Comparator<? super E> orderby, Integer limit, Integer offset);
+	List<E> getAll(java.util.function.Predicate<? super E> where, Comparator<? super E> orderby, Integer limit);
+	List<E> getAll(java.util.function.Predicate<? super E> where, Comparator<? super E> orderby);
+	List<E> getAll(java.util.function.Predicate<? super E> where, Integer limit, Integer offset);
+	List<E> getAll(java.util.function.Predicate<? super E> where, Integer limit);
 	List<E> getAll(Comparator<? super E> orderby, Integer limit, Integer offset);
 	List<E> getAll(Comparator<? super E> orderby, Integer limit);
-	List<E> getAll(Predicate<? super E> where);
+	List<E> getAll(java.util.function.Predicate<? super E> where);
 	List<E> getAll(Comparator<? super E> orderby);
 	List<E> getAll(Integer limit, Integer offset);
 	List<E> getAll(Integer limit);
+
+	// OLD PREDICATE
+	@Deprecated List<E> getAll(Predicate<? super E> where, Comparator<? super E> orderby, Integer limit, Integer offset);
+	@Deprecated List<E> getAll(Predicate<? super E> where, Comparator<? super E> orderby, Integer limit);
+	@Deprecated List<E> getAll(Predicate<? super E> where, Comparator<? super E> orderby);
+	@Deprecated List<E> getAll(Predicate<? super E> where, Integer limit, Integer offset);
+	@Deprecated List<E> getAll(Predicate<? super E> where, Integer limit);
+	@Deprecated List<E> getAll(Predicate<? super E> where);
+
+	@Deprecated List<E> getAll(Iterable<?> oids, Predicate<? super E> where, Comparator<? super E> orderby, Integer limit, Integer offset);
+	@Deprecated List<E> getAll(Iterable<?> oids, Predicate<? super E> where, Comparator<? super E> orderby, Integer limit);
+	@Deprecated List<E> getAll(Iterable<?> oids, Predicate<? super E> where, Comparator<? super E> orderby);
+	@Deprecated List<E> getAll(Iterable<?> oids, Predicate<? super E> where, Integer limit, Integer offset);
+	@Deprecated List<E> getAll(Iterable<?> oids, Predicate<? super E> where, Integer limit);
+	@Deprecated List<E> getAll(Iterable<?> oids, Predicate<? super E> where);
 	
 	// -------------------------------------------- //
 	// BEHAVIOR

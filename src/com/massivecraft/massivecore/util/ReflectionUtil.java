@@ -3,8 +3,6 @@ package com.massivecraft.massivecore.util;
 import com.google.common.reflect.ClassPath;
 import com.massivecraft.massivecore.collections.MassiveList;
 import com.massivecraft.massivecore.comparator.ComparatorNaturalOrder;
-import com.massivecraft.massivecore.predicate.Predicate;
-import com.massivecraft.massivecore.predicate.PredicateAnd;
 import org.bukkit.Bukkit;
 
 import java.io.IOException;
@@ -20,6 +18,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class ReflectionUtil
 {
@@ -408,7 +407,7 @@ public class ReflectionUtil
 	{
 		for (Class<?> superClazz : getSuperclasses(clazz, includeSelf))
 		{
-			if (predicate.apply(superClazz)) return superClazz;
+			if (predicate.test(superClazz)) return superClazz;
 		}
 		return null;
 	}
@@ -418,7 +417,7 @@ public class ReflectionUtil
 		return getSuperclassPredicate(clazz, includeSelf, new Predicate<Class<?>>()
 		{
 			@Override
-			public boolean apply(Class<?> clazz)
+			public boolean test(Class<?> clazz)
 			{
 				for (Method method : clazz.getDeclaredMethods())
 				{
@@ -434,7 +433,7 @@ public class ReflectionUtil
 		return getSuperclassPredicate(clazz, includeSelf, new Predicate<Class<?>>()
 		{
 			@Override
-			public boolean apply(Class<?> clazz)
+			public boolean test(Class<?> clazz)
 			{
 				for (Field field : clazz.getDeclaredFields())
 				{
@@ -450,7 +449,7 @@ public class ReflectionUtil
 	// -------------------------------------------- //
 
 	@SuppressWarnings("unchecked")
-	public static List<Class<?>> getPackageClasses(String packageName, ClassLoader classLoader, boolean recursive, Predicate<Class<?>>... predicates)
+	public static List<Class<?>> getPackageClasses(String packageName, ClassLoader classLoader, boolean recursive, java.util.function.Predicate<Class<?>>... predicates)
 	{
 		// Create ret
 		List<Class<?>> ret = new MassiveList<>();
@@ -459,7 +458,7 @@ public class ReflectionUtil
 		{
 			// Get info
 			ClassPath classPath = ClassPath.from(classLoader);
-			Predicate<Class<?>> predicateCombined = PredicateAnd.get(predicates);
+			Predicate<Class<?>> predicateCombined = MUtil.predicatesAnd(predicates);
 
 			Collection<ClassPath.ClassInfo> classInfos = recursive ? classPath.getTopLevelClassesRecursive(packageName) : classPath.getTopLevelClasses(packageName);
 
@@ -486,7 +485,7 @@ public class ReflectionUtil
 				}
 
 				// And it must not be ignored
-				if (!predicateCombined.apply(clazz)) continue;
+				if (!predicateCombined.test(clazz)) continue;
 
 				ret.add(clazz);
 			}

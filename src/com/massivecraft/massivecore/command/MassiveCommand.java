@@ -14,7 +14,6 @@ import com.massivecraft.massivecore.command.type.Type;
 import com.massivecraft.massivecore.command.type.enumeration.TypeEnum;
 import com.massivecraft.massivecore.mixin.MixinMessage;
 import com.massivecraft.massivecore.mson.Mson;
-import com.massivecraft.massivecore.predicate.Predicate;
 import com.massivecraft.massivecore.predicate.PredicateLevenshteinClose;
 import com.massivecraft.massivecore.predicate.PredicateStartsWithIgnoreCase;
 import com.massivecraft.massivecore.util.MUtil;
@@ -412,7 +411,7 @@ public class MassiveCommand implements Active, PluginIdentifiableCommand
 		
 		// Prepare
 		token = token.toLowerCase();
-		Predicate<String> predicate = levenshtein ? PredicateLevenshteinClose.get(token) : PredicateStartsWithIgnoreCase.get(token);
+		java.util.function.Predicate<String> predicate = levenshtein ? PredicateLevenshteinClose.get(token) : PredicateStartsWithIgnoreCase.get(token);
 		
 		// Fill Ret
 		// Go through each child command
@@ -431,7 +430,7 @@ public class MassiveCommand implements Active, PluginIdentifiableCommand
 				if (ret.contains(child)) continue;
 				
 				// ... matches ...
-				if (!predicate.apply(alias)) continue;
+				if (!predicate.test(alias)) continue;
 				
 				// ... and put in ret.
 				ret.add(child);

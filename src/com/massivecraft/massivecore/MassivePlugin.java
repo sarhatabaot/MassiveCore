@@ -8,12 +8,11 @@ import com.massivecraft.massivecore.engine.EngineMassiveCoreCommandRegistration;
 import com.massivecraft.massivecore.entity.MassiveCoreMConf;
 import com.massivecraft.massivecore.mixin.Mixin;
 import com.massivecraft.massivecore.mixin.MixinMessage;
-import com.massivecraft.massivecore.predicate.Predicate;
-import com.massivecraft.massivecore.predicate.PredicateAnd;
 import com.massivecraft.massivecore.predicate.PredicateIsClassSingleton;
 import com.massivecraft.massivecore.store.Coll;
 import com.massivecraft.massivecore.store.migrator.MigratorRoot;
 import com.massivecraft.massivecore.test.Test;
+import com.massivecraft.massivecore.util.MUtil;
 import com.massivecraft.massivecore.util.ReflectionUtil;
 import com.massivecraft.massivecore.util.Txt;
 import org.bukkit.Bukkit;
@@ -27,6 +26,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -355,7 +355,7 @@ public abstract class MassivePlugin extends JavaPlugin implements Listener, Name
 		return getClassesActive("nms", Mixin.class, new Predicate<Class<?>>()
 			{
 				@Override
-				public boolean apply(Class<?> clazz)
+				public boolean test(Class<?> clazz)
 				{
 					try
 					{
@@ -427,7 +427,7 @@ public abstract class MassivePlugin extends JavaPlugin implements Listener, Name
 		packageName = packageName == null ? "" : "." + packageName;
 		packageName = this.getClass().getPackage().getName() + packageName;
 		
-		Predicate predicateCombined = PredicateAnd.get(predicates);
+		Predicate predicateCombined = MUtil.predicatesAnd(predicates);
 		Predicate<Class<?>> predicateNotAbstract = type -> !Modifier.isAbstract(type.getModifiers());
 		Predicate<Class<?>> predicateSubclass = type -> !Modifier.isAbstract(type.getModifiers());
 		Predicate<Class<?>> predicateSingleton = PredicateIsClassSingleton.get();

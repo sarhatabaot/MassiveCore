@@ -13,7 +13,6 @@ import com.massivecraft.massivecore.engine.EngineMassiveCoreWorldNameSet;
 import com.massivecraft.massivecore.integration.liability.IntegrationLiabilityAreaEffectCloud;
 import com.massivecraft.massivecore.mixin.MixinMessage;
 import com.massivecraft.massivecore.nms.NmsEntityGet;
-import com.massivecraft.massivecore.predicate.Predicate;
 import com.massivecraft.massivecore.predicate.PredicateElementGarbage;
 import com.massivecraft.massivecore.predicate.PredicateElementSignificant;
 import com.massivecraft.massivecore.util.extractor.Extractor;
@@ -77,6 +76,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.UUID;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
 
@@ -1417,7 +1417,13 @@ public class MUtil
 	// -------------------------------------------- //
 	// TRANSFORM
 	// -------------------------------------------- //
-	
+
+	@Deprecated
+	public static <T> List<T> transform(Iterable<T> items, com.massivecraft.massivecore.predicate.Predicate<? super T> where, Comparator<? super T> orderby, Integer limit, Integer offset)
+	{
+		return transform(items, (Predicate<? super T>) where, orderby, limit, offset);
+	}
+
 	public static <T> List<T> transform(Iterable<T> items, Predicate<? super T> where, Comparator<? super T> orderby, Integer limit, Integer offset)
 	{
 		// Collection
@@ -1454,7 +1460,7 @@ public class MUtil
 			
 			for (T item : items)
 			{
-				if (where.apply(item))
+				if (where.test(item))
 				{
 					ret.add(item);
 				}
@@ -1515,6 +1521,13 @@ public class MUtil
 	public static <T> List<T> transform(Iterable<T> items, Comparator<? super T> orderby, Integer limit, Integer offset) { return transform(items, null, orderby, limit, offset); }
 	public static <T> List<T> transform(Iterable<T> items, Integer limit) { return transform(items, null, null, limit, null); }
 	public static <T> List<T> transform(Iterable<T> items, Integer limit, Integer offset) { return transform(items, null, null, limit, offset); }
+
+	// OLD PREDICATE
+	@Deprecated public static <T> List<T> transform(Iterable<T> items, com.massivecraft.massivecore.predicate.Predicate<? super T> where) { return transform(items, where, null, null, null); }
+	@Deprecated public static <T> List<T> transform(Iterable<T> items, com.massivecraft.massivecore.predicate.Predicate<? super T> where, Comparator<? super T> orderby) { return transform(items, where, orderby, null, null); }
+	@Deprecated public static <T> List<T> transform(Iterable<T> items, com.massivecraft.massivecore.predicate.Predicate<? super T> where, Comparator<? super T> orderby, Integer limit) { return transform(items, where, orderby, limit, null); }
+	@Deprecated public static <T> List<T> transform(Iterable<T> items, com.massivecraft.massivecore.predicate.Predicate<? super T> where, Integer limit) { return transform(items, where, null, limit, null); }
+	@Deprecated public static <T> List<T> transform(Iterable<T> items, com.massivecraft.massivecore.predicate.Predicate<? super T> where, Integer limit, Integer offset) { return transform(items, where, null, limit, offset); }
 	
 	// -------------------------------------------- //
 	// SIMPLE CONSTRUCTORS
@@ -1814,6 +1827,7 @@ public class MUtil
 	// -------------------------------------------- //
 	// MATH
 	// -------------------------------------------- //
+
 	public static <T extends Number> T limitNumber(T d, T min, T max)
 	{
 		if (d.doubleValue() < min.doubleValue())
@@ -1853,7 +1867,43 @@ public class MUtil
 		bd = bd.setScale(places, RoundingMode.HALF_UP);
 		return bd.doubleValue();
 	}
-	
+
+	// -------------------------------------------- //
+	// PREDICATE
+	// -------------------------------------------- //
+
+	public static <T> Predicate<T> predicatesAnd(Predicate<? super T>... predicates)
+	{
+		List<Predicate<? super T>> predicateList = Arrays.asList(predicates); // Must be explicit this way
+		return predicatesAnd(predicateList);
+	}
+
+	public static <T> Predicate<T> predicatesAnd(Collection<Predicate<? super T>> predicates)
+	{
+		if (predicates.isEmpty()) throw new IllegalArgumentException("isEmpty");
+
+		PredicateAnd<T> predicate = new PredicateAnd<T>();
+		predicate.predicates = new MassiveList<>(predicates);
+
+		return predicate;
+	}
+
+	private static class PredicateAnd<T> implements Predicate<T>
+	{
+		private List<Predicate<? super T>> predicates;
+
+		@Override
+		public boolean test(T t)
+		{
+			for (Predicate<? super T> predicate : predicates)
+			{
+				if (predicate.test(t)) continue;
+				return false;
+			}
+			return true;
+		}
+	}
+
 	// -------------------------------------------- //
 	// EXTRACTION
 	// -------------------------------------------- //
