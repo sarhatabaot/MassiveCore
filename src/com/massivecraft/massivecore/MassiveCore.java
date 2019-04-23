@@ -55,7 +55,6 @@ import com.massivecraft.massivecore.engine.EngineMassiveCoreScheduledTeleport;
 import com.massivecraft.massivecore.engine.EngineMassiveCoreTeleportMixinCause;
 import com.massivecraft.massivecore.engine.EngineMassiveCoreVariable;
 import com.massivecraft.massivecore.engine.EngineMassiveCoreWorldNameSet;
-import com.massivecraft.massivecore.entity.AspectColl;
 import com.massivecraft.massivecore.entity.MassiveCoreMConf;
 import com.massivecraft.massivecore.entity.MassiveCoreMConfColl;
 import com.massivecraft.massivecore.entity.MultiverseColl;
@@ -294,7 +293,6 @@ public class MassiveCore extends MassivePlugin
 	{
 		return MUtil.list(
 			MassiveCoreMConfColl.class,
-			AspectColl.class,
 			MultiverseColl.class
 		);
 	}

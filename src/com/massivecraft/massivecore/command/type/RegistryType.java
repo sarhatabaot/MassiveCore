@@ -47,7 +47,6 @@ import com.massivecraft.massivecore.command.type.primitive.TypeLong;
 import com.massivecraft.massivecore.command.type.primitive.TypeString;
 import com.massivecraft.massivecore.command.type.sender.TypePlayer;
 import com.massivecraft.massivecore.command.type.sender.TypeSender;
-import com.massivecraft.massivecore.command.type.store.TypeAspect;
 import com.massivecraft.massivecore.command.type.store.TypeMultiverse;
 import com.massivecraft.massivecore.util.ReflectionUtil;
 
@@ -337,7 +336,6 @@ public class RegistryType
 		register(TypeSender.get());
 		
 		// Store
-		register(TypeAspect.get());
 		register(TypeMultiverse.get());
 		
 		// Collection

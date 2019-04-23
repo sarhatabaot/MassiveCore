@@ -7,7 +7,6 @@ import com.massivecraft.massivecore.util.MUtil;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -38,20 +37,6 @@ public class Multiverse extends Entity<Multiverse>
 	public Multiverse()
 	{
 		
-	}
-	
-	// -------------------------------------------- //
-	// ASPECTS
-	// -------------------------------------------- //
-	
-	public List<Aspect> myAspects()
-	{
-		return AspectColl.get().getAllRegisteredForMultiverse(this, true);
-	}
-	
-	public List<Aspect> otherAspects()
-	{
-		return AspectColl.get().getAllRegisteredForMultiverse(this, false);
 	}
 	
 	// -------------------------------------------- //

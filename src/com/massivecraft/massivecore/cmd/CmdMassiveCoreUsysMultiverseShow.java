@@ -1,14 +1,10 @@
 package com.massivecraft.massivecore.cmd;
 
-import com.massivecraft.massivecore.entity.Aspect;
 import com.massivecraft.massivecore.MassiveCore;
 import com.massivecraft.massivecore.MassiveException;
-import com.massivecraft.massivecore.entity.Multiverse;
 import com.massivecraft.massivecore.command.type.store.TypeMultiverse;
+import com.massivecraft.massivecore.entity.Multiverse;
 import com.massivecraft.massivecore.util.Txt;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class CmdMassiveCoreUsysMultiverseShow extends MassiveCoreCommand
@@ -40,32 +36,7 @@ public class CmdMassiveCoreUsysMultiverseShow extends MassiveCoreCommand
 			msg("<aqua>"+universe+"<i>: "+Txt.implodeCommaAndDot(multiverse.getWorlds(universe), "<h>%s", "<i>, ", " <i>and ", "<i>."));
 		}
 		msg("<aqua>default<i>: for all other worlds.");
-		
-		msg("");
-		msg("<i>Aspects using this multiverse:");
-		this.msgAspects(multiverse.myAspects());
-		
-		msg("");
-		msg("<i>Aspects NOT using this multiverse:");
-		this.msgAspects(multiverse.otherAspects());
 	}
-	
-	public void msgAspects(List<Aspect> aspects)
-	{
-		List<String> ids = new ArrayList<>();
-		for (Aspect aspect : aspects)
-		{
-			ids.add(aspect.getId());
-		}
-		
-		if (ids.size() == 0)
-		{
-			msg("<i>*none*");
-		}
-		else
-		{
-			msg(Txt.implodeCommaAndDot(ids, "<h>%s", "<i>, ", " <i>and ", "<i>."));
-		}
-	}
+
 	
 }

@@ -3,11 +3,10 @@ package com.massivecraft.massivecore.ps;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
-import com.massivecraft.massivecore.entity.Aspect;
 import com.massivecraft.massivecore.MassiveCore;
-import com.massivecraft.massivecore.entity.Multiverse;
 import com.massivecraft.massivecore.collections.MassiveSet;
 import com.massivecraft.massivecore.comparator.ComparatorSmart;
+import com.massivecraft.massivecore.entity.Multiverse;
 import com.massivecraft.massivecore.util.MUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
@@ -850,11 +849,6 @@ public final class PS implements Serializable, Comparable<PS>
 		String m2 = multiverse.getUniverseForWorldName(w2);
 		
 		return m1.equalsIgnoreCase(m2);
-	}
-
-	public static boolean inSameUniverse(PS one, PS two, Aspect aspect)
-	{
-		return inSameUniverse(one, two, aspect.getMultiverse());
 	}
 	
 	// -------------------------------------------- //

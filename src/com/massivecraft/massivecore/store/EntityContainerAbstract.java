@@ -146,19 +146,19 @@ public abstract class EntityContainerAbstract<E extends EntityInternal<E>> imple
 	@Override public List<E> getAll(Integer limit) { return MUtil.transform(this.getAll(), limit); }
 
 	// OLD PREDICATE
-	@Override public List<E> getAll(Iterable<?> oids, com.massivecraft.massivecore.predicate.Predicate<? super E> where, Comparator<? super E> orderby, Integer limit, Integer offset) { return MUtil.transform(this.getAll(oids), where, orderby, limit, offset); }
-	@Override public List<E> getAll(Iterable<?> oids, com.massivecraft.massivecore.predicate.Predicate<? super E> where, Comparator<? super E> orderby, Integer limit) { return MUtil.transform(this.getAll(oids), where, orderby, limit); }
-	@Override public List<E> getAll(Iterable<?> oids, com.massivecraft.massivecore.predicate.Predicate<? super E> where, Comparator<? super E> orderby) { return MUtil.transform(this.getAll(oids), where, orderby); }
-	@Override public List<E> getAll(Iterable<?> oids, com.massivecraft.massivecore.predicate.Predicate<? super E> where, Integer limit, Integer offset) { return MUtil.transform(this.getAll(oids), where, limit, offset); }
-	@Override public List<E> getAll(Iterable<?> oids, com.massivecraft.massivecore.predicate.Predicate<? super E> where, Integer limit) { return MUtil.transform(this.getAll(oids), where, limit); }
-	@Override public List<E> getAll(Iterable<?> oids, com.massivecraft.massivecore.predicate.Predicate<? super E> where) { return MUtil.transform(this.getAll(oids), where); }
+	@Deprecated @Override public List<E> getAll(Iterable<?> oids, com.massivecraft.massivecore.predicate.Predicate<? super E> where, Comparator<? super E> orderby, Integer limit, Integer offset) { return MUtil.transform(this.getAll(oids), where, orderby, limit, offset); }
+	@Deprecated @Override public List<E> getAll(Iterable<?> oids, com.massivecraft.massivecore.predicate.Predicate<? super E> where, Comparator<? super E> orderby, Integer limit) { return MUtil.transform(this.getAll(oids), where, orderby, limit); }
+	@Deprecated @Override public List<E> getAll(Iterable<?> oids, com.massivecraft.massivecore.predicate.Predicate<? super E> where, Comparator<? super E> orderby) { return MUtil.transform(this.getAll(oids), where, orderby); }
+	@Deprecated @Override public List<E> getAll(Iterable<?> oids, com.massivecraft.massivecore.predicate.Predicate<? super E> where, Integer limit, Integer offset) { return MUtil.transform(this.getAll(oids), where, limit, offset); }
+	@Deprecated @Override public List<E> getAll(Iterable<?> oids, com.massivecraft.massivecore.predicate.Predicate<? super E> where, Integer limit) { return MUtil.transform(this.getAll(oids), where, limit); }
+	@Deprecated @Override public List<E> getAll(Iterable<?> oids, com.massivecraft.massivecore.predicate.Predicate<? super E> where) { return MUtil.transform(this.getAll(oids), where); }
 
-	@Override public List<E> getAll(com.massivecraft.massivecore.predicate.Predicate<? super E> where, Comparator<? super E> orderby, Integer limit, Integer offset) { return MUtil.transform(this.getAll(), where, orderby, limit, offset); }
-	@Override public List<E> getAll(com.massivecraft.massivecore.predicate.Predicate<? super E> where, Comparator<? super E> orderby, Integer limit) { return MUtil.transform(this.getAll(), where, orderby, limit); }
-	@Override public List<E> getAll(com.massivecraft.massivecore.predicate.Predicate<? super E> where, Comparator<? super E> orderby) { return MUtil.transform(this.getAll(), where, orderby); }
-	@Override public List<E> getAll(com.massivecraft.massivecore.predicate.Predicate<? super E> where, Integer limit, Integer offset) { return MUtil.transform(this.getAll(), where, limit, offset); }
-	@Override public List<E> getAll(com.massivecraft.massivecore.predicate.Predicate<? super E> where, Integer limit) { return MUtil.transform(this.getAll(), where, limit); }
-	@Override public List<E> getAll(com.massivecraft.massivecore.predicate.Predicate<? super E> where) { return MUtil.transform(this.getAll(), where); }
+	@Deprecated @Override public List<E> getAll(com.massivecraft.massivecore.predicate.Predicate<? super E> where, Comparator<? super E> orderby, Integer limit, Integer offset) { return MUtil.transform(this.getAll(), where, orderby, limit, offset); }
+	@Deprecated @Override public List<E> getAll(com.massivecraft.massivecore.predicate.Predicate<? super E> where, Comparator<? super E> orderby, Integer limit) { return MUtil.transform(this.getAll(), where, orderby, limit); }
+	@Deprecated @Override public List<E> getAll(com.massivecraft.massivecore.predicate.Predicate<? super E> where, Comparator<? super E> orderby) { return MUtil.transform(this.getAll(), where, orderby); }
+	@Deprecated @Override public List<E> getAll(com.massivecraft.massivecore.predicate.Predicate<? super E> where, Integer limit, Integer offset) { return MUtil.transform(this.getAll(), where, limit, offset); }
+	@Deprecated @Override public List<E> getAll(com.massivecraft.massivecore.predicate.Predicate<? super E> where, Integer limit) { return MUtil.transform(this.getAll(), where, limit); }
+	@Deprecated @Override public List<E> getAll(com.massivecraft.massivecore.predicate.Predicate<? super E> where) { return MUtil.transform(this.getAll(), where); }
 	
 	// -------------------------------------------- //
 	// BEHAVIOR

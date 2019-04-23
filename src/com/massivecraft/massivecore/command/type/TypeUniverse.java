@@ -1,6 +1,5 @@
 package com.massivecraft.massivecore.command.type;
 
-import com.massivecraft.massivecore.entity.Aspect;
 import com.massivecraft.massivecore.entity.Multiverse;
 
 import java.util.Collection;
@@ -10,24 +9,20 @@ public class TypeUniverse extends TypeAbstractChoice<String>
 	// -------------------------------------------- //
 	// FIELDS
 	// -------------------------------------------- //
-	
-	protected Aspect aspect = null;
+
 	protected Multiverse multiverse = null;
 	
 	public Multiverse getMultiverse()
 	{
-		if (this.aspect != null) return this.aspect.getMultiverse();
 		return this.multiverse;
 	}
 	
 	// -------------------------------------------- //
 	// INSTANCE & CONSTRUCT
 	// -------------------------------------------- //
-	
-	public static TypeUniverse get(Aspect aspect) { return new TypeUniverse(aspect); }
+
 	public static TypeUniverse get(Multiverse multiverse) { return new TypeUniverse(multiverse); }
-	
-	public TypeUniverse(Aspect aspect) { super(String.class); this.aspect = aspect; }
+
 	public TypeUniverse(Multiverse multiverse) { super(String.class); this.multiverse = multiverse; }
 	
 	// -------------------------------------------- //
