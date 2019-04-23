@@ -61,7 +61,7 @@ public class NmsChat extends Mixin
 	
 	public void sendTitleRaw(Object sendeeObject, int ticksIn, int ticksStay, int ticksOut, String rawMain, String rawSub)
 	{
-		
+
 	}
 	
 	public void sendTitleMson(Object sendeeObject, int ticksIn, int ticksStay, int ticksOut, Mson msonMain, Mson msonSub)

@@ -16,9 +16,6 @@ import com.massivecraft.massivecore.nms.NmsEntityGet;
 import com.massivecraft.massivecore.predicate.PredicateElementGarbage;
 import com.massivecraft.massivecore.predicate.PredicateElementSignificant;
 import com.massivecraft.massivecore.util.extractor.Extractor;
-import com.massivecraft.massivecore.util.extractor.ExtractorPlayer;
-import com.massivecraft.massivecore.util.extractor.ExtractorPlayerName;
-import com.massivecraft.massivecore.util.extractor.ExtractorSender;
 import com.massivecraft.massivecore.util.extractor.ExtractorSenderId;
 import com.massivecraft.massivecore.util.extractor.ExtractorWorld;
 import com.massivecraft.massivecore.util.extractor.ExtractorWorldName;
@@ -1909,27 +1906,19 @@ public class MUtil
 	// -------------------------------------------- //
 	
 	protected static Map<Class<?>, Map<String, Set<Extractor>>> classesPropertiesExtractors = new HashMap<>();
+
 	protected static Map<String, Set<Extractor>> getPropertiesExtractors(Class<?> propertyClass)
 	{
-		Map<String, Set<Extractor>> ret = classesPropertiesExtractors.get(propertyClass);
-		if (ret == null)
-		{
-			ret = new HashMap<>();
-			classesPropertiesExtractors.put(propertyClass, ret);
-		}
-		return ret;
+		classesPropertiesExtractors.computeIfAbsent(propertyClass, x -> new HashMap<>());
+		return classesPropertiesExtractors.get(propertyClass);
 	}
 	
 	protected static Set<Extractor> getExtractors(Class<?> propertyClass, String propertyName)
 	{
 		Map<String, Set<Extractor>> propertiesExtractors = getPropertiesExtractors(propertyClass);
-		Set<Extractor> ret = propertiesExtractors.get(propertyName);
-		if (ret == null)
-		{
-			ret = new HashSet<>();
-			propertiesExtractors.put(propertyName, ret);
-		}
-		return ret;
+
+		propertiesExtractors.computeIfAbsent(propertyName, x -> new HashSet<>());
+		return propertiesExtractors.get(propertyName);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -1955,17 +1944,10 @@ public class MUtil
 	
 	static
 	{
-		registerExtractor(CommandSender.class, "sender", ExtractorSender.get());
-		registerExtractor(String.class, "senderId", ExtractorSenderId.get());
-		
-		registerExtractor(Player.class, "player", ExtractorPlayer.get());
-		registerExtractor(String.class, "playerName", ExtractorPlayerName.get());
-		
 		registerExtractor(World.class, "world", ExtractorWorld.get());
 		registerExtractor(String.class, "worldName", ExtractorWorldName.get());
 		
 		// The accountId extractor is used for the money mixin.
-		// For now we act on the name instead of the ID since vault needs names.
 		registerExtractor(String.class, "accountId", ExtractorSenderId.get());
 	}
 	

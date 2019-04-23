@@ -1,5 +1,7 @@
 package com.massivecraft.massivecore.util.extractor;
 
+import com.massivecraft.massivecore.util.IdUtil;
+
 public class ExtractorSenderId implements Extractor
 {
 	// -------------------------------------------- //
@@ -16,7 +18,7 @@ public class ExtractorSenderId implements Extractor
 	@Override
 	public Object extract(Object o)
 	{
-		return ExtractorLogic.senderIdFromObject(o);
+		return IdUtil.getId(o);
 	}
 
 }

@@ -3,7 +3,6 @@ package com.massivecraft.massivecore.entity;
 import com.massivecraft.massivecore.MassiveCore;
 import com.massivecraft.massivecore.command.type.TypeUniverse;
 import com.massivecraft.massivecore.store.Entity;
-import com.massivecraft.massivecore.util.MUtil;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -84,12 +83,6 @@ public class Multiverse extends Entity<Multiverse>
 			if (worlds.contains(worldName)) return universe;
 		}
 		return MassiveCore.DEFAULT;
-	}
-	
-	public String getUniverse(Object worldNameExtractable)
-	{
-		String worldName = MUtil.extract(String.class, "worldName", worldNameExtractable);
-		return this.getUniverseForWorldName(worldName);
 	}
 	
 	// -------------------------------------------- //
