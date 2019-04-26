@@ -422,12 +422,12 @@ public abstract class MassivePlugin extends JavaPlugin implements Listener, Name
 	@SuppressWarnings("unchecked")
 	public List<Class<?>> getClassesActive(String packageName, final Class<?> superClass, Predicate<Class<?>>... predicates)
 	{
-		if (!Active.class.isAssignableFrom(superClass)) throw new IllegalArgumentException(superClass.getName() + " is not insatnce of Active.");
+		if (!Active.class.isAssignableFrom(superClass)) throw new IllegalArgumentException(superClass.getName() + " is not instance of Active.");
 		
 		packageName = packageName == null ? "" : "." + packageName;
 		packageName = this.getClass().getPackage().getName() + packageName;
 		
-		Predicate predicateCombined = MUtil.predicatesAnd(predicates);
+		Predicate predicateCombined = predicates.length > 0 ? MUtil.predicatesAnd(predicates) : x -> true;
 		Predicate<Class<?>> predicateNotAbstract = type -> !Modifier.isAbstract(type.getModifiers());
 		Predicate<Class<?>> predicateSubclass = type -> !Modifier.isAbstract(type.getModifiers());
 		Predicate<Class<?>> predicateSingleton = PredicateIsClassSingleton.get();

@@ -25,7 +25,7 @@ public class FlattenUtil
 			List<Object> ret = new MassiveList<>();
 			
 			// Fill
-			for (Object item : (Iterable<Object>)packed)
+			for (Object item : (Iterable<?>)packed)
 			{
 				// Recurse
 				ret.addAll(flatten(item));

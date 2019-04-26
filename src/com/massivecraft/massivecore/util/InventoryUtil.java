@@ -6,7 +6,6 @@ import com.massivecraft.massivecore.comparator.ComparatorComparable;
 import com.massivecraft.massivecore.comparator.ComparatorEntryValue;
 import com.massivecraft.massivecore.event.EventMassiveCoreLorePriority;
 import com.massivecraft.massivecore.mixin.MixinInventory;
-import com.massivecraft.massivecore.predicate.Predicate;
 import com.massivecraft.massivecore.predicate.PredicateStringStartsWith;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -31,9 +30,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 public class InventoryUtil
 {
@@ -971,7 +970,7 @@ public class InventoryUtil
 			InventoryHolder holder = inventory.getHolder();
 			int size = inventory.getSize();
 			if (inventory instanceof PlayerInventory) size = SIZE_PLAYER_STORAGE;
-			String title = inventory.getTitle();
+			String title = "";
 			ret = MixinInventory.get().createInventory(holder, size, title);
 		}
 		
@@ -1229,25 +1228,21 @@ public class InventoryUtil
 	// -------------------------------------------- //
 
 	// Return true on change
-	public static boolean removeLoreMatching(ItemStack item, Predicate<String> predicate)
+	public static boolean removeLoreMatching(ItemStack item, java.util.function.Predicate<String> predicate)
 	{
-		if (predicate == null) throw new NullPointerException("prefix");
+		if (predicate == null) throw new NullPointerException("predicate");
 
 		List<String> lore = getLore(item);
 		if (lore == null) return false;
 
-		boolean ret = false;
-		for (Iterator<String> it = lore.iterator(); it.hasNext();)
+		List<String> newLore = lore.stream().filter(predicate).collect(Collectors.toList());
+		if (lore.size() != newLore.size())
 		{
-			String line = it.next();
-			if (!predicate.apply(line)) continue;
-			it.remove();
-			ret = true;
+			setLore(item, lore);
+			return true;
 		}
 
-		setLore(item, lore);
-
-		return ret;
+		return false;
 	}
 
 	public static boolean removeLoreWithPrefix(ItemStack item, String prefix)
@@ -1255,21 +1250,14 @@ public class InventoryUtil
 		return removeLoreMatching(item, PredicateStringStartsWith.get(prefix));
 	}
 
-	public static List<String> getLoreMatching(ItemStack item, Predicate<String> predicate)
+	public static List<String> getLoreMatching(ItemStack item, java.util.function.Predicate<String> predicate)
 	{
-		if (predicate == null) throw new NullPointerException("prefix");
+		if (predicate == null) throw new NullPointerException("predicate");
 
 		List<String> lore = getLore(item);
 		if (lore == null) return null;
 
-		for (Iterator<String> it = lore.iterator(); it.hasNext();)
-		{
-			String line = it.next();
-			if (predicate.apply(line)) continue;
-			it.remove();
-		}
-
-		return lore;
+		return lore.stream().filter(predicate).collect(Collectors.toList());
 	}
 
 	public static List<String> getLoreWithPrefix(ItemStack item, String prefix)

@@ -1,5 +1,6 @@
 package com.massivecraft.massivecore.util;
 
+import com.massivecraft.massivecore.collections.BackstringSet;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -238,15 +239,29 @@ public class SignUtil
 	// -------------------------------------------- //
 	// IS SIGN
 	// -------------------------------------------- //
-	
+
+	public static final BackstringSet<Material> MATERIALS_SIGN = new BackstringSet<>(Material.class,
+		"SIGN", // Minecraft 1.?
+		"WALL_SIGN", // Minecraft 1.?
+		"ACACIA_SIGN", // Minecraft 1.14
+		"ACACIA_WALL_SIGN", // Minecraft 1.14
+		"BIRCH_SIGN", // Minecraft 1.14
+		"BIRCH_WALL_SIGN", // Minecraft 1.14
+		"DARK_OAK_SIGN", // Minecraft 1.14
+		"DARK_OAK_WALL_SIGN", // Minecraft 1.14
+		"JUNGLE_SIGN", // Minecraft 1.14
+		"JUNGLE_WALL_SIGN", // Minecraft 1.14
+		"OAK_SIGN", // Minecraft 1.14
+		"OAK_WALL_SIGN", // Minecraft 1.14
+		"SPRUCE_SIGN", // Minecraft 1.14
+		"SPRUCE_WALL_SIGN" // Minecraft 1.14
+	);
+
 	public static boolean isSign(Material material)
 	{
 		if (material == null) throw new NullPointerException("material");
 		
-		if (material == Material.SIGN) return true;
-		if (material == Material.WALL_SIGN) return true;
-		
-		return false;
+		return MATERIALS_SIGN.contains(material);
 	}
 	
 	public static boolean isSign(Block block)
