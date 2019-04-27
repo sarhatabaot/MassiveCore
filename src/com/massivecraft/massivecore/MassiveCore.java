@@ -66,7 +66,6 @@ import com.massivecraft.massivecore.mixin.MixinCommand;
 import com.massivecraft.massivecore.mixin.MixinDisplayName;
 import com.massivecraft.massivecore.mixin.MixinEvent;
 import com.massivecraft.massivecore.mixin.MixinGamemode;
-import com.massivecraft.massivecore.mixin.MixinInventory;
 import com.massivecraft.massivecore.mixin.MixinKick;
 import com.massivecraft.massivecore.mixin.MixinLog;
 import com.massivecraft.massivecore.mixin.MixinMessage;
@@ -87,7 +86,6 @@ import com.massivecraft.massivecore.nms.NmsEntityDamageEvent;
 import com.massivecraft.massivecore.nms.NmsEntityGet;
 import com.massivecraft.massivecore.nms.NmsItemStackTooltip;
 import com.massivecraft.massivecore.nms.NmsPermissions;
-import com.massivecraft.massivecore.nms.NmsPlayerInventoryCreate;
 import com.massivecraft.massivecore.nms.NmsRecipe;
 import com.massivecraft.massivecore.nms.NmsSkullMeta;
 import com.massivecraft.massivecore.ps.PS;
@@ -308,7 +306,6 @@ public class MassiveCore extends MassivePlugin
 			NmsEntityGet.class,
 			NmsItemStackTooltip.class,
 			NmsPermissions.class,
-			NmsPlayerInventoryCreate.class,
 			NmsSkullMeta.class,
 			NmsRecipe.class
 		);
@@ -369,7 +366,6 @@ public class MassiveCore extends MassivePlugin
 			MixinCommand.class,
 			MixinDisplayName.class,
 			MixinGamemode.class,
-			MixinInventory.class,
 			MixinKick.class,
 			MixinLog.class,
 			MixinMessage.class,

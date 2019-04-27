@@ -5,7 +5,6 @@ import com.massivecraft.massivecore.collections.MassiveList;
 import com.massivecraft.massivecore.comparator.ComparatorComparable;
 import com.massivecraft.massivecore.comparator.ComparatorEntryValue;
 import com.massivecraft.massivecore.event.EventMassiveCoreLorePriority;
-import com.massivecraft.massivecore.mixin.MixinInventory;
 import com.massivecraft.massivecore.predicate.PredicateStringStartsWith;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -963,15 +962,15 @@ public class InventoryUtil
 		Inventory ret = null;
 		if (inventory instanceof PlayerInventory && playerSupport)
 		{
-			ret = MixinInventory.get().createPlayerInventory();
+			throw new UnsupportedOperationException("Can't clone player inventories.");
 		}
 		else
 		{
 			InventoryHolder holder = inventory.getHolder();
 			int size = inventory.getSize();
 			if (inventory instanceof PlayerInventory) size = SIZE_PLAYER_STORAGE;
-			String title = "";
-			ret = MixinInventory.get().createInventory(holder, size, title);
+			String title = inventory.getType().getDefaultTitle();
+			ret = Bukkit.createInventory(holder, size, title);
 		}
 		
 		// Fill
