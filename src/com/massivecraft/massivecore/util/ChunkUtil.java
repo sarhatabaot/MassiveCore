@@ -1,9 +1,9 @@
 package com.massivecraft.massivecore.util;
 
 import com.massivecraft.massivecore.collections.MassiveSet;
-import com.massivecraft.massivecore.predicate.Predicate;
 import com.massivecraft.massivecore.ps.PS;
 
+import java.util.function.Predicate;
 import java.util.Set;
 
 public class ChunkUtil
@@ -89,7 +89,7 @@ public class ChunkUtil
 			for (PS neighbour : neighbours)
 			{
 				if (set.contains(neighbour)) continue;
-				if ( ! matcher.apply(neighbour)) continue;
+				if ( ! matcher.test(neighbour)) continue;
 
 				expansion.add(neighbour);
 			}

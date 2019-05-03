@@ -5,7 +5,6 @@ import com.massivecraft.massivecore.collections.MassiveList;
 import com.massivecraft.massivecore.command.MassiveCommand;
 import com.massivecraft.massivecore.mson.Mson;
 import com.massivecraft.massivecore.mson.MsonEvent;
-import com.massivecraft.massivecore.predicate.Predicate;
 import com.massivecraft.massivecore.predicate.PredicateStartsWithIgnoreCase;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -23,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -852,7 +852,7 @@ public class Txt
 		// Fill Ret
 		for (T element : elements)
 		{
-			if ( ! predicate.apply(element)) continue;
+			if ( ! predicate.test(element)) continue;
 			ret.add(element);
 		}
 		

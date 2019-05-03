@@ -2,7 +2,7 @@ package com.massivecraft.massivecore.event;
 
 import com.massivecraft.massivecore.collections.MassiveSet;
 import com.massivecraft.massivecore.util.MUtil;
-import org.bukkit.entity.Damageable;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 
@@ -113,7 +113,7 @@ public class EventMassiveCorePlayerUpdate extends EventMassiveCore
 		if (getMaxHealth(player) == maxHealth) return false;
 		
 		// Apply
-		player.setMaxHealth(maxHealth);
+		player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(maxHealth);
 		
 		// Return
 		return true;
@@ -121,10 +121,9 @@ public class EventMassiveCorePlayerUpdate extends EventMassiveCore
 	
 	public static double getMaxHealth(Player player, boolean current)
 	{
-		if ( ! current) return 20D; 
-		
-		Damageable d = (Damageable) player;
-		return d.getMaxHealth();
+		if ( ! current) player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getDefaultValue();
+
+		return player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue();
 	}
 	
 	public static double getMaxHealth(Player player)

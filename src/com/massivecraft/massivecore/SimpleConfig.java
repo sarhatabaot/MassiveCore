@@ -67,7 +67,7 @@ public class SimpleConfig
 			{
 				try
 				{
-					toShallowLoad = this.getClass().newInstance();
+					toShallowLoad = this.getClass().getDeclaredConstructor().newInstance();
 				}
 				catch (Exception e)
 				{

@@ -213,7 +213,7 @@ public class ReflectionUtil
 	{
 		try
 		{
-			return (T) clazz.newInstance();
+			return (T) clazz.getDeclaredConstructor().newInstance();
 		}
 		catch (Exception e)
 		{
