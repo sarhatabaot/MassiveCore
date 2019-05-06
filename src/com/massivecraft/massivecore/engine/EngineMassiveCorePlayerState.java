@@ -76,14 +76,7 @@ public class EngineMassiveCorePlayerState extends Engine
 		// Delayed!
 		if (delayed)
 		{
-			Bukkit.getScheduler().runTask(this.getPlugin(), new Runnable()
-			{
-				@Override
-				public void run()
-				{
-					EngineMassiveCorePlayerState.this.setState(id, state, false, replaceable);
-				}
-			});
+			Bukkit.getScheduler().runTask(this.getPlugin(), () -> EngineMassiveCorePlayerState.this.setState(id, state, false, replaceable));
 			return;
 		}
 		

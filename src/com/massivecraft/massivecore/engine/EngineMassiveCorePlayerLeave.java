@@ -57,14 +57,7 @@ public class EngineMassiveCorePlayerLeave extends Engine
 		new EventMassiveCorePlayerLeave(player, false, "quit", null).run();
 		
 		// We do the schedule in order for the set to be correct through out the whole MONITOR priority state.
-		Bukkit.getScheduler().scheduleSyncDelayedTask(MassiveCore.get(), new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				EventMassiveCorePlayerLeave.player2event.remove(uuid);
-			}
-		});
+		Bukkit.getScheduler().scheduleSyncDelayedTask(MassiveCore.get(), () -> EventMassiveCorePlayerLeave.player2event.remove(uuid));
 	}
 	
 }

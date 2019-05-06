@@ -3,7 +3,6 @@ package com.massivecraft.massivecore.store;
 import com.massivecraft.massivecore.collections.MassiveSet;
 
 import java.lang.ref.WeakReference;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
@@ -40,7 +39,7 @@ public class EntityInternalMap<E extends EntityInternal<E>> extends EntityContai
 	// -------------------------------------------- //
 	
 	protected transient WeakReference<EntityInternal<?>> entity = new WeakReference<>(null);
-	protected void setEntity(EntityInternal<?> entity) { this.entity = new WeakReference<EntityInternal<?>>(entity); }
+	protected void setEntity(EntityInternal<?> entity) { this.entity = new WeakReference<>(entity); }
 	public EntityInternal<?> getEntity() { return this.entity.get(); }
 	
 	@Override
@@ -113,14 +112,13 @@ public class EntityInternalMap<E extends EntityInternal<E>> extends EntityContai
 			Set<Entry<String, E>> removals = new MassiveSet<>();
 			
 			// Loop over all current entries ...
-			for (Iterator<Entry<String, E>> it = this.id2Entity.entrySet().iterator(); it.hasNext(); )
+			for (Entry<String, E> entry : this.id2Entity.entrySet())
 			{
-				Entry<String, E> entry = it.next();
 				String id = entry.getKey();
-				
+
 				// ... if it is not present in those ...
 				if (that.id2Entity.containsKey(id)) continue;
-				
+
 				// ... remove.
 				removals.add(entry);
 			}

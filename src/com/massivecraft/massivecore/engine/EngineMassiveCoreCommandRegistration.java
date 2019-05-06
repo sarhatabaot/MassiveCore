@@ -13,7 +13,6 @@ import org.bukkit.plugin.Plugin;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -91,20 +90,18 @@ public class EngineMassiveCoreCommandRegistration extends Engine
 
 		List<Entry<String, Command>> deregisters = new MassiveList<>();
 
-		Iterator<Entry<String, Command>> iter = knownCommands.entrySet().iterator();
-		while (iter.hasNext())
+		for (Entry<String, Command> entry : knownCommands.entrySet())
 		{
-			Entry<String, Command> entry = iter.next();
 			String name = entry.getKey();
 			Command command = entry.getValue();
-			
+
 			// ... that is a MassiveCoreBukkitCommand ...
 			MassiveCommand massiveCommand = getMassiveCommand(command);
 			if (massiveCommand == null) continue;
-			
+
 			// ... and not a target ...
 			if (nameTargets.containsKey(name)) continue;
-			
+
 			// ... unregister it.
 			deregisters.add(entry);
 		}

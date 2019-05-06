@@ -78,23 +78,9 @@ public class Fetcher implements Callable<Set<IdAndName>>
 		}
 		
 		// Create Tasks
-		Callable<Set<IdAndName>> taskName = new Callable<Set<IdAndName>>()
-		{
-			@Override
-			public Set<IdAndName> call() throws Exception
-			{
-				return new HashSet<>(new FetcherByName(names).call().values());
-			}
-		};
+		Callable<Set<IdAndName>> taskName = () -> new HashSet<>(new FetcherByName(names).call().values());
 		
-		Callable<Set<IdAndName>> taskId = new Callable<Set<IdAndName>>()
-		{
-			@Override
-			public Set<IdAndName> call() throws Exception
-			{
-				return new HashSet<>(new FetcherById(ids).call().values());
-			}
-		};
+		Callable<Set<IdAndName>> taskId = () -> new HashSet<>(new FetcherById(ids).call().values());
 		
 		final List<Callable<Set<IdAndName>>> tasks = new ArrayList<>();
 		tasks.add(taskName);

@@ -60,52 +60,35 @@ public class CmdMassiveCoreCmdurl extends MassiveCoreCommand
 		// Apply 
 		final Player commander = me;
 		msg("<i>Loading <aqua>%s <i>...", urlString);
-		async(new Runnable()
-		{
-			@Override
-			public void run()
+		async(() -> {
+			try
 			{
-				try
-				{
-					final List<String> lines = WebUtil.getLines(url);
-					sync(new Runnable()
+				final List<String> lines = WebUtil.getLines(url);
+				sync(() -> {
+					MixinMessage.get().msgOne(commander, "<i>... <h>%d <i>lines loaded. Now executing ...", lines.size());
+					for (int i = 0; i <= lines.size() - 1; i++)
 					{
-						@Override
-						public void run()
+						String line = lines.get(i);
+						line = line.trim();
+						if (line.length() == 0 || line.startsWith("#"))
 						{
-							MixinMessage.get().msgOne(commander, "<i>... <h>%d <i>lines loaded. Now executing ...", lines.size());
-							for (int i = 0; i <= lines.size() - 1; i++)
-							{
-								String line = lines.get(i);
-								line = line.trim();
-								if (line.length() == 0 || line.startsWith("#"))
-								{
-									MixinMessage.get().msgOne(commander, "<b>#%d: <i>%s", i, line);
-									// Ignore the line
-								}
-								else
-								{
-									MixinMessage.get().msgOne(commander, "<g>#%d: <i>%s", i, line);
-									// Run the line
-									commander.chat(line);
-								}
-							}
+							MixinMessage.get().msgOne(commander, "<b>#%d: <i>%s", i, line);
+							// Ignore the line
 						}
-					});
-					return;
-				}
-				catch (final Exception e)
-				{
-					sync(new Runnable()
-					{
-						@Override
-						public void run()
+						else
 						{
-							MixinMessage.get().msgOne(commander, "<b>%s: %s", e.getClass().getSimpleName(), e.getMessage());
+							MixinMessage.get().msgOne(commander, "<g>#%d: <i>%s", i, line);
+							// Run the line
+							commander.chat(line);
 						}
-					});
-					return;
-				}
+					}
+				});
+				return;
+			}
+			catch (final Exception e)
+			{
+				sync(() -> MixinMessage.get().msgOne(commander, "<b>%s: %s", e.getClass().getSimpleName(), e.getMessage()));
+				return;
 			}
 		});
 	}

@@ -163,7 +163,7 @@ public abstract class TypeCombined<T> extends TypeAbstract<T>
 		{
 			Type<?> type = this.getInnerType(i);
 			Object part = parts.get(i);
-			SimpleEntry<Type<?>, Object> entry = new SimpleEntry<Type<?>, Object>(type, part);
+			SimpleEntry<Type<?>, Object> entry = new SimpleEntry<>(type, part);
 			ret.add(entry);
 		}
 		

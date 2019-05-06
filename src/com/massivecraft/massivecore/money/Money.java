@@ -57,7 +57,7 @@ public class Money
 	
 	public static String format(double amount, boolean includeUnit)
 	{
-		if (disabled()) return String.valueOf(amount) + (includeUnit ? "$": "");
+		if (disabled()) return amount + (includeUnit ? "$": "");
 		return mixin.format(amount, includeUnit);
 	}
 	

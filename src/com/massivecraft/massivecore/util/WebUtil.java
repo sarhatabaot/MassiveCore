@@ -13,6 +13,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
@@ -55,14 +56,7 @@ public class WebUtil
 		}
 		else
 		{
-			EXECUTOR.execute(new Runnable()
-			{
-				@Override
-				public void run()
-				{
-					touch(url);
-				}
-			});
+			EXECUTOR.execute(() -> touch(url));
 		}
 	}
 	
@@ -105,7 +99,7 @@ public class WebUtil
 			uc.connect();
 			
 			is = uc.getInputStream();
-			isr = new InputStreamReader(is, "UTF-8");
+			isr = new InputStreamReader(is, StandardCharsets.UTF_8);
 			br = new BufferedReader(isr);
 			
 			List<String> lines = new ArrayList<>();

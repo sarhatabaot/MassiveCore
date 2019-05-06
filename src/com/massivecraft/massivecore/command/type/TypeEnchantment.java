@@ -18,7 +18,7 @@ public class TypeEnchantment extends TypeAbstractChoice<Enchantment>
 	// The first name is taken from the wiki. Those names are those people think of.
 	// The second name is the Bukkit enum name.
 	// Thereafter comes assorted extras
-	public static Map<Integer, List<String>> ID_TO_RAWNAMES = new MassiveMap<Integer, List<String>>(
+	public static Map<Integer, List<String>> ID_TO_RAWNAMES = new MassiveMap<>(
 		0, new MassiveList<>("Protection", "PROTECTION_ENVIRONMENTAL"),
 		1, new MassiveList<>("Fire Protection", "PROTECTION_FIRE"),
 		2, new MassiveList<>("Feather Falling", "PROTECTION_FALL", "FallProtection"),

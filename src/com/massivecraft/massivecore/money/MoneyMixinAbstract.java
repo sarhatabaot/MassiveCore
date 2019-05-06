@@ -65,7 +65,7 @@ public abstract class MoneyMixinAbstract implements MoneyMixin
 	}
 	public boolean move(String fromId, String toId, String byId, double amount)
 	{
-		return this.move(fromId, toId, byId, amount, Collections.<String>emptyList(), null);
+		return this.move(fromId, toId, byId, amount, Collections.emptyList(), null);
 	}
 	
 	// -------------------------------------------- //

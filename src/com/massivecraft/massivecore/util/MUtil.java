@@ -416,14 +416,7 @@ public class MUtil
 		Collections.reverse(trace);
 		
 		// Eat Garbage
-		for (Iterator<StackTraceElement> iterator = trace.iterator(); iterator.hasNext();)
-		{
-			StackTraceElement element = iterator.next();
-			if (PredicateElementGarbage.get().apply(element))
-			{
-				iterator.remove();
-			}
-		}
+		trace.removeIf(PredicateElementGarbage.get());
 		
 		// Unreverse
 		Collections.reverse(trace);
@@ -1467,7 +1460,7 @@ public class MUtil
 		// ORDERBY
 		if (orderby != null)
 		{
-			Collections.sort(ret, orderby);
+			ret.sort(orderby);
 		}
 		
 		// LIMIT AND OFFSET
@@ -1593,13 +1586,8 @@ public class MUtil
 		{
 			K key = entry.getKey();
 			V value = entry.getValue();
-			
-			Set<K> set = ret.get(value);
-			if (set == null)
-			{
-				set = new HashSet<>();
-				ret.put(value, set);
-			}
+
+			Set<K> set = ret.computeIfAbsent(value, k -> new HashSet<>());
 			set.add(key);
 		}
 		
@@ -1799,22 +1787,17 @@ public class MUtil
 	public static <K,V extends Comparable<? super V>> SortedSet<Map.Entry<K,V>> entriesSortedByValues(Map<K,V> map, final boolean ascending)
 	{
 		SortedSet<Map.Entry<K,V>> sortedEntries = new TreeSet<>(
-			new Comparator<Map.Entry<K, V>>()
-			{
-				@Override
-				public int compare(Map.Entry<K, V> e1, Map.Entry<K, V> e2)
+			(e1, e2) -> {
+				int res;
+				if (ascending)
 				{
-					int res;
-					if (ascending)
-					{
-						res = e1.getValue().compareTo(e2.getValue());
-					}
-					else
-					{
-						res = e2.getValue().compareTo(e1.getValue());
-					}
-					return res != 0 ? res : 1;
+					res = e1.getValue().compareTo(e2.getValue());
 				}
+				else
+				{
+					res = e2.getValue().compareTo(e1.getValue());
+				}
+				return res != 0 ? res : 1;
 			}
 		);
 		sortedEntries.addAll(map.entrySet());
@@ -1879,7 +1862,7 @@ public class MUtil
 	{
 		if (predicates.isEmpty()) throw new IllegalArgumentException("isEmpty");
 
-		PredicateAnd<T> predicate = new PredicateAnd<T>();
+		PredicateAnd<T> predicate = new PredicateAnd<>();
 		predicate.predicates = new MassiveList<>(predicates);
 
 		return predicate;

@@ -173,19 +173,16 @@ public final class GsonMongoConverter
 		if (!(inObject instanceof BasicDBList)) throw new IllegalArgumentException("Expected BasicDBList as argument type!");
 		BasicDBList in = (BasicDBList)inObject;
 		JsonArray jsonArray = new JsonArray();
-		for (int i = 0; i < in.size(); i++)
+		for (Object object : in)
 		{
-			Object object = in.get(i);
 			if (object instanceof BasicDBList)
 			{
 				jsonArray.add(mongo2GsonArray((BasicDBList) object));
-			}
-			else if (object instanceof BasicDBObject)
+			} else if (object instanceof BasicDBObject)
 			{
 				jsonArray.add(mongo2GsonObject((BasicDBObject) object));
-			}
-			else
-			{ 
+			} else
+			{
 				jsonArray.add(mongo2GsonPrimitive(object));
 			}
 		}

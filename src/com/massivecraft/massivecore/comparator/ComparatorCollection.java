@@ -3,7 +3,6 @@ package com.massivecraft.massivecore.comparator;
 import com.massivecraft.massivecore.collections.MassiveList;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -44,10 +43,10 @@ public class ComparatorCollection extends ComparatorAbstract<Object>
 		
 		// Elements
 		List<Object> elements1 = new MassiveList<>(collection1);
-		Collections.sort(elements1, ComparatorSmart.get());
+		elements1.sort(ComparatorSmart.get());
 		
 		List<Object> elements2 = new MassiveList<>(collection2);
-		Collections.sort(elements2, ComparatorSmart.get());
+		elements2.sort(ComparatorSmart.get());
 		
 		Iterator<Object> iterator1 = elements1.iterator();
 		Iterator<Object> iterator2 = elements2.iterator();

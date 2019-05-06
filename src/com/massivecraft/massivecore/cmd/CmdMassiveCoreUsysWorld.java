@@ -28,7 +28,7 @@ public class CmdMassiveCoreUsysWorld extends MassiveCoreCommand
 	{
 		String worldName = this.readArg();
 		String universe = this.readArg();
-		Multiverse multiverse = (Multiverse) this.readArg();
+		Multiverse multiverse = this.readArg();
 		
 		if (!multiverse.containsUniverse(universe))
 		{

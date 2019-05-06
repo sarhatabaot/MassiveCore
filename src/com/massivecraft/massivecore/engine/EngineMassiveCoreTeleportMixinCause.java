@@ -28,7 +28,7 @@ public class EngineMassiveCoreTeleportMixinCause extends Engine
 	public boolean isMixinCausedTeleportIncoming() { return this.mixinCausedTeleportIncoming; }
 	public void setMixinCausedTeleportIncoming(boolean mixinCausedTeleportIncoming) { this.mixinCausedTeleportIncoming = mixinCausedTeleportIncoming; }
 	
-	private Set<PlayerTeleportEvent> mixinCausedTeleportEvents = Collections.newSetFromMap(new ConcurrentHashMap<PlayerTeleportEvent, Boolean>());
+	private Set<PlayerTeleportEvent> mixinCausedTeleportEvents = Collections.newSetFromMap(new ConcurrentHashMap<>());
 	
 	// -------------------------------------------- //
 	// TO BE USED
@@ -49,14 +49,7 @@ public class EngineMassiveCoreTeleportMixinCause extends Engine
 		if (!mixinCausedTeleportIncoming) return;
 		mixinCausedTeleportIncoming = false;
 		mixinCausedTeleportEvents.add(event);
-		Bukkit.getScheduler().scheduleSyncDelayedTask(MassiveCore.get(), new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				mixinCausedTeleportEvents.remove(event);
-			}
-		});
+		Bukkit.getScheduler().scheduleSyncDelayedTask(MassiveCore.get(), () -> mixinCausedTeleportEvents.remove(event));
 	}
 	
 }

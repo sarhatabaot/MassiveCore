@@ -1,16 +1,16 @@
 package com.massivecraft.massivecore.command.type.enumeration;
 
-import org.bukkit.entity.Ocelot.Type;
+import org.bukkit.entity.Cat.Type;
 
-public class TypeOcelotType extends TypeEnum<Type>
+public class TypeCatType extends TypeEnum<Type>
 {
 	// -------------------------------------------- //
 	// INSTANCE & CONSTRUCT
 	// -------------------------------------------- //
 	
-	private static TypeOcelotType i = new TypeOcelotType();
-	public static TypeOcelotType get() { return i; }
-	public TypeOcelotType()
+	private static TypeCatType i = new TypeCatType();
+	public static TypeCatType get() { return i; }
+	public TypeCatType()
 	{
 		super(Type.class);
 	}

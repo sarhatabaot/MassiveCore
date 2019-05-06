@@ -251,14 +251,7 @@ public class BoardUtil extends Engine
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void clean(final PlayerQuitEvent event)
 	{
-		Bukkit.getScheduler().runTask(this.getPlugin(), new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				clean(event.getPlayer());
-			}
-		});
+		Bukkit.getScheduler().runTask(this.getPlugin(), () -> clean(event.getPlayer()));
 	}
 	
 	// -------------------------------------------- //

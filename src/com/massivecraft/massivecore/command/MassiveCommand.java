@@ -983,7 +983,7 @@ public class MassiveCommand implements Active, PluginIdentifiableCommand
 	{
 		if (this instanceof MassiveCommandDeprecated) return;
 
-		for (Field field : this.getClassOrEnclosing(this).getDeclaredFields())
+		for (Field field : getClassOrEnclosing(this).getDeclaredFields())
 		{
 			ReflectionUtil.makeAccessible(field);
 			Class<?> fieldType = field.getType();

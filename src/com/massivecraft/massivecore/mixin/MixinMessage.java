@@ -2,7 +2,6 @@ package com.massivecraft.massivecore.mixin;
 
 import com.massivecraft.massivecore.mson.Mson;
 import com.massivecraft.massivecore.nms.NmsChat;
-import com.massivecraft.massivecore.predicate.Predicate;
 import com.massivecraft.massivecore.util.IdUtil;
 import com.massivecraft.massivecore.util.Txt;
 import org.bukkit.command.CommandSender;
@@ -10,6 +9,7 @@ import org.bukkit.command.CommandSender;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.function.Predicate;
 
 public class MixinMessage extends Mixin
 {
@@ -134,7 +134,7 @@ public class MixinMessage extends Mixin
 		// Here
 		for (CommandSender sender : IdUtil.getLocalSenders())
 		{
-			if ( ! predicate.apply(sender)) continue;
+			if ( ! predicate.test(sender)) continue;
 			this.messageOne(sender, messages);
 		}
 		

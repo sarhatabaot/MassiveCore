@@ -94,7 +94,7 @@ public class IdUtil implements Listener, Runnable
 	// IdData storage. Maintaining relation between name and id.
 	
 	// The full set
-	private static Set<IdData> datas = Collections.newSetFromMap(new ConcurrentHashMap<IdData, Boolean>());
+	private static Set<IdData> datas = Collections.newSetFromMap(new ConcurrentHashMap<>());
 	public static Set<IdData> getDatas() { return datas; }
 	
 	// Id Index
@@ -358,14 +358,7 @@ public class IdUtil implements Listener, Runnable
 		loadDatas();
 		
 		// Since Console initially does not exist we schedule the register.
-		Bukkit.getScheduler().scheduleSyncDelayedTask(MassiveCore.get(), new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				register(getConsole());
-			}
-		});
+		Bukkit.getScheduler().scheduleSyncDelayedTask(MassiveCore.get(), () -> register(getConsole()));
 		
 		// Cachefile
 		long ticks = 20*60; // 5min

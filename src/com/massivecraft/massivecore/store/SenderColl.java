@@ -148,23 +148,9 @@ public class SenderColl<E extends SenderEntity<E>> extends Coll<E> implements Se
 	// GET ALL ONLINE / OFFLINE
 	// -------------------------------------------- //
 	
-	public static final Predicate<SenderEntity<?>> PREDICATE_ONLINE = new Predicate<SenderEntity<?>>()
-	{
-		@Override
-		public boolean apply(SenderEntity<?> entity)
-		{
-			return entity.isOnline();
-		}
-	};
+	public static final Predicate<SenderEntity<?>> PREDICATE_ONLINE = SenderEntity::isOnline;
 	
-	public static final Predicate<SenderEntity<?>> PREDICATE_OFFLINE = new Predicate<SenderEntity<?>>()
-	{
-		@Override
-		public boolean apply(SenderEntity<?> entity)
-		{
-			return entity.isOffline();
-		}
-	};
+	public static final Predicate<SenderEntity<?>> PREDICATE_OFFLINE = SenderEntity::isOffline;
 	
 	public Collection<E> getAllOnline()
 	{

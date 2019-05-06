@@ -77,7 +77,7 @@ public abstract class MassiveCommandSetSharding<T extends Serializable> extends 
 			if (!PermissionUtil.hasPermission(sender, this.getPermSetOther(), true)) return;
 		}
 		
-		EventMassiveCoreCommandSet event = new EventMassiveCoreCommandSet<T>(senderId, targetId, after, this.getPlayerValue(), this.getName());
+		EventMassiveCoreCommandSet event = new EventMassiveCoreCommandSet<>(senderId, targetId, after, this.getPlayerValue(), this.getName());
 		MixinEvent.get().distribute(event, true);
 	}
 

@@ -201,14 +201,7 @@ public class EngineMassiveCoreMain extends Engine
 		final UUID uuid = player.getUniqueId();
 		
 		// We do the schedule in order for the set to be correct through out the whole MONITOR priority state.
-		Bukkit.getScheduler().scheduleSyncDelayedTask(MassiveCore.get(), new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				kickedPlayerReasons.remove(uuid);
-			}
-		});
+		Bukkit.getScheduler().scheduleSyncDelayedTask(MassiveCore.get(), () -> kickedPlayerReasons.remove(uuid));
 	}
 	
 }

@@ -36,7 +36,8 @@ public class PriorityLines implements Prioritized, Comparable<PriorityLines>
 		this.lines = msonLines;
 	}
 	
-	public void setLine(Object line) { this.setLines(line); };
+	public void setLine(Object line) { this.setLines(line); }
+
 	public List<Mson> getLinesMson() { return new MassiveList<>(this.lines); }
 	
 	// -------------------------------------------- //

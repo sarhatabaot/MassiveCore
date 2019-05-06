@@ -451,26 +451,12 @@ public class InventoryUtil
 	
 	public static void updateSoon(final HumanEntity human)
 	{
-		Bukkit.getScheduler().scheduleSyncDelayedTask(MassiveCore.get(), new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				update(human);
-			}
-		});
+		Bukkit.getScheduler().scheduleSyncDelayedTask(MassiveCore.get(), () -> update(human));
 	}
 	
 	public static void updateLater(final HumanEntity human)
 	{
-		Bukkit.getScheduler().scheduleSyncDelayedTask(MassiveCore.get(), new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				update(human);
-			}
-		}, 1);
+		Bukkit.getScheduler().scheduleSyncDelayedTask(MassiveCore.get(), () -> update(human), 1);
 	}
 	
 	// -------------------------------------------- //
@@ -1195,7 +1181,7 @@ public class InventoryUtil
 		List<Entry<String, Integer>> entries = event.getLore();
 		// Note: Comparator cast is necessary for Maven to compile, even if the IDE doesn't complain.
 		Comparator<Entry<? super String, ? super Integer>> comparator = (Comparator) ComparatorEntryValue.get(ComparatorComparable.get());
-		Collections.sort(entries, comparator);
+		entries.sort(comparator);
 
 		List<String> ret = new MassiveList<>();
 		for (Entry<String, Integer> entry : entries)

@@ -171,7 +171,7 @@ public abstract class AdapterMassiveX<T> implements JsonDeserializer<T>, JsonSer
 		Class<?> clazz = (Class<?>) actualTypeArguments[index];
 		try
 		{
-			return clazz.newInstance();
+			return clazz.getDeclaredConstructor().newInstance();
 		}
 		catch (Exception e)
 		{

@@ -84,7 +84,7 @@ public class RecipeUtil
 			{
 				if (object instanceof Integer)
 				{
-					quantity = ((Integer)object).intValue();
+					quantity = (Integer) object;
 				}
 				else
 				{

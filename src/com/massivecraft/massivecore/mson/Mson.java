@@ -972,15 +972,10 @@ public class Mson implements Serializable
 		if (replacements == null) throw new NullPointerException("replacements");
 		
 		final MutableInt i = new MutableInt(0);
-		MsonReplacement replacer = new MsonReplacement()
-		{
-			@Override
-			public Mson getReplacement(String match, Mson parent)
-			{
-				int idx = i.intValue();
-				i.setValue(idx+1);
-				return replacements[idx % replacements.length];
-			}
+		MsonReplacement replacer = (match, parent) -> {
+			int idx = i.intValue();
+			i.setValue(idx+1);
+			return replacements[idx % replacements.length];
 		};
 		return this.replaceAll(pattern, replacer);
 	}
@@ -1021,7 +1016,7 @@ public class Mson implements Serializable
 				if (addStringBuffer(msons, currentString)) currentString = new StringBuffer();
 				
 				// Add this replacement
-				msons.add((Mson) replacement);
+				msons.add(replacement);
 			}
 		}
 		

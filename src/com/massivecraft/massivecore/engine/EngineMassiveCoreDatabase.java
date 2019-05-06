@@ -71,14 +71,7 @@ public class EngineMassiveCoreDatabase extends Engine
 	// Same as above but next tick.
 	public static void setSenderReferencesSoon(final CommandSender sender, final CommandSender reference, final PlayerLoginEvent event)
 	{
-		Bukkit.getScheduler().scheduleSyncDelayedTask(MassiveCore.get(), new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				setSenderReferences(sender, reference, event);
-			}
-		});
+		Bukkit.getScheduler().scheduleSyncDelayedTask(MassiveCore.get(), () -> setSenderReferences(sender, reference, event));
 	}
 	
 	@EventHandler(priority = EventPriority.LOWEST)
@@ -143,14 +136,7 @@ public class EngineMassiveCoreDatabase extends Engine
 		// Without this we might cause a memory leak.
 		// Players might trigger AsyncPlayerPreLoginEvent but not PlayerLoginEvent.
 		// Using WeakHashMap is not an option since the player object does not exist at AsyncPlayerPreLoginEvent.
-		Bukkit.getScheduler().runTaskLaterAsynchronously(this.getPlugin(), new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				idToRemoteEntries.remove(playerId);
-			}
-		}, 20*30);
+		Bukkit.getScheduler().runTaskLaterAsynchronously(this.getPlugin(), () -> idToRemoteEntries.remove(playerId), 20*30);
 	}
 	
 	// Intended to be ran synchronously.

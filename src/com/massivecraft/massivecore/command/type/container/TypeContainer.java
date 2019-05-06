@@ -190,7 +190,7 @@ public abstract class TypeContainer<C, E> extends TypeAbstract<C>
 		// Check All
 		if (this.getInnerType() instanceof AllAble)
 		{
-			AllAble<E> allAble = (AllAble<E>)this.getInnerType();
+			AllAble<E> allAble = this.getInnerType();
 			if (arg.equalsIgnoreCase("all"))
 			{
 				ContainerUtil.addElements(ret, allAble.getAll(sender));

@@ -93,7 +93,7 @@ public class EngineMassiveCoreDestination extends Engine
 		// Prepare
 		arg = arg.toLowerCase();
 		
-		List<String> parts = Arrays.asList(arg.split("[\\s\\,\\:]+", 2));
+		List<String> parts = Arrays.asList(arg.split("[\\s,:]+", 2));
 		String first = parts.get(0);
 		String rest = null;
 		if (parts.size() > 1) rest = parts.get(1);

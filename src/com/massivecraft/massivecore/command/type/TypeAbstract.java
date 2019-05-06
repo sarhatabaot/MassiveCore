@@ -29,7 +29,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Set;
 
 public abstract class TypeAbstract<T> implements Type<T>
@@ -106,7 +105,7 @@ public abstract class TypeAbstract<T> implements Type<T>
 	@Override public <I extends Type<?>> I getInnerType(int index) { return (I) this.getInnerTypes().get(index); }
 	@Override public <I extends Type<?>> I getInnerType() { return this.getInnerType(0); }
 	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings({ "unchecked"})
 	@Override public void setInnerTypes(Collection<Type<?>> innerTypes) { this.innerTypes = new MassiveList(innerTypes); }
 	@Override public void setInnerTypes(Type<?>... innerTypes) { this.setInnerTypes(Arrays.asList(innerTypes)); }
 	
@@ -151,7 +150,7 @@ public abstract class TypeAbstract<T> implements Type<T>
 	@SuppressWarnings("unchecked")
 	public <I extends Property<T, ?>> I getInnerProperty(int index) { return (I) this.getInnerProperties().get(index); }
 	
-	public <I extends Property<T, ?>> void setInnerProperties(Collection<I> innerProperties) { this.innerProperties = new MassiveList<Property<T, ?>>(innerProperties); }
+	public <I extends Property<T, ?>> void setInnerProperties(Collection<I> innerProperties) { this.innerProperties = new MassiveList<>(innerProperties); }
 	@SafeVarargs
 	public final <I extends Property<T, ?>> void setInnerProperties(I... innerProperties) { this.setInnerProperties(Arrays.asList(innerProperties)); }
 	public void setInnerProperties(Class<T> clazz) { this.setInnerProperties(PropertyReflection.getAll(clazz, this)); }
@@ -436,15 +435,7 @@ public abstract class TypeAbstract<T> implements Type<T>
 	// Currently we just throw away nulls and empty strings.
 	private static void cleanSuggestions(List<String> suggestions)
 	{
-		ListIterator<String> iter = suggestions.listIterator();
-		while (iter.hasNext())
-		{
-			String suggestion = iter.next();
-			if (suggestion == null || suggestion.isEmpty())
-			{
-				iter.remove();
-			}
-		}
+		suggestions.removeIf(suggestion -> suggestion == null || suggestion.isEmpty());
 	}
 	
 	public static List<String> prepareForSpaces(List<String> suggestions, String arg)

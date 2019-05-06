@@ -59,7 +59,7 @@ public class EngineMassiveCoreClean extends Engine
 		MassiveCoreMConf.get().cleanTaskLastMillis = now;
 		MassiveCoreMConf.get().changed();
 		
-		List<CommandSender> recipients = Collections.<CommandSender>singletonList(IdUtil.getConsole());
+		List<CommandSender> recipients = Collections.singletonList(IdUtil.getConsole());
 		for (Coll<?> coll : Coll.getInstances())
 		{
 			if (!coll.isCleanTaskEnabled()) continue;

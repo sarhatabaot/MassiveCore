@@ -6,7 +6,6 @@ import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 
-import java.util.Iterator;
 import java.util.Map.Entry;
 
 public class GsonCloner
@@ -58,9 +57,9 @@ public class GsonCloner
 	public static JsonArray cloneJsonArray(JsonArray array)
 	{
 		JsonArray ret = new JsonArray();
-		for (Iterator<JsonElement> iter = array.iterator(); iter.hasNext();)
+		for (JsonElement jsonElement : array)
 		{
-			ret.add(clone(iter.next()));
+			ret.add(clone(jsonElement));
 		}
 		return ret;
 	}

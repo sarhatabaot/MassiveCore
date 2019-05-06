@@ -98,13 +98,7 @@ public class Pager<T>
 	protected Msonifier<T> msonifier = null;
 	public boolean hasMsonifier() { return this.msonifier != null; }
 	public Pager<T> setMsonifier(Msonifier<T> msonifier) { this.msonifier = msonifier; return this; }
-	public Pager<T> setMsonifier(final Stringifier<T> stringifier) { this.msonifier = new Msonifier<T>(){
-		@Override
-		public Mson toMson(T item, int index)
-		{
-			return Mson.fromParsedMessage(stringifier.toString(item, index));
-		}
-	}; return this; }
+	public Pager<T> setMsonifier(final Stringifier<T> stringifier) { this.msonifier = (item, index) -> Mson.fromParsedMessage(stringifier.toString(item, index)); return this; }
 	public Msonifier<T> getMsonifier() { return this.msonifier; }
 
 	// -------------------------------------------- //
@@ -272,14 +266,7 @@ public class Pager<T>
 	
 	public void messageAsync()
 	{
-		Bukkit.getScheduler().runTaskAsynchronously(MassiveCore.get(), new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				message();				
-			}
-		});
+		Bukkit.getScheduler().runTaskAsynchronously(MassiveCore.get(), this::message);
 	}
 	
 }

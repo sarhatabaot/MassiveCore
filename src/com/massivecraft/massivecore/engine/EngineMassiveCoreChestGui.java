@@ -15,7 +15,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.inventory.Inventory;
 
 public class EngineMassiveCoreChestGui extends Engine
 {
@@ -33,12 +32,8 @@ public class EngineMassiveCoreChestGui extends Engine
 	@EventHandler(priority = EventPriority.LOW)
 	public void onClick(InventoryClickEvent event)
 	{
-		// If this inventory ...
-		Inventory inventory = event.getInventory();
-		if (inventory == null) return;
-		
-		// ... is a gui ...
-		ChestGui gui = ChestGui.get(inventory);
+		// If this inventory is a gui ...
+		ChestGui gui = ChestGui.get(event);
 		if (gui == null) return;
 		
 		// ... then cancel the event ...
@@ -61,12 +56,9 @@ public class EngineMassiveCoreChestGui extends Engine
 			
 			return;
 		}
-		
-		// ... and if this slot index ...
-		int index = event.getSlot();
-		
-		// ... has an action ...
-		ChestAction action = gui.getAction(index);
+
+		// ... and if this slot index has an action ...
+		ChestAction action = gui.getAction(event);
 		if (action == null) return;
 		
 		// ... set last action ...
@@ -87,9 +79,7 @@ public class EngineMassiveCoreChestGui extends Engine
 	public void onOpen(InventoryOpenEvent event)
 	{
 		// Get
-		final Inventory inventory = event.getInventory();
-		if (inventory == null) return;
-		final ChestGui gui = ChestGui.get(inventory);
+		final ChestGui gui = ChestGui.get(event);
 		if (gui == null) return;
 		
 		// Sound
@@ -101,17 +91,9 @@ public class EngineMassiveCoreChestGui extends Engine
 		}
 		
 		// Later
-		Bukkit.getScheduler().runTask(getPlugin(), new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				// Runnables
-				for (Runnable runnable : gui.getRunnablesOpen())
-				{
-					runnable.run();
-				}
-			}
+		Bukkit.getScheduler().runTask(getPlugin(), () -> {
+			// Runnables
+			gui.getRunnablesOpen().forEach(Runnable::run);
 		});
 	}
 	
@@ -119,32 +101,22 @@ public class EngineMassiveCoreChestGui extends Engine
 	public void onClose(InventoryCloseEvent event)
 	{
 		// Get
-		final Inventory inventory = event.getInventory();
-		if (inventory == null) return;
-		final ChestGui gui = ChestGui.get(inventory);
+		final ChestGui gui = ChestGui.get(event);
 		if (gui == null) return;
 		
 		// Human
 		final HumanEntity human = event.getPlayer();
 		
 		// Later
-		Bukkit.getScheduler().runTask(getPlugin(), new Runnable()
-		{
-			@Override
-			public void run()
+		Bukkit.getScheduler().runTask(getPlugin(), () -> {
+			// Runnables
+			gui.getRunnablesClose().forEach(Runnable::run);
+
+			// Sound
+			SoundEffect sound = gui.getSoundClose();
+			if (sound != null && human.getOpenInventory().getTopInventory().getType() == InventoryType.CRAFTING)
 			{
-				// Runnables
-				for (Runnable runnable : gui.getRunnablesClose())
-				{
-					runnable.run();
-				}
-				
-				// Sound
-				SoundEffect sound = gui.getSoundClose();
-				if (sound != null && human.getOpenInventory().getTopInventory().getType() == InventoryType.CRAFTING)
-				{
-					sound.run(human);
-				}
+				sound.run(human);
 			}
 		});
 		
@@ -152,14 +124,7 @@ public class EngineMassiveCoreChestGui extends Engine
 		{
 			// We save the inventory in the map for a little while.
 			// A plugin may want to do something upon the chest gui closing.
-			Bukkit.getScheduler().runTaskLater(this.getPlugin(), new Runnable()
-			{
-				@Override
-				public void run()
-				{
-					gui.remove();
-				}
-			}, 20);
+			Bukkit.getScheduler().runTaskLater(this.getPlugin(), gui::remove, 20);
 		}
 	}
 

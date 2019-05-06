@@ -39,7 +39,7 @@ public class AdapterBackstringSet implements JsonDeserializer<BackstringSet<?>>,
 		return context.serialize(src.getStringSet(), stringSetType);
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings({ "unchecked"})
 	@Override
 	public BackstringSet<?> deserialize(JsonElement json, Type type, JsonDeserializationContext context) throws JsonParseException
 	{

@@ -6,7 +6,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
@@ -56,7 +55,7 @@ public class AdapterPolymorphic<T> implements JsonDeserializer<T>, JsonSerialize
 			throw new JsonParseException("A polymorph must be have a \"+VALUE+\" field.");
 		}
 		
-		String type = ((JsonPrimitive)jsonObject.get(TYPE)).getAsString();
+		String type = jsonObject.get(TYPE).getAsString();
 		
 		Class<?> typeClass = null;
 		try

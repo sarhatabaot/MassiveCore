@@ -68,8 +68,7 @@ public class Multiverse extends Entity<Multiverse>
 	
 	public Set<String> getUniverses()
 	{
-		Set<String> ret = new TreeSet<>();
-		ret.addAll(this.uw.keySet());
+		Set<String> ret = new TreeSet<>(this.uw.keySet());
 		ret.add(MassiveCore.DEFAULT);
 		return ret;
 	}
@@ -133,9 +132,8 @@ public class Multiverse extends Entity<Multiverse>
 	{
 		Set<String> orig = this.uw.get(universe);
 		if (orig == null) return null;
-		
-		Set<String> ret = new TreeSet<>();
-		ret.addAll(orig);
+
+		Set<String> ret = new TreeSet<>(orig);
 		
 		return ret;
 	}

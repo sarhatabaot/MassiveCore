@@ -156,7 +156,7 @@ public class TimeUnit implements Comparable<TimeUnit>
 	@Override
 	public int compareTo(TimeUnit that)
 	{
-		return Long.valueOf(this.millis).compareTo(that.millis) * -1;
+		return Long.compare(this.millis, that.millis) * -1;
 	}
 	
 	@Override

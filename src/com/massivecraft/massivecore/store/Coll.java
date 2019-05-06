@@ -421,7 +421,7 @@ public class Coll<E extends Entity<E>> extends CollAbstract<E>
 		}
 		
 		boolean existsLocal = (localEntity != null);
-		boolean existsRemote = remote ? (remoteMtime != 0) : true;
+		boolean existsRemote = !remote || (remoteMtime != 0);
 		
 		// So we don't have this anywhere?
 		if ( ! existsLocal && ! existsRemote) return Modification.UNKNOWN;
@@ -828,7 +828,7 @@ public class Coll<E extends Entity<E>> extends CollAbstract<E>
 		// Id
 		if (id == null) id = this.calculateId();
 		this.id = id;
-		String[] idParts = this.id.split("\\@");
+		String[] idParts = this.id.split("@");
 		this.basename = idParts[0];
 		if (idParts.length > 1)
 		{
@@ -849,10 +849,7 @@ public class Coll<E extends Entity<E>> extends CollAbstract<E>
 		this.identifiedModifications = new ConcurrentHashMap<>();
 		
 		// Tasks
-		this.tickTask = new Runnable()
-		{
-			@Override public void run() { Coll.this.onTick(); }
-		};
+		this.tickTask = Coll.this::onTick;
 	}
 	
 	public Coll(String id)

@@ -61,7 +61,7 @@ public class TypePS extends TypeAbstract<PS>
 		}
 		
 		// We remove all commas optionally followed by spaces
-		String argInner = arg.replaceAll("\\:\\s*", "");
+		String argInner = arg.replaceAll(":\\s*", "");
 		
 		// We split on comma and space to get the list of raw entries.
 		List<String> parts = Arrays.asList(argInner.split("[\\s,]+"));
