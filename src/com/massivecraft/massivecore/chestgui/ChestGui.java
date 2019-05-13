@@ -177,7 +177,7 @@ public class ChestGui
 		
 	}
 
-	public ChestGui constructFromButtons(List<ChestButton> buttons)
+	public static ChestGui constructFromButtons(List<? extends ChestButton> buttons, String title)
 	{
 		int size = buttons.size();
 		int modulo = size % 9;
@@ -186,7 +186,7 @@ public class ChestGui
 			size = size + 9 - modulo;
 		}
 
-		Inventory inventory = Bukkit.createInventory(null, size);
+		Inventory inventory = Bukkit.createInventory(null, size, title);
 		ChestGui gui = getCreative(inventory);
 
 		for (int i = 0; i < buttons.size(); i++)
