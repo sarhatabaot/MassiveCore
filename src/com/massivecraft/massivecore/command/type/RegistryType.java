@@ -29,7 +29,6 @@ import com.massivecraft.massivecore.command.type.enumeration.TypeHorseStyle;
 import com.massivecraft.massivecore.command.type.enumeration.TypeHorseVariant;
 import com.massivecraft.massivecore.command.type.enumeration.TypeLlamaColor;
 import com.massivecraft.massivecore.command.type.enumeration.TypeMaterial;
-import com.massivecraft.massivecore.command.type.enumeration.TypeCatType;
 import com.massivecraft.massivecore.command.type.enumeration.TypeParrotVariant;
 import com.massivecraft.massivecore.command.type.enumeration.TypeParticle;
 import com.massivecraft.massivecore.command.type.enumeration.TypeRabbitType;
@@ -308,7 +307,6 @@ public class RegistryType
 		register(TypeHorseStyle.get());
 		register(TypeHorseVariant.get());
 		register(TypeMaterial.get());
-		register(TypeCatType.get());
 		register(TypeParticle.get());
 		register(TypeSpawnReason.get());
 		register(TypeRabbitType.get());
