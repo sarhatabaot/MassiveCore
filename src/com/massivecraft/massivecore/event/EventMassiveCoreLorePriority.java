@@ -1,7 +1,6 @@
 package com.massivecraft.massivecore.event;
 
 import com.massivecraft.massivecore.collections.MassiveList;
-import com.massivecraft.massivecore.predicate.Predicate;
 import org.bukkit.ChatColor;
 import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.ItemStack;
@@ -83,12 +82,6 @@ public class EventMassiveCoreLorePriority extends EventMassiveCore
 			// ... set priority.
 			loreEntry.setValue(priority);
 		}
-	}
-
-	@Deprecated
-	public void setPriorityByPredicate(Predicate<String> predicate, int priority)
-	{
-		setPriorityByPredicate((java.util.function.Predicate<String>) predicate, priority);
 	}
 
 	public void setPriorityByPrefix(final String prefix, int priority)

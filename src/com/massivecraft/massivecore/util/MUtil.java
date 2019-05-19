@@ -1408,12 +1408,6 @@ public class MUtil
 	// TRANSFORM
 	// -------------------------------------------- //
 
-	@Deprecated
-	public static <T> List<T> transform(Iterable<T> items, com.massivecraft.massivecore.predicate.Predicate<? super T> where, Comparator<? super T> orderby, Integer limit, Integer offset)
-	{
-		return transform(items, (Predicate<? super T>) where, orderby, limit, offset);
-	}
-
 	public static <T> List<T> transform(Iterable<T> items, Predicate<? super T> where, Comparator<? super T> orderby, Integer limit, Integer offset)
 	{
 		// Collection
@@ -1511,13 +1505,6 @@ public class MUtil
 	public static <T> List<T> transform(Iterable<T> items, Comparator<? super T> orderby, Integer limit, Integer offset) { return transform(items, null, orderby, limit, offset); }
 	public static <T> List<T> transform(Iterable<T> items, Integer limit) { return transform(items, null, null, limit, null); }
 	public static <T> List<T> transform(Iterable<T> items, Integer limit, Integer offset) { return transform(items, null, null, limit, offset); }
-
-	// OLD PREDICATE
-	@Deprecated public static <T> List<T> transform(Iterable<T> items, com.massivecraft.massivecore.predicate.Predicate<? super T> where) { return transform(items, where, null, null, null); }
-	@Deprecated public static <T> List<T> transform(Iterable<T> items, com.massivecraft.massivecore.predicate.Predicate<? super T> where, Comparator<? super T> orderby) { return transform(items, where, orderby, null, null); }
-	@Deprecated public static <T> List<T> transform(Iterable<T> items, com.massivecraft.massivecore.predicate.Predicate<? super T> where, Comparator<? super T> orderby, Integer limit) { return transform(items, where, orderby, limit, null); }
-	@Deprecated public static <T> List<T> transform(Iterable<T> items, com.massivecraft.massivecore.predicate.Predicate<? super T> where, Integer limit) { return transform(items, where, null, limit, null); }
-	@Deprecated public static <T> List<T> transform(Iterable<T> items, com.massivecraft.massivecore.predicate.Predicate<? super T> where, Integer limit, Integer offset) { return transform(items, where, null, limit, offset); }
 	
 	// -------------------------------------------- //
 	// SIMPLE CONSTRUCTORS

@@ -1,8 +1,9 @@
 package com.massivecraft.massivecore.command.requirement;
 
 import com.massivecraft.massivecore.command.MassiveCommand;
-import com.massivecraft.massivecore.predicate.Predicate;
 import org.bukkit.command.CommandSender;
+
+import java.util.function.Predicate;
 
 public interface Requirement extends Predicate<CommandSender>
 {

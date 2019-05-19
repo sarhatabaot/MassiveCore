@@ -1,7 +1,5 @@
 package com.massivecraft.massivecore.store;
 
-import com.massivecraft.massivecore.predicate.Predicate;
-
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
@@ -73,21 +71,6 @@ public interface EntityContainer<E>
 	List<E> getAll(Integer limit, Integer offset);
 	List<E> getAll(Integer limit);
 
-	// OLD PREDICATE
-	@Deprecated List<E> getAll(Predicate<? super E> where, Comparator<? super E> orderby, Integer limit, Integer offset);
-	@Deprecated List<E> getAll(Predicate<? super E> where, Comparator<? super E> orderby, Integer limit);
-	@Deprecated List<E> getAll(Predicate<? super E> where, Comparator<? super E> orderby);
-	@Deprecated List<E> getAll(Predicate<? super E> where, Integer limit, Integer offset);
-	@Deprecated List<E> getAll(Predicate<? super E> where, Integer limit);
-	@Deprecated List<E> getAll(Predicate<? super E> where);
-
-	@Deprecated List<E> getAll(Iterable<?> oids, Predicate<? super E> where, Comparator<? super E> orderby, Integer limit, Integer offset);
-	@Deprecated List<E> getAll(Iterable<?> oids, Predicate<? super E> where, Comparator<? super E> orderby, Integer limit);
-	@Deprecated List<E> getAll(Iterable<?> oids, Predicate<? super E> where, Comparator<? super E> orderby);
-	@Deprecated List<E> getAll(Iterable<?> oids, Predicate<? super E> where, Integer limit, Integer offset);
-	@Deprecated List<E> getAll(Iterable<?> oids, Predicate<? super E> where, Integer limit);
-	@Deprecated List<E> getAll(Iterable<?> oids, Predicate<? super E> where);
-	
 	// -------------------------------------------- //
 	// BEHAVIOR
 	// -------------------------------------------- //

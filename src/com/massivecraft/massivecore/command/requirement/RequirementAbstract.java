@@ -15,7 +15,7 @@ public abstract class RequirementAbstract implements Requirement, Serializable
 	// -------------------------------------------- //
 	
 	@Override
-	public boolean apply(CommandSender sender)
+	public boolean test(CommandSender sender)
 	{
 		return this.apply(sender, null);
 	}

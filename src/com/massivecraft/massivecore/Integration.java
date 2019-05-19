@@ -1,7 +1,6 @@
 package com.massivecraft.massivecore;
 
 import com.massivecraft.massivecore.collections.MassiveList;
-import com.massivecraft.massivecore.predicate.Predicate;
 import com.massivecraft.massivecore.predicate.PredicateIntegration;
 import com.massivecraft.massivecore.util.Txt;
 import org.bukkit.event.EventHandler;
@@ -13,6 +12,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class Integration extends Engine
 {
@@ -56,7 +56,7 @@ public class Integration extends Engine
 		// Calc
 		if (integrationActive == null)
 		{
-			integrationActive = this.getPredicate().apply(this);
+			integrationActive = this.getPredicate().test(this);
 		}
 		
 		// NoChange
