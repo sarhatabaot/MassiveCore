@@ -10,7 +10,7 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 
 import java.util.Collection;
 
-public class MoneyMixinVault extends MoneyMixinAbstract
+public class 	MoneyMixinVault extends MoneyMixinAbstract
 {
 	// -------------------------------------------- //
 	// INSTANCE & CONSTRUCT
@@ -184,10 +184,12 @@ public class MoneyMixinVault extends MoneyMixinAbstract
 		Object objectFrom = getEconomyObject(fromId);
 		OfflinePlayer opFrom = objectFrom instanceof OfflinePlayer ? (OfflinePlayer) objectFrom : null;
 		String nameFrom = objectFrom instanceof String ? (String) objectFrom : null;
+		if (fromId != null && opFrom == null && nameFrom == null) throw new RuntimeException("fromId not convertable: " + fromId);
 
 		Object objectTo = getEconomyObject(toId);
 		OfflinePlayer opTo = objectTo instanceof OfflinePlayer ? (OfflinePlayer) objectTo : null;
 		String nameTo = objectTo instanceof String ? (String) objectTo : null;
+		if (toId != null && opTo == null && nameTo == null) throw new RuntimeException("toId not convertable: " + toId);
 
 		// Ensure the accounts exist
 		if (fromId != null) this.ensureExists(fromId);
