@@ -91,7 +91,7 @@ public class Couple<A, B> implements Entry<A, B>, Cloneable, Serializable
 			this.getSecond(), that.getSecond()
 		);
 	}
-	
+
 	// -------------------------------------------- //
 	// CLONE
 	// -------------------------------------------- //
