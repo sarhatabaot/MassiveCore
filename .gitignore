@@ -8,6 +8,7 @@
 # IntelliJ missing files
 *.iml
 *.ipr
+.idea
 
 # Just because we had it in our old gitignore.
 manifest.mf

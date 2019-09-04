@@ -1,12 +1,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- Parent -->
+    <!-- Parent
     <parent>
         <groupId>com.massivecraft.massivesuper</groupId>
         <artifactId>MassiveSuper</artifactId>
         <version>3.2.3</version>
         <relativePath>../MassiveSuper</relativePath>
+    </parent>-->
+
+    <parent>
+        <groupId>com.github.sarhatabaot</groupId>
+        <artifactId>MassiveSuper</artifactId>
+        <version>3.2.3</version>
     </parent>
 
     <!-- Basics -->
@@ -19,6 +25,13 @@
     <description>${massiveColorInfo}${project.name} is a plugin that contains libraries and features that other plugins make use of. ${massiveDescriptionSuffix}</description>
     <url>${massiveBaseUrl}/massivecore</url>
 
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+
     <!-- Dependencies -->
     <dependencies>
         <!-- Spigot -->
@@ -28,19 +41,20 @@
         </dependency>
         <!-- Vault -->
         <dependency>
-            <groupId>net.milkbowl.vault</groupId>
-            <artifactId>Vault</artifactId>
+            <groupId>com.github.MilkBowl</groupId>
+            <artifactId>VaultAPI</artifactId>
         </dependency>
         <!-- MongoDB -->
         <dependency>
-          <groupId>org.mongodb</groupId>
-          <artifactId>mongo-java-driver</artifactId>
-          <version>2.14.0</version>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+            <version>2.14.0</version>
         </dependency>
     </dependencies>
 
     <!-- Build -->
     <build>
+        <defaultGoal>clean package</defaultGoal>
         <!-- Plugins-->
         <plugins>
             <!-- Enforcer -->
@@ -65,6 +79,18 @@
                                 </includes>
                             </artifactSet>
                         </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
