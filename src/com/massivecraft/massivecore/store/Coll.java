@@ -6,14 +6,15 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.massivecraft.massivecore.ConfServer;
 import com.massivecraft.massivecore.MassiveCore;
-import com.massivecraft.massivecore.entity.MassiveCoreMConf;
 import com.massivecraft.massivecore.MassivePlugin;
 import com.massivecraft.massivecore.collections.MassiveList;
 import com.massivecraft.massivecore.comparator.ComparatorNaturalOrder;
+import com.massivecraft.massivecore.entity.MassiveCoreMConf;
 import com.massivecraft.massivecore.mixin.MixinModification;
 import com.massivecraft.massivecore.store.migrator.MigratorUtil;
 import com.massivecraft.massivecore.util.MUtil;
 import com.massivecraft.massivecore.util.Txt;
+import com.mongodb.DB;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
@@ -906,7 +907,9 @@ public class Coll<E extends Entity<E>> extends CollAbstract<E>
 	
 	public Db calculateDb()
 	{
-		return MStore.getDb();
+		Db db = MStore.getDb();
+		if (db == null) throw new NullPointerException("db");
+		return db;
 	}
 	
 	@Override
