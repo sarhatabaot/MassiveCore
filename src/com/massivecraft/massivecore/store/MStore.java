@@ -1,6 +1,7 @@
 package com.massivecraft.massivecore.store;
 
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.massivecraft.massivecore.ConfServer;
 import com.massivecraft.massivecore.entity.MassiveCoreMConf;
 
@@ -18,6 +19,7 @@ public class MStore
 	// This class also serves the purpose of containing database related constants.
 	
 	public static final boolean DEBUG_ENABLED = false;
+	public static final JsonObject INVALID_JSON = new JsonObject();
 	
 	// -------------------------------------------- //
 	// DRIVER REGISTRY

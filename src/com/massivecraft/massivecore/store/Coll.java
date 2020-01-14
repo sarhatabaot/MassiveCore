@@ -14,7 +14,6 @@ import com.massivecraft.massivecore.mixin.MixinModification;
 import com.massivecraft.massivecore.store.migrator.MigratorUtil;
 import com.massivecraft.massivecore.util.MUtil;
 import com.massivecraft.massivecore.util.Txt;
-import com.mongodb.DB;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
@@ -382,6 +381,11 @@ public class Coll<E extends Entity<E>> extends CollAbstract<E>
 		if (raw.isJsonNull())
 		{
 			this.logLoadError(id, "Raw data was JSON null. It seems you have a file containing just the word \"null\". Why would you do this?");
+			return false;
+		}
+		if (raw == MStore.INVALID_JSON)
+		{
+			this.logLoadError(id, "Does not contain valid json.");
 			return false;
 		}
 		
