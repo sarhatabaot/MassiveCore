@@ -346,7 +346,7 @@ public class Coll<E extends Entity<E>> extends CollAbstract<E>
 			this.attach(entity, id, false);
 			// On creation it might be modified by addition or removal of new/old fields.
 			// So we must do a check for that.
-			// this.putIdentifiedModificationFixed(id, Modification.UNKNOWN);
+			//this.putIdentifiedModificationFixed(id, Modification.UNKNOWN);
 		}
 		
 		if (ConfServer.localPollingEnabled) entity.setLastRaw(raw);
@@ -409,7 +409,7 @@ public class Coll<E extends Entity<E>> extends CollAbstract<E>
 	{
 		if (id == null) throw new NullPointerException("id");
 		if (!local && !remote) throw new IllegalArgumentException("Must be either remote or local.");
-		
+
 		Modification current = this.identifiedModifications.get(id);
 		// DEBUG
 		// if (Bukkit.isPrimaryThread())
@@ -427,7 +427,7 @@ public class Coll<E extends Entity<E>> extends CollAbstract<E>
 		
 		boolean existsLocal = (localEntity != null);
 		boolean existsRemote = !remote || (remoteMtime != 0);
-		
+
 		// So we don't have this anywhere?
 		if ( ! existsLocal && ! existsRemote) return Modification.UNKNOWN;
 		
@@ -510,9 +510,9 @@ public class Coll<E extends Entity<E>> extends CollAbstract<E>
 	public Modification syncIdFixed(String id, final Modification suppliedModification, Entry<JsonObject, Long> remoteEntry)
 	{
 		if (id == null) throw new NullPointerException("id");
-		
+
 		Modification modification = getActualModification(id, suppliedModification, remoteEntry);
-		
+
 		if (MStore.DEBUG_ENABLED) this.getPlugin().log((this.getDebugName() + " syncronising " + modification + " (" + suppliedModification + ") on " + id));
 		
 		// DEBUG
@@ -571,7 +571,7 @@ public class Coll<E extends Entity<E>> extends CollAbstract<E>
 	private Modification getActualModification(String id, Modification modification,  Entry<JsonObject, Long> remoteEntry)
 	{
 		if (id == null) throw new NullPointerException("id");
-		
+
 		if (modification != null && !modification.isUnknown())
 		{
 			return modification;
@@ -584,7 +584,7 @@ public class Coll<E extends Entity<E>> extends CollAbstract<E>
 		// or by the poller. This way we are certain, that all local changes where .changed() is not called
 		// they are found by the poller and then reported appropriately.
 		Modification actualModification = this.examineIdFixed(id, remoteMtime, false, true);
-		
+
 		if (actualModification == Modification.NONE && (modification == Modification.UNKNOWN_CHANGED || modification == Modification.UNKNOWN_LOG))
 		{
 			actualModification = Modification.LOCAL_ALTER;
@@ -802,6 +802,10 @@ public class Coll<E extends Entity<E>> extends CollAbstract<E>
 			Entry<JsonObject, Long> remoteEntry = idToEntry.getValue();
 			loadFromRemoteFixed(id, remoteEntry);
 		}
+		// They might be changes by addition of removal of fields
+		// upon creation. That mostly happens when loading from the
+		// database for the first time.
+		this.identifyLocalModifications(Modification.UNKNOWN_CHANGED);
 	}
 	
 	// -------------------------------------------- //
@@ -965,6 +969,7 @@ public class Coll<E extends Entity<E>> extends CollAbstract<E>
 			// syncIdentified is probably good enough. We need not load, and when
 			// lastRaw is not present we can't identify local modifications anyway.
 			//this.syncAll();
+			this.identifyLocalModifications(Modification.UNKNOWN_LOG); // For the servers where lastRaw is present
 			this.syncIdentified();
 			
 			name2instance.remove(this.getName());
