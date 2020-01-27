@@ -122,5 +122,4 @@ public class MStore
 		return ConfServer.localPollingEnabled && MassiveCoreMConf.get().warnOnLocalAlter;
 	}
 
-
 }
