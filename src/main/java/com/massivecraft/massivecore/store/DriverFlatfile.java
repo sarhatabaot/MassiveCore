@@ -3,6 +3,7 @@ package com.massivecraft.massivecore.store;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 import com.massivecraft.massivecore.collections.MassiveMap;
 import com.massivecraft.massivecore.collections.MassiveSet;
 import com.massivecraft.massivecore.util.DiscUtil;
@@ -172,7 +173,14 @@ public class DriverFlatfile extends DriverAbstract
 		content = content.trim();
 		if (content.length() == 0) return null;
 
-		return new JsonParser().parse(content);
+		try
+		{
+			return new JsonParser().parse(content);
+		}
+		catch (JsonSyntaxException ex)
+		{
+			return MStore.INVALID_JSON;
+		}
 	}
 	
 	@Override

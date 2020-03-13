@@ -101,7 +101,7 @@ public class MigratorUtil
 	}
 	
 	// GET
-	public static int 	getTargetVersion(Class<?> entityClass)
+	public static int getTargetVersion(Class<?> entityClass)
 	{
 		if (!targetVersions.containsKey(entityClass))
 		{

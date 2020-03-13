@@ -10,7 +10,7 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 
 import java.util.Collection;
 
-public class 	MoneyMixinVault extends MoneyMixinAbstract
+public class MoneyMixinVault extends MoneyMixinAbstract
 {
 	// -------------------------------------------- //
 	// INSTANCE & CONSTRUCT
@@ -255,8 +255,8 @@ public class 	MoneyMixinVault extends MoneyMixinAbstract
 	public static Object getEconomyObject(String accountId)
 	{
 		if (null == accountId) return null;
-		// Because of Factions we have this crazy-workaround.
-		// Where offlineplayers will be used when possible
+		// Because of Factions we have this crazy-workaround
+		// where offlineplayers will be used when possible
 		// but otherwise names will.
 		OfflinePlayer ret = IdUtil.getOfflinePlayer(accountId);
 		if (ret != null) return ret;
